@@ -3,13 +3,31 @@ using System;
 
 public partial class SceneManager : Node
 {
-	// Called when the node enters the scene tree for the first time.
+	[Export]
+	private PackedScene MainMenuScene;
+
+	[Export]
+	private PackedScene MainGameplayScene;
+
+	public static SceneManager Instance { get; private set; }
+
 	public override void _Ready()
 	{
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void LoadMainMenuScene()
 	{
+		GetTree().ChangeSceneToPacked(MainMenuScene);
 	}
+
+	public void LoadMainGameplayScene()
+	{
+		GetTree().ChangeSceneToPacked(MainGameplayScene);
+	}
+
+	public void ExitGame()
+	{
+		GetTree().Quit();
+	}
+
 }
