@@ -15,4 +15,4 @@ data_*/
 mono_crash.*.json
 
 # dunno, i hope it wont destroy anything
-./vs
+.vs/
