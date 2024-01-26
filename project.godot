@@ -18,6 +18,7 @@ config/icon="res://Sprites/icon.svg"
 [autoload]
 
 SceneManager="*res://Scenes/Managers/SceneManager.tscn"
+AudioManager="*res://Scenes/Managers/AudioManager.tscn"
 
 [dotnet]
 
