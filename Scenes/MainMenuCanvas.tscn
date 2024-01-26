@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://be60drpm8x8d"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenuUI.cs" id="1_advip"]
+
+[node name="MainManuCanvas" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_advip")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.156863, 0.654902, 0.235294, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 49.0
+grow_horizontal = 2
+text = "Hello World
+LGJ 8
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartGameButton" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+text = "Start Game"
+
+[node name="ExitButton" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 200.0
+grow_horizontal = 2
+text = "Exit"
+
+[node name="PlaySoundTest" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 300.0
+grow_horizontal = 2
+text = "Play Sound"
+
+[connection signal="pressed" from="StartGameButton" to="." method="OnClickLoadMainGameplayScene"]
+[connection signal="pressed" from="ExitButton" to="." method="OnClickExitGame"]
+[connection signal="pressed" from="PlaySoundTest" to="." method="OnClickPlayTypewritter"]
