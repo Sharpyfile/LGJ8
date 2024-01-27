@@ -1,0 +1,103 @@
+[gd_scene load_steps=4 format=3 uid="uid://be60drpm8x8d"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenuUI.cs" id="1_advip"]
+[ext_resource type="PackedScene" uid="uid://cjvdrgsxeuylq" path="res://Scenes/OptionsMenu.tscn" id="2_sdjuc"]
+[ext_resource type="PackedScene" uid="uid://6n7iprqku8uq" path="res://Scenes/Credits.tscn" id="3_c415j"]
+
+[node name="MainManuCanvas" type="Control" node_paths=PackedStringArray("OptionMenu", "Credits")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_advip")
+OptionMenu = NodePath("OptionsMenu")
+Credits = NodePath("Credits")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0352941, 0.223529, 0.0627451, 1)
+
+[node name="Column" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.65
+anchor_right = 0.95
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="ColumnBackground" type="ColorRect" parent="Column"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.490196)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Column"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_right = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGameButton" type="Button" parent="Column/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Start Game"
+
+[node name="OptionsButton" type="Button" parent="Column/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Options"
+
+[node name="CreditsButton" type="Button" parent="Column/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Credits"
+
+[node name="ExitButton" type="Button" parent="Column/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Exit"
+
+[node name="PlaySoundTest" type="Button" parent="Column/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Play Sound test"
+
+[node name="Label" type="Label" parent="Column"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.2
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Łódzki Game Jam 8
+Make me Laugh
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsMenu" parent="." instance=ExtResource("2_sdjuc")]
+layout_mode = 1
+
+[node name="Credits" parent="." instance=ExtResource("3_c415j")]
+layout_mode = 1
+
+[connection signal="pressed" from="Column/VBoxContainer/StartGameButton" to="." method="OnClickLoadMainGameplayScene"]
+[connection signal="pressed" from="Column/VBoxContainer/OptionsButton" to="." method="OnClickOpenHideOptions"]
+[connection signal="pressed" from="Column/VBoxContainer/CreditsButton" to="." method="OnClickOpenHideCredits"]
+[connection signal="pressed" from="Column/VBoxContainer/ExitButton" to="." method="OnClickExitGame"]
+[connection signal="pressed" from="Column/VBoxContainer/PlaySoundTest" to="." method="OnClickPlayTypewritter"]

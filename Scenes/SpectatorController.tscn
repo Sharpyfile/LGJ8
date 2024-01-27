@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddraicruvyq1c"]
+
+[ext_resource type="Script" path="res://Scripts/SpectatorController.cs" id="1_cldwj"]
+[ext_resource type="PackedScene" uid="uid://wmt6bd4osod6" path="res://Scenes/Spectator.tscn" id="2_yoxos"]
+
+[node name="SpectatorController" type="Node2D" node_paths=PackedStringArray("_entrace", "_exit", "_seatsParent", "_spectatorsParent")]
+script = ExtResource("1_cldwj")
+_entrace = NodePath("Entrace")
+_exit = NodePath("Exit")
+_seatsParent = NodePath("Seats")
+_spectatorsParent = NodePath("Spectators")
+_spectatorScene = ExtResource("2_yoxos")
+
+[node name="Entrace" type="Node2D" parent="."]
+position = Vector2(-300, -50)
+
+[node name="Exit" type="Node2D" parent="."]
+position = Vector2(300, -50)
+
+[node name="Seats" type="Node" parent="."]
+
+[node name="Node2D" type="Node2D" parent="Seats"]
+position = Vector2(-100, 0)
+
+[node name="Node2D2" type="Node2D" parent="Seats"]
+position = Vector2(-50, 0)
+
+[node name="Node2D3" type="Node2D" parent="Seats"]
+
+[node name="Node2D4" type="Node2D" parent="Seats"]
+position = Vector2(50, 0)
+
+[node name="Node2D5" type="Node2D" parent="Seats"]
+position = Vector2(100, 0)
+
+[node name="Spectators" type="Node" parent="."]

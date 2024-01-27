@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjvdrgsxeuylq"]
+
+[ext_resource type="Script" path="res://Scripts/OptionMenuUI.cs" id="1_p57vb"]
+
+[node name="OptionsMenu" type="Control" node_paths=PackedStringArray("ResolutionButton", "ScreenModeButton", "SoundVolumeSlider")]
+layout_mode = 3
+anchor_right = 0.65
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p57vb")
+ResolutionButton = NodePath("VBoxContainer/ResolutionOptionButton")
+ScreenModeButton = NodePath("VBoxContainer/ScreenModeButton")
+SoundVolumeSlider = NodePath("VBoxContainer/SFXSlider")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.95
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResolutionLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Resolution"
+horizontal_alignment = 1
+
+[node name="ResolutionOptionButton" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ScreenModeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Screen mode"
+horizontal_alignment = 1
+
+[node name="ScreenModeButton" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Apply graphic options"
+
+[node name="SpacingControl" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "SFX Volume"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = -80.0
+max_value = 0.0
+value = -20.0
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="OnClickApplyOptions"]
+[connection signal="value_changed" from="VBoxContainer/SFXSlider" to="." method="OnValueChangeSoundVolume"]
