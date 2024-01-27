@@ -15,48 +15,72 @@ public partial class SpectatorController : Node2D
 		return ret;
 	}
 
-	[Export] private double _speed = 5.0f;
-	[Export] private double _spawnRate = 5.0f;
+	[Export] private Vector2I _audienceOnStart = new Vector2I(4, 7);
+	[Export] private double _spawnRate = .2f;
 
 	private double _spawnTimer = 0;
 
-	[Export] private Node2D _entrance;
-	[Export] private Node2D _exit;
-	[Export] private Node _seatsParent;
+	[Export] public Node2D Entrance { get; private set; }
+	[Export] public Node2D Exit { get; private set; }
+	[Export] private Array<SeatsRow> _rows;
 	private Array<Seat> _seats = new();
 
-	[Export] private Node _spectatorsParent;
-	[Export] private PackedScene _spectatorScene;
+	[Export] private Array<PackedScene> _pool;
 	[Export] private Array<Spectator> _spectators;
+	[Export] private bool _isAudienceFull = false;
 
 	private RandomNumberGenerator _rng = new();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		foreach (var child in _seatsParent.GetChildren())
+		foreach (var row in _rows)
 		{
-			if (child is Seat) _seats.Add(child as Seat);
+			foreach (var seat in row.Seats)
+			{
+				_seats.Add(seat);
+				seat.Row = row;
+			}
 		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		_spawnTimer += delta;
-		if (_spawnTimer > _spawnRate)
+		// Fill audence on init 
+		if (!_isAudienceFull)
 		{
-			var seat = SelectSeat();
-			if (seat != null)
+			_spawnTimer += delta;
+			if (_spawnTimer > _spawnRate)
 			{
-				var spectator = _spectatorScene.Instantiate<Spectator>();
-				_spectatorsParent.AddChild(spectator);
-
-				spectator.Position = _entrance.Position;
-				spectator.Initialize(seat, _exit);
+				_isAudienceFull = !SpawnSpectator();
+				_spawnTimer -= _spawnRate;
 			}
-			_spawnTimer -= _spawnRate;
 		}
+	}
+
+	public void Remove(Spectator spectator)
+	{
+		_spectators.Remove(spectator);
+		spectator.QueueFree();
+	}
+
+	private bool SpawnSpectator()
+	{
+
+		var seat = SelectSeat();
+		if (seat != null)
+		{
+			var spectator = _pool[_rng.RandiRange(0, _pool.Count - 1)].Instantiate<Spectator>();
+			_spectators.Add(spectator);
+			seat.Row.AddChild(spectator);
+
+
+			spectator.GlobalPosition = Entrance.GlobalPosition;
+			spectator.Initialize(this, Entrance.GlobalPosition, seat, Exit.GlobalPosition);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -67,12 +91,10 @@ public partial class SpectatorController : Node2D
 		int random = _rng.RandiRange(0, _seats.Count - 1);
 		int index = random;
 
-
 		while (_seats[index].Occupied)
 		{
+			if (++index >= _seats.Count) index = 0;
 			if (index == random) return null; // loop completed
-			if (index >= _seats.Count) index = 0;
-			index++;
 		}
 
 		return _seats[index];

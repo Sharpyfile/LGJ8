@@ -16,7 +16,9 @@ public partial class Spectator : Node2D
 
 	[Export] private float _speed = 5;
 	private Seat _seat;
-	private Node2D _exit;
+	private SpectatorController _controller;
+	private Vector2 _entrance;
+	private Vector2 _exit;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -29,46 +31,56 @@ public partial class Spectator : Node2D
 		switch (State)
 		{
 			case SpectatorState.ENTERING:
-				if (Step(_seat))
+				if (GlobalPosition.Y < _seat.GlobalPosition.Y)
 				{
-					_seat.spectator = this;
-					State = SpectatorState.WATCHING;
+					Step(new Vector2(_entrance.X, _seat.GlobalPosition.Y));
+				}
+				else
+				{
+					if (Step(_seat.GlobalPosition)) State = SpectatorState.WATCHING;
 				}
 				break;
 			case SpectatorState.WATCHING:
 				Happiness = Math.Clamp(Happiness, (int)Mood.EXIT, (int)Mood.HAPPY);
-				if (Happiness > (int)Mood.NEUTRAL && Mood != Mood.HAPPY)
+				if (Happiness > (int)Mood.NEUTRAL)
 				{
-					ShowMood(Mood.HAPPY);
+					if (Mood != Mood.HAPPY) SetMood(Mood.HAPPY);
 				}
-				else if (Happiness > (int)Mood.ANNOYED && Mood != Mood.NEUTRAL)
+				else if (Happiness > (int)Mood.ANNOYED)
 				{
-					ShowMood(Mood.NEUTRAL);
+					if (Mood != Mood.NEUTRAL) SetMood(Mood.NEUTRAL);
 				}
-				else if (Happiness > (int)Mood.EXIT && Mood != Mood.ANNOYED)
+				else if (Happiness > (int)Mood.EXIT)
 				{
-					ShowMood(Mood.ANNOYED);
+					if (Mood != Mood.ANNOYED) SetMood(Mood.ANNOYED);
 				}
 				else
 				{
-					Mood = Mood.EXIT;
-					State = SpectatorState.EXITING;
-					_seat.spectator = null;
+					SetMood(Mood.EXIT);
 				}
 				break;
 			case SpectatorState.EXITING:
-				if (Step(_exit))
+				if (GlobalPosition.X < _exit.X)
 				{
-					QueueFree();
+					Step(new Vector2(_exit.X, _seat.GlobalPosition.Y));
+				}
+				else
+				{
+					if (Step(_exit)) _controller.Remove(this);
 				}
 				break;
 		}
 	}
 
-	public void Initialize(Seat seat, Node2D exit)
+	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat, Vector2 exit)
 	{
+		_controller = controller;
 		_seat = seat;
+		_seat.spectator = this;
+
+		_entrance = entrance;
 		_exit = exit;
+		SetMood(Mood.NEUTRAL);
 	}
 
 	public int ApplyCard(ICardBasic card)
@@ -89,26 +101,27 @@ public partial class Spectator : Node2D
 	/**
 	 * returns true if target was reached
 	 */
-	private bool Step(Node2D target)
+	private bool Step(Vector2 target)
 	{
-		Vector2 diff = target.Position - Position;
+		Vector2 diff = target - GlobalPosition;
 		Vector2 step = diff.Normalized() * _speed;
 
 		if (diff.Length() > step.Length())
 		{
-			Position += step;
+			GlobalPosition += step;
 			return false;
 		}
 		else
 		{
-			Position = target.Position;
+			GlobalPosition = target;
 			return true;
 		}
 	}
 
-	private void ShowMood(Mood mood)
+	private void SetMood(Mood mood)
 	{
-		switch (Mood = mood)
+		Mood = mood;
+		switch (mood)
 		{
 			case Mood.HAPPY:
 				_spriteHappy.Visible = true;
@@ -121,11 +134,14 @@ public partial class Spectator : Node2D
 				_spriteAnnoyed.Visible = false;
 				break;
 			case Mood.ANNOYED:
-			case Mood.EXIT:
 				_spriteAnnoyed.Visible = true;
 				_spriteHappy.Visible = false;
 				_spriteNeutral.Visible = false;
 				break;
+			case Mood.EXIT:
+				State = SpectatorState.EXITING;
+				_seat.spectator = null;
+				goto case Mood.ANNOYED;
 		}
 	}
 }

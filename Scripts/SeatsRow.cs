@@ -1,12 +1,10 @@
 using Godot;
+using Godot.Collections;
 using System;
 
-public partial class Seat : Node2D
+public partial class SeatsRow : Sprite2D
 {
-
-	public Spectator spectator;
-	public bool Occupied { get => spectator != null; }
-	public SeatsRow Row; // seted by controller
+	[Export] public Array<Seat> Seats { get; private set; }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -17,5 +15,4 @@ public partial class Seat : Node2D
 	public override void _Process(double delta)
 	{
 	}
-
 }

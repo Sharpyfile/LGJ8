@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2d2oqf0bng5m"]
+
+[ext_resource type="Script" path="res://Scripts/Spectator.cs" id="1_fuvhy"]
+[ext_resource type="Texture2D" uid="uid://ca54moqicqslk" path="res://Sprites/Cat/RedCat02_Smile.png" id="2_iapyd"]
+[ext_resource type="Texture2D" uid="uid://c6210kvsk7qyu" path="res://Sprites/Cat/RedCat02_Neutra.png" id="3_y0iyb"]
+[ext_resource type="Texture2D" uid="uid://myxxxqcsvynd" path="res://Sprites/Cat/RedCat02_Angry.png" id="4_cetih"]
+
+[node name="Spectator" type="Node2D" node_paths=PackedStringArray("_spriteHappy", "_spriteNeutral", "_spriteAnnoyed")]
+script = ExtResource("1_fuvhy")
+_spriteHappy = NodePath("Sprite2D_happy")
+_spriteNeutral = NodePath("Sprite2D_neutral")
+_spriteAnnoyed = NodePath("Sprite2D_annoyed")
+
+[node name="Sprite2D_happy" type="Sprite2D" parent="."]
+texture = ExtResource("2_iapyd")
+
+[node name="Sprite2D_neutral" type="Sprite2D" parent="."]
+texture = ExtResource("3_y0iyb")
+
+[node name="Sprite2D_annoyed" type="Sprite2D" parent="."]
+texture = ExtResource("4_cetih")

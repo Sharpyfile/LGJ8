@@ -11,6 +11,10 @@ public partial class MainMenuUI : Node
 
 	private AudioPlayer AmbientPlayer;
 
+	[Export]
+	private AnimationPlayer TransitionAnimator;
+
+
     public override void _Ready()
     {
         base._Ready();
@@ -30,16 +34,21 @@ public partial class MainMenuUI : Node
 	}
 
 
-	public void OnClickLoadMainGameplayScene()
+	public void OnClickStartAnimation()
 	{
-		SceneManager.Instance.LoadMainGameplayScene();
+		TransitionAnimator.Play("SceneTransitionOut");
         if (AmbientPlayer != null)		
 			AmbientPlayer.StopMusic(2.5f);
     }
 
+	public void OnFinishLoadMainGameplayScene(StringName animationName)
+	{
+		if (animationName == "SceneTransitionOut")
+			SceneManager.Instance.LoadMainGameplayScene();
+    }
+
 	public void OnClickOpenHideOptions()
 	{
-		GD.Print(OptionMenu.Visible);
 		OptionMenu.Visible = !OptionMenu.Visible;
 		if (OptionMenu.Visible)
 			Credits.Visible = false;
@@ -47,7 +56,6 @@ public partial class MainMenuUI : Node
 
     public void OnClickOpenHideCredits()
     {
-        GD.Print(Credits.Visible);
         Credits.Visible = !Credits.Visible;
 
         if (Credits.Visible)
