@@ -5,19 +5,28 @@ public partial class AudioPlayer : AudioStreamPlayer
 {
 
 	private bool stoppingMusic = false;
-	private double CooldownCountdown = 0;
-	private double MaxCooldownCountdown = 0;
+	private bool waitingForMusic = false;
+	private double StoppingCooldownCountdown = 0;
+	private double MaxStoppingCooldownCountdown = 0;
 
-	public void PlaySound(AudioStream audioStream)
+    private double WaitingCooldownCountdown = 0;
+
+    public void PlaySound(AudioStream audioStream, float delay = 0)
 	{
 		Stream = audioStream;
-		Play();
-	}
+		if (delay <= 0.0f)
+			Play();
+		else
+		{
+			WaitingCooldownCountdown = delay;
+			waitingForMusic = true;
+        }
+    }
 
 	public void StopMusic(float cooldown)
 	{
-		MaxCooldownCountdown = cooldown;
-		CooldownCountdown = MaxCooldownCountdown;
+		MaxStoppingCooldownCountdown = cooldown;
+		StoppingCooldownCountdown = MaxStoppingCooldownCountdown;
 		stoppingMusic = true;
 
     }
@@ -27,16 +36,26 @@ public partial class AudioPlayer : AudioStreamPlayer
         base._Process(delta);
 		if (stoppingMusic)
 		{
-			CooldownCountdown -= delta;
+			StoppingCooldownCountdown -= delta;
 
-			VolumeDb = Mathf.Lerp(-20, 0, (float)(CooldownCountdown / MaxCooldownCountdown));
+			VolumeDb = Mathf.Lerp(-20, 0, (float)(StoppingCooldownCountdown / MaxStoppingCooldownCountdown));
 
-			if (CooldownCountdown <= 0)
+			if (StoppingCooldownCountdown <= 0)
 			{
 				stoppingMusic = false;
                 QueueFree();
             }
-        }		
+        }
+		else if (waitingForMusic)
+		{
+			WaitingCooldownCountdown -= delta;
+
+			if (WaitingCooldownCountdown < 0)
+			{
+				waitingForMusic = false;
+				Play();
+			}
+        }
 	}
 
 

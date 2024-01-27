@@ -27,7 +27,7 @@ public partial class SpectatorController : Node2D
 
 	[Export] private Array<PackedScene> _pool;
 	[Export] private Array<Spectator> _spectators;
-	[Export] private bool _isAudienceFull = false;
+	[Export] public bool _isAudienceFull { get; private set; }
 
 	private RandomNumberGenerator _rng = new();
 

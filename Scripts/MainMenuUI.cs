@@ -9,8 +9,6 @@ public partial class MainMenuUI : Node
 	[Export]
 	private Control Credits;
 
-	private AudioPlayer AmbientPlayer;
-
 	[Export]
 	private AnimationPlayer TransitionAnimator;
 
@@ -21,11 +19,8 @@ public partial class MainMenuUI : Node
 		OptionMenu.Visible = false;
 		Credits.Visible = false;
 
-		if (AudioManager.Instance != null)
-		{
-			AmbientPlayer = AudioManager.Instance.GetAudioPlayer("cafeAmbience");
-
-        }
+		if (AudioManager.Instance != null)		
+            AudioManager.Instance.AmbientPlayer = AudioManager.Instance.GetAudioPlayer("cafeAmbience");        
     }
 
     public void OnClickExitGame()
@@ -37,8 +32,7 @@ public partial class MainMenuUI : Node
 	public void OnClickStartAnimation()
 	{
 		TransitionAnimator.Play("SceneTransitionOut");
-        if (AmbientPlayer != null)		
-			AmbientPlayer.StopMusic(2.5f);
+        
     }
 
 	public void OnFinishLoadMainGameplayScene(StringName animationName)
