@@ -9,6 +9,7 @@ public partial class Game : Node
 
 	SpectatorController spectatorController = new SpectatorController();
 	CardController cardController = new CardController();
+	AudioManager audioManager = new AudioManager();
 
 	int overallSpectatorsReaction = 0;
 
@@ -71,7 +72,6 @@ public partial class Game : Node
 			spectator.ApplyCard(cardToApply);
             //TODO:
             //calculate overall spectators reaction
-            //play sound according to overall spectators reaction
             
         }
 	}
@@ -81,6 +81,7 @@ public partial class Game : Node
 	public void OpeningScene()
 	{
 		DrawFullHand();
+		audioManager.PlaySound("cardsMixing.mp3");
 		PopulateSpectators();
 		SpectatorsEnterAnimation();
 	}
@@ -101,12 +102,16 @@ public partial class Game : Node
         {
             case >= 4:
                 //play laughing crowd reaction
+                audioManager.PlaySound("crowdLaugh1.wav");
                 break;
             case < 4:
-                //play neutral crowd reaction
+				//play neutral crowd reaction
+				audioManager.PlaySound("synthCricket.wav");
                 break;
             default:
-                //play angry crowd reaction
+				//play angry crowd reaction
+				audioManager.PlaySound("crowdBoo1.wav");
+				break;
         }
 
         if (EvaluateGameEndCondition())
