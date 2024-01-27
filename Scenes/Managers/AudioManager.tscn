@@ -1,8 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://ba3re04d56bax"]
+[gd_scene load_steps=9 format=3 uid="uid://ba3re04d56bax"]
 
 [ext_resource type="Script" path="res://Scripts/AudioManager.cs" id="1_xwbrx"]
 [ext_resource type="AudioStream" uid="uid://ep8b7jvy8rbh" path="res://Sounds/typewriterEndStroke.wav" id="2_4bq6t"]
+[ext_resource type="AudioStream" uid="uid://rbopccfa4nbt" path="res://Sounds/cardsMixing.mp3" id="3_uab1u"]
+[ext_resource type="AudioStream" uid="uid://da7jwximn7rxg" path="res://Sounds/cricket1.wav" id="4_k38e4"]
+[ext_resource type="AudioStream" uid="uid://bgqiheej073cw" path="res://Sounds/crowdBoo1.wav" id="5_b4rw1"]
+[ext_resource type="AudioStream" uid="uid://dv0or0veygph6" path="res://Sounds/crowdLaugh1.wav" id="6_o37w1"]
+[ext_resource type="AudioStream" uid="uid://pfko7vuvf2fy" path="res://Sounds/crowdLaugh2.wav" id="7_3nxbo"]
+[ext_resource type="PackedScene" uid="uid://bhylb3qytyad" path="res://Scenes/AudioPlayer.tscn" id="8_rhuus"]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+[node name="AudioStreamPlayer" type="Node"]
 script = ExtResource("1_xwbrx")
-Clips = Array[AudioStream]([ExtResource("2_4bq6t")])
+Clips = Array[AudioStream]([ExtResource("2_4bq6t"), ExtResource("3_uab1u"), ExtResource("4_k38e4"), ExtResource("5_b4rw1"), ExtResource("6_o37w1"), ExtResource("7_3nxbo")])
+AudioPlayerScene = ExtResource("8_rhuus")

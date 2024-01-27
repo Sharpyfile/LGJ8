@@ -20,49 +20,63 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.156863, 0.654902, 0.235294, 1)
 
-[node name="Label" type="Label" parent="."]
+[node name="Column" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="ColumnBackground" type="ColorRect" parent="Column"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
-offset_bottom = 49.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_right = -50.0
 grow_horizontal = 2
-text = "Hello World
-LGJ 8
+grow_vertical = 2
+color = Color(1, 1, 1, 0.490196)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Column"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_right = -150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGameButton" type="Button" parent="Column/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Start Game"
+
+[node name="ExitButton" type="Button" parent="Column/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Exit"
+
+[node name="PlaySoundTest" type="Button" parent="Column/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Play Sound"
+
+[node name="Label" type="Label" parent="Column"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.2
+grow_horizontal = 2
+grow_vertical = 2
+text = "Łódzki Game Jam 8
+Make me Laugh
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartGameButton" type="Button" parent="."]
-custom_minimum_size = Vector2(200, 40)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 100.0
-offset_bottom = 40.0
-grow_horizontal = 2
-text = "Start Game"
-
-[node name="ExitButton" type="Button" parent="."]
-custom_minimum_size = Vector2(200, 40)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 200.0
-grow_horizontal = 2
-text = "Exit"
-
-[node name="PlaySoundTest" type="Button" parent="."]
-custom_minimum_size = Vector2(200, 40)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 300.0
-grow_horizontal = 2
-text = "Play Sound"
-
-[connection signal="pressed" from="StartGameButton" to="." method="OnClickLoadMainGameplayScene"]
-[connection signal="pressed" from="ExitButton" to="." method="OnClickExitGame"]
-[connection signal="pressed" from="PlaySoundTest" to="." method="OnClickPlayTypewritter"]
+[connection signal="pressed" from="Column/VBoxContainer/StartGameButton" to="." method="OnClickLoadMainGameplayScene"]
+[connection signal="pressed" from="Column/VBoxContainer/ExitButton" to="." method="OnClickExitGame"]
+[connection signal="pressed" from="Column/VBoxContainer/PlaySoundTest" to="." method="OnClickPlayTypewritter"]

@@ -2,12 +2,14 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class AudioManager : AudioStreamPlayer
+public partial class AudioManager : Node
 {
 	public static AudioManager Instance { get; private set; }
 
 	[Export]
 	private AudioStream[] Clips;
+	[Export] 
+	private PackedScene AudioPlayerScene;
 
 	private Dictionary<string, AudioStream> ClipsAsDictionary = new Dictionary<string, AudioStream>();
 
@@ -23,8 +25,9 @@ public partial class AudioManager : AudioStreamPlayer
 	{ 
 		if (ClipsAsDictionary.ContainsKey(name))
 		{
-			Stream = ClipsAsDictionary[name];
-			Play();
+			AudioPlayer sound = AudioPlayerScene.Instantiate() as AudioPlayer;
+			AddChild(sound);
+			sound.PlaySound(ClipsAsDictionary[name]);
 		}
 	}
 }
