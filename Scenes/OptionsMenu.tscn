@@ -24,6 +24,14 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ResolutionLabel2" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_cca47")
+theme_override_font_sizes/font_size = 24
+text = "OPTIONS"
+horizontal_alignment = 1
+
 [node name="ResolutionLabel" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2

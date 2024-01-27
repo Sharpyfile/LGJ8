@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjvpkyag3nphy"]
+[gd_scene load_steps=6 format=3 uid="uid://bjvpkyag3nphy"]
 
 [ext_resource type="Script" path="res://Scripts/MainUI.cs" id="1_yjvoj"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_0r6cd"]
+[ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_c8b7l"]
 [ext_resource type="PackedScene" uid="uid://th3do266bg5" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
+[ext_resource type="PackedScene" uid="uid://dv8bpmyi00htt" path="res://Animations/SceneTransitionAnimation.tscn" id="5_7krku"]
 
-[node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer")]
+[node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer", "TransitionAnimator")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yjvoj")
 Timer = NodePath("Timer")
+TransitionAnimator = NodePath("SceneTransitionAnimation")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -21,6 +24,7 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 220.0
 offset_bottom = 70.0
+theme = ExtResource("2_c8b7l")
 text = "Back To Main Menu"
 script = ExtResource("2_0r6cd")
 SoundVariant = 1
@@ -32,6 +36,7 @@ offset_left = 20.0
 offset_top = 80.0
 offset_right = 220.0
 offset_bottom = 130.0
+theme = ExtResource("2_c8b7l")
 text = "Restart timer"
 script = ExtResource("2_0r6cd")
 SoundVariant = 1
@@ -43,12 +48,16 @@ offset_left = 20.0
 offset_top = 140.0
 offset_right = 220.0
 offset_bottom = 190.0
+theme = ExtResource("2_c8b7l")
 text = "Stop timer"
 script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
 [node name="Timer" parent="." instance=ExtResource("3_aemv8")]
 
-[connection signal="pressed" from="Button" to="." method="OnClickLoadMainMenu"]
+[node name="SceneTransitionAnimation" parent="." instance=ExtResource("5_7krku")]
+
+[connection signal="pressed" from="Button" to="." method="OnClickStartAnimation"]
 [connection signal="pressed" from="RestartTimerButton" to="." method="OnClickRestartTimer"]
 [connection signal="pressed" from="StopTimerButton" to="." method="OnClickStopTimer"]
+[connection signal="animation_finished" from="SceneTransitionAnimation" to="." method="OnFinishLoadMainGameplayScene"]
