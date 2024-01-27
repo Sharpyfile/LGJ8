@@ -1,15 +1,22 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class MainMenuUI : Node
-{	
-	public override void _Ready()
-	{
+{
+	[Export]
+	private Control OptionMenu;
+	[Export]
+	private Control Credits;
 
-	}
+    public override void _Ready()
+    {
+        base._Ready();
+		OptionMenu.Visible = false;
+		Credits.Visible = false;
+    }
 
-
-	public void OnClickExitGame()
+    public void OnClickExitGame()
 	{
 		SceneManager.Instance.ExitGame();
 	}
@@ -24,10 +31,25 @@ public partial class MainMenuUI : Node
 		SceneManager.Instance.LoadMainGameplayScene();
 	}
 
-	public void OnClickPlayTypewritter()
+	public void OnClickOpenHideOptions()
 	{
-		AudioManager.Instance.PlaySound("typewriterEndStroke");
+		GD.Print(OptionMenu.Visible);
+		OptionMenu.Visible = !OptionMenu.Visible;
+		if (OptionMenu.Visible)
+			Credits.Visible = false;
+    }
+
+    public void OnClickOpenHideCredits()
+    {
+        GD.Print(Credits.Visible);
+        Credits.Visible = !Credits.Visible;
+
+        if (Credits.Visible)
+            OptionMenu.Visible = false;
+    }
+
+    public void OnClickPlayTypewritter()
+	{
 		AudioManager.Instance.PlaySound("cricket1");
-		AudioManager.Instance.PlaySound("crowdBoo1");
 	}
 }
