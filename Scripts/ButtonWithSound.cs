@@ -14,7 +14,6 @@ public partial class ButtonWithSound : Button
 
     public void OnHoverPlaySound()
 	{
-        GD.Print($"jazzMenu{SoundVariant}");
 		AudioManager.Instance.PlaySound($"jazzMenu{SoundVariant}");
 	}
 }
