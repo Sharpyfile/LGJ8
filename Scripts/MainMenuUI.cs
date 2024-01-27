@@ -50,6 +50,6 @@ public partial class MainMenuUI : Node
 
     public void OnClickPlayTypewritter()
 	{
-		AudioManager.Instance.PlaySound("cricket1");
+		AudioManager.Instance.PlaySound("synthCricket");
 	}
 }
