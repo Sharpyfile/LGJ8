@@ -6,6 +6,7 @@ public partial class Spectator : Node2D
 	[Export] private Sprite2D _spriteHappy;
 	[Export] private Sprite2D _spriteNeutral;
 	[Export] private Sprite2D _spriteAnnoyed;
+	[Export] private AngryCloud _angryCloud;
 
 
 
@@ -24,6 +25,8 @@ public partial class Spectator : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		SetMood(Mood.NEUTRAL);
+		setAngryCloud(false);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,6 +50,8 @@ public partial class Spectator : Node2D
 				break;
 			case SpectatorState.WATCHING:
 				Happiness = Math.Clamp(Happiness, (int)Mood.EXIT, (int)Mood.HAPPY);
+				setAngryCloud(Happiness == 1);
+
 				if (Happiness > (int)Mood.NEUTRAL)
 				{
 					if (Mood != Mood.HAPPY) SetMood(Mood.HAPPY);
@@ -65,7 +70,6 @@ public partial class Spectator : Node2D
 				}
 				break;
 			case SpectatorState.EXITING:
-
 				if (!_midpointReached)
 				{
 					_midpointReached = Step(_midpoint);
@@ -86,7 +90,6 @@ public partial class Spectator : Node2D
 
 		_entrance = entrance;
 		_midpoint = new Vector2(entrance.X, _seat.GlobalPosition.Y);
-		SetMood(Mood.NEUTRAL);
 	}
 
 	public int ApplyCard(ICardBasic card)
@@ -143,6 +146,11 @@ public partial class Spectator : Node2D
 				_seat.spectator = null;
 				goto case Mood.ANNOYED;
 		}
+	}
+
+	private void setAngryCloud(bool value)
+	{
+		_angryCloud.Visible = value;
 	}
 }
 

@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://by2f5xoaunwg0"]
 
-[ext_resource type="PackedScene" uid="uid://bjvpkyag3nphy" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
-[ext_resource type="Texture2D" uid="uid://cb4w7fde7wpxq" path="res://Sprites/icon.svg" id="2_8fvjv"]
+[ext_resource type="PackedScene" uid="uid://dpku3hrvmmohj" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
 [ext_resource type="Texture2D" uid="uid://bwdgg81016n5w" path="res://Sprites/BG/BG_floor_wall.png" id="2_pkku1"]
 [ext_resource type="Texture2D" uid="uid://iu6lkb15xvih" path="res://Sprites/BG/BG_Seats.png" id="3_r0kip"]
 [ext_resource type="Script" path="res://Scripts/Seat.cs" id="4_4drqx"]
 [ext_resource type="Texture2D" uid="uid://bq5iaqciy1544" path="res://Sprites/BG/FG_stage_light.png" id="4_cnwnu"]
 [ext_resource type="Script" path="res://Scripts/SeatsRow.cs" id="4_hwxbh"]
 [ext_resource type="Texture2D" uid="uid://bauk4tv52gar4" path="res://Sprites/BG/BG_Seats02.png" id="5_5dlw5"]
+[ext_resource type="Texture2D" uid="uid://n4fquausyw2m" path="res://Sprites/BG/hand.png" id="7_qg3xw"]
 [ext_resource type="PackedScene" uid="uid://ddraicruvyq1c" path="res://Scenes/Spectators/SpectatorController.tscn" id="8_bgajp"]
 
 [sub_resource type="Animation" id="Animation_qs3l7"]
@@ -79,26 +79,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="GameplayArea"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0001
-offset_bottom = -0.00012207
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Hand" type="Node2D" parent="GameplayArea/Control"]
-position = Vector2(0, 5)
-
-[node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control/Hand"]
-texture = ExtResource("2_8fvjv")
-
 [node name="Control2" type="Control" parent="GameplayArea"]
 layout_mode = 1
 anchors_preset = 8
@@ -112,7 +92,7 @@ grow_vertical = 2
 [node name="Background" type="Node2D" parent="GameplayArea/Control2"]
 
 [node name="Floor" type="Sprite2D" parent="GameplayArea/Control2/Background"]
-position = Vector2(0, 235)
+position = Vector2(0, 350)
 texture = ExtResource("2_pkku1")
 
 [node name="Audience" type="Node2D" parent="GameplayArea/Control2"]
@@ -121,7 +101,7 @@ position = Vector2(0, 5)
 [node name="Seats" type="Node2D" parent="GameplayArea/Control2/Audience"]
 
 [node name="SeatsRow3" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats" node_paths=PackedStringArray("Seats")]
-position = Vector2(0, -500)
+position = Vector2(0, -400)
 texture = ExtResource("3_r0kip")
 script = ExtResource("4_hwxbh")
 Seats = [NodePath("Seat12"), NodePath("Seat13"), NodePath("Seat14"), NodePath("Seat15"), NodePath("Seat16"), NodePath("Seat17")]
@@ -151,7 +131,7 @@ position = Vector2(661.25, 0)
 script = ExtResource("4_4drqx")
 
 [node name="SeatsRow2" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats" node_paths=PackedStringArray("Seats")]
-position = Vector2(0, -300)
+position = Vector2(0, -200)
 texture = ExtResource("5_5dlw5")
 script = ExtResource("4_hwxbh")
 Seats = [NodePath("Seat7"), NodePath("Seat8"), NodePath("Seat9"), NodePath("Seat10"), NodePath("Seat11")]
@@ -176,7 +156,6 @@ position = Vector2(529, 0)
 script = ExtResource("4_4drqx")
 
 [node name="SeatsRow1" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats" node_paths=PackedStringArray("Seats")]
-position = Vector2(0, -100)
 texture = ExtResource("3_r0kip")
 script = ExtResource("4_hwxbh")
 Seats = [NodePath("Seat1"), NodePath("Seat2"), NodePath("Seat3"), NodePath("Seat4"), NodePath("Seat5"), NodePath("Seat6")]
@@ -212,10 +191,41 @@ position = Vector2(-890, -550)
 position = Vector2(890, -550)
 
 [node name="Stage" type="Node2D" parent="GameplayArea/Control2"]
-position = Vector2(0, 230)
+position = Vector2(0, 200)
 
 [node name="Stage" type="Sprite2D" parent="GameplayArea/Control2/Stage"]
 texture = ExtResource("4_cnwnu")
+
+[node name="Control" type="Control" parent="GameplayArea"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0001
+offset_bottom = -0.00012207
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hand" type="Node2D" parent="GameplayArea/Control"]
+
+[node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control/Hand"]
+position = Vector2(548, -209)
+texture = ExtResource("7_qg3xw")
+
+[node name="CheatSheet1" type="Node2D" parent="GameplayArea/Control/Hand"]
+position = Vector2(455, -276)
+
+[node name="CheatSheet2" type="Node2D" parent="GameplayArea/Control/Hand"]
+
+[node name="CheatSheet3" type="Node2D" parent="GameplayArea/Control/Hand"]
+
+[node name="CheatSheet4" type="Node2D" parent="GameplayArea/Control/Hand"]
+
+[node name="CheatSheet5" type="Node2D" parent="GameplayArea/Control/Hand"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameplayArea"]
 libraries = {

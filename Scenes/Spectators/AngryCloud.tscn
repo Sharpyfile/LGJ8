@@ -6,16 +6,15 @@
 
 [node name="AngryCloud" type="Node2D" node_paths=PackedStringArray("ChildInner", "ChildOuter")]
 script = ExtResource("2_xr1mj")
-MaxOpacityCooldown = 1.0
-MaxPulsingCooldown = 1.0
-MaxAbsoluteOffset = Vector2(-25, 25)
-ChildInner = NodePath("AngryCloudOuter/AngryCloudInner")
-ChildOuter = NodePath("AngryCloudOuter")
+ChildInner = NodePath("Pivot/AngryCloudOuter/AngryCloudInner")
+ChildOuter = NodePath("Pivot/AngryCloudOuter")
 
-[node name="AngryCloudOuter" type="Sprite2D" parent="."]
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(150, -75)
+
+[node name="AngryCloudOuter" type="Sprite2D" parent="Pivot"]
 clip_children = 2
-position = Vector2(160, -72)
 texture = ExtResource("1_rhi57")
 
-[node name="AngryCloudInner" type="Sprite2D" parent="AngryCloudOuter"]
+[node name="AngryCloudInner" type="Sprite2D" parent="Pivot/AngryCloudOuter"]
 texture = ExtResource("2_afxw6")
