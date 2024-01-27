@@ -5,17 +5,18 @@ using System.IO;
 
 public partial class Game : Node
 {
-	List<Spectator> spectators = new List<Spectator>();
-
 	SpectatorController spectatorController = new SpectatorController();
 	CardController cardController = new CardController();
 	AudioManager audioManager = new AudioManager();
+	TimerWithSlider timer = new TimerWithSlider();
 
 	int overallSpectatorsReaction = 0;
+	int spectatorsReactionTreshold = 0;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		timer.OnTimerStop = () => RanOutOfTime();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,12 +68,9 @@ public partial class Game : Node
 
 	public void EvaluateSpectatorsReaction(Card cardToApply)
 	{
-		foreach (Spectator spectator in spectators)
+		foreach (Spectator spectator in spectatorController.GetSpectators())
 		{
-			spectator.ApplyCard(cardToApply);
-			//TODO:
-			//calculate overall spectators reaction
-			
+			overallSpectatorsReaction += spectator.ApplyCard(cardToApply);
 		}
 	}
 	#endregion
@@ -89,30 +87,49 @@ public partial class Game : Node
 	public void EnterHandView()
 	{
 		HandEnterAnimation();
-	}
+        timer.RestartTimer(timer.TimerMaxValue);
+    }
 
-	public void ExitHandView(Card cardToPlay)
+	public void PlayCardView(Card cardToPlay)
 	{
+		int cardWeight = 0;
+		if (cardToPlay.Influence[Animal.CAT] > 0)
+		{
+            cardWeight = cardToPlay.Influence[Animal.CAT];
+		}
+		else if (cardToPlay.Influence[Animal.BIRD] > 0)
+		{
+            cardWeight = cardToPlay.Influence[Animal.BIRD];
+        }
+		else
+		{
+			cardWeight = cardToPlay.Influence[Animal.FISH];
+		}
+
+        spectatorsReactionTreshold = spectatorController.GetSpectators().Count * cardWeight / 3;
+
+        timer.StopTimer();
+		CardHighlitAnimation(cardToPlay);
 		HandExitAnimation();
 		EvaluateSpectatorsReaction(cardToPlay);
 		cardController.DiscardCard(cardToPlay);
 		cardController.DrawCard();
 
-		switch (overallSpectatorsReaction)
+		if (overallSpectatorsReaction <= spectatorsReactionTreshold*(-1))
 		{
-			case >= 4:
-				//play laughing crowd reaction
-				audioManager.PlaySound("crowdLaugh1.wav");
-				break;
-			case < 4:
-				//play neutral crowd reaction
-				audioManager.PlaySound("synthCricket.wav");
-				break;
-			default:
-				//play angry crowd reaction
-				audioManager.PlaySound("crowdBoo1.wav");
-				break;
-		}
+            //play angry crowd reaction
+            audioManager.PlaySound("crowdBoo1.wav");
+        }
+		else if (overallSpectatorsReaction <= spectatorsReactionTreshold)
+		{
+            //play neutral crowd reaction
+            audioManager.PlaySound("synthCricket.wav");
+        }
+		else
+		{
+            //play laughing crowd reaction
+            audioManager.PlaySound("crowdLaugh1.wav");
+        }
 
 		if (EvaluateGameEndCondition())
 		{
@@ -127,15 +144,38 @@ public partial class Game : Node
 	public void EnterGameEndView()
 	{
 	}
+
+	public void RanOutOfTime()
+	{
+		HandExitAnimation();
+		foreach (Spectator spectator in spectatorController.GetSpectators())
+		{
+			spectator.Annoy();
+		}
+        if (EvaluateGameEndCondition())
+        {
+            EnterGameEndView();
+        }
+        else
+        {
+            EnterHandView();
+        }
+    }
 	#endregion
 
 	#region Animations
 	public void HandEnterAnimation()
 	{
+		
 	}
 
 	public void HandExitAnimation()
 	{
+	}
+
+	public void CardHighlitAnimation (Card card)
+	{
+
 	}
 
 	public void SceneOpeningAnimation()
@@ -152,7 +192,7 @@ public partial class Game : Node
 		bool gameEndCondition = false;
 
 		//TODO:
-		//decide on and code when game ends
+		//decide on when game ends and code it
 
 		return gameEndCondition;
 	}

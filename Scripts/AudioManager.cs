@@ -13,6 +13,9 @@ public partial class AudioManager : Node
 
 	private Dictionary<string, AudioStream> ClipsAsDictionary = new Dictionary<string, AudioStream>();
 
+	public AudioPlayer AmbientPlayer;
+
+
     public override void _Ready()
 	{
 		Instance = this;
@@ -21,23 +24,23 @@ public partial class AudioManager : Node
 			ClipsAsDictionary.Add(System.IO.Path.GetFileNameWithoutExtension(Clips[i].ResourcePath), Clips[i]);        
 	}
 
-	public void PlaySound(string name)
+	public void PlaySound(string name, float delay = 0)
 	{ 
 		if (ClipsAsDictionary.ContainsKey(name))
 		{
 			AudioPlayer sound = AudioPlayerScene.Instantiate() as AudioPlayer;
 			AddChild(sound);
-			sound.PlaySound(ClipsAsDictionary[name]);
+			sound.PlaySound(ClipsAsDictionary[name], delay);
 		}
 	}
 
-	public AudioPlayer GetAudioPlayer(string name)
+	public AudioPlayer GetAudioPlayer(string name, float delay = 0)
 	{
         if (ClipsAsDictionary.ContainsKey(name))
         {
             AudioPlayer sound = AudioPlayerScene.Instantiate() as AudioPlayer;
             AddChild(sound);
-            sound.PlaySound(ClipsAsDictionary[name]);
+            sound.PlaySound(ClipsAsDictionary[name], delay);
 			return sound;
         }
 		return null;

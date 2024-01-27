@@ -14,25 +14,40 @@ public partial class MainUI : Control
 
 	private AudioPlayer AudioPlayer;
 
+	private bool _isFullInitial = false;
+
 	public override void _Ready()
 	{
 		TransitionAnimator.Play("SceneTransitionIn");
 		base._Ready();
 	}
 
-	public void OnClickStartAnimation()
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+		if (_spectatorController._isAudienceFull && !_isFullInitial)
+		{
+			_isFullInitial = true;
+			if (AudioManager.Instance.AmbientPlayer != null)
+			{
+                AudioManager.Instance.AmbientPlayer.StopMusic(1.5f);
+                AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer", 2.0f);
+            }
+        }
+    }
+
+    public void OnClickStartAnimation()
 	{
 		TransitionAnimator.Play("SceneTransitionOut");
 		if (AudioPlayer != null)
 			AudioPlayer.StopMusic(1.5f);
-	}
+    }
 
 	public void OnFinishLoadMainGameplayScene(StringName animationName)
 	{
 		if (animationName == "SceneTransitionOut")
 			SceneManager.Instance.LoadMainMenuScene();
-		else if (animationName == "SceneTransitionIn")
-			AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer");
 	}
 
 	public void OnClickRestartTimer()
