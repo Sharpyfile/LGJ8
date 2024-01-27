@@ -9,6 +9,8 @@ public partial class MainUI : Control
     [Export]
     private AnimationPlayer TransitionAnimator;
 
+    private AudioPlayer AudioPlayer;
+
     public override void _Ready()
     {
         TransitionAnimator.Play("SceneTransitionIn");
@@ -18,12 +20,16 @@ public partial class MainUI : Control
     public void OnClickStartAnimation()
     {
         TransitionAnimator.Play("SceneTransitionOut");
+        if (AudioPlayer != null)
+            AudioPlayer.StopMusic(1.5f);
     }
 
     public void OnFinishLoadMainGameplayScene(StringName animationName)
     {
         if (animationName == "SceneTransitionOut")
             SceneManager.Instance.LoadMainMenuScene();
+        else if (animationName == "SceneTransitionIn")
+            AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer");
     }
 
     public void OnClickRestartTimer()
