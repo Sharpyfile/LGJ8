@@ -12,7 +12,6 @@ public partial class Spectator : Node2D
 	[Export] public Animal Type { get; private set; }
 	[Export] public SpectatorState State { get; private set; }
 	[Export] public int Happiness { get; private set; } = 6;
-	[Export] public int MaxHappiness { get; private set; } = 12;
 	[Export] public Mood Mood { get; private set; }
 
 	[Export] private float _speed = 5;
