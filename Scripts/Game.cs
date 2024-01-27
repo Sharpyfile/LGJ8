@@ -39,27 +39,27 @@ public partial class Game : Node
 	#endregion
 
 	#region Card Operations
-	public void DrawCard()
-	{
-	}
+	//public void DrawCard()
+	//{
+	//}
 
-	public void RemoveCard()
-	{
-	}
+	//public void RemoveCard()
+	//{
+	//}
 	#endregion
 
 	#region Audience Operations
-	public void AddAudienceMember()
-	{
-	}
+	//public void AddAudienceMember()
+	//{
+	//}
 
-	public void RemoveAudienceMember()
-	{
-	}
+	//public void RemoveAudienceMember()
+	//{
+	//}
 
-	public void SwapAudienceMember()
-	{
-	}
+	//public void SwapAudienceMember()
+	//{
+	//}
 
 	public void EvaluateAudienceMemberReaction(Spectator spectatorToEvaluate, Card cardToApply)
 	{
@@ -74,7 +74,18 @@ public partial class Game : Node
 			//TODO:
 			//calculate overall audience reaction
 			//play sound according to overall audience reaction
-		}
+			switch(audienceReaction)
+			{
+				case >= 4:
+                    //play laughing crowd reaction
+                    break;
+				case < 4:
+					//play neutral crowd reaction
+					break;
+				default:
+                    //play angry crowd reaction
+            }
+        }
 	}
 	#endregion
 
@@ -142,6 +153,9 @@ public partial class Game : Node
 	public bool EvaluateGameEndCondition()
 	{
 		bool gameEndCondition = false;
+
+		//TODO:
+		//decide on and code when game ends
 
 		return gameEndCondition;
 	}
