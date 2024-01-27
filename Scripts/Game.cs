@@ -70,10 +70,10 @@ public partial class Game : Node
 		foreach (Spectator spectator in spectators)
 		{
 			spectator.ApplyCard(cardToApply);
-            //TODO:
-            //calculate overall spectators reaction
-            
-        }
+			//TODO:
+			//calculate overall spectators reaction
+			
+		}
 	}
 	#endregion
 
@@ -94,35 +94,35 @@ public partial class Game : Node
 	public void ExitHandView(Card cardToPlay)
 	{
 		HandExitAnimation();
-        EvaluateSpectatorsReaction(cardToPlay);
+		EvaluateSpectatorsReaction(cardToPlay);
 		cardController.DiscardCard(cardToPlay);
 		cardController.DrawCard();
 
-        switch (overallSpectatorsReaction)
-        {
-            case >= 4:
-                //play laughing crowd reaction
-                audioManager.PlaySound("crowdLaugh1.wav");
-                break;
-            case < 4:
+		switch (overallSpectatorsReaction)
+		{
+			case >= 4:
+				//play laughing crowd reaction
+				audioManager.PlaySound("crowdLaugh1.wav");
+				break;
+			case < 4:
 				//play neutral crowd reaction
 				audioManager.PlaySound("synthCricket.wav");
-                break;
-            default:
+				break;
+			default:
 				//play angry crowd reaction
 				audioManager.PlaySound("crowdBoo1.wav");
 				break;
-        }
+		}
 
-        if (EvaluateGameEndCondition())
-        {
-            EnterGameEndView();
-        }
-        else
-        {
-            EnterHandView();
-        }
-    }
+		if (EvaluateGameEndCondition())
+		{
+			EnterGameEndView();
+		}
+		else
+		{
+			EnterHandView();
+		}
+	}
 
 	public void EnterGameEndView()
 	{
