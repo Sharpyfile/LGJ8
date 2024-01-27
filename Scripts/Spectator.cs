@@ -72,12 +72,14 @@ public partial class Spectator : Node2D
 		_exit = exit;
 	}
 
-	public void ApplyCard(ICardBasic card)
+	public int ApplyCard(ICardBasic card)
 	{
 		if (card.Influence.TryGetValue(Type, out int value))
 		{
 			Happiness += value;
+			return value;
 		}
+		return 0;
 	}
 
 	public void Annoy()
