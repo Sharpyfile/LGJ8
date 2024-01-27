@@ -16,7 +16,7 @@ public partial class SpectatorController : Node2D
 	}
 
 	[Export] private Vector2I _audienceOnStart = new Vector2I(4, 7);
-	[Export] private double _spawnRate = .2f;
+	[Export] private double _spawnRate = .3f;
 
 	private double _spawnTimer = 0;
 
@@ -30,10 +30,12 @@ public partial class SpectatorController : Node2D
 	[Export] private bool _isAudienceFull = false;
 
 	private RandomNumberGenerator _rng = new();
+	private float _midX;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_midX = (Entrance.GlobalPosition.X + Exit.GlobalPosition.X) / 2.0f;
 		foreach (var row in _rows)
 		{
 			foreach (var seat in row.Seats)
@@ -67,7 +69,6 @@ public partial class SpectatorController : Node2D
 
 	private bool SpawnSpectator()
 	{
-
 		var seat = SelectSeat();
 		if (seat != null)
 		{
@@ -75,9 +76,9 @@ public partial class SpectatorController : Node2D
 			_spectators.Add(spectator);
 			seat.Row.AddChild(spectator);
 
-
-			spectator.GlobalPosition = Entrance.GlobalPosition;
-			spectator.Initialize(this, Entrance.GlobalPosition, seat, Exit.GlobalPosition);
+			var entrance = seat.GlobalPosition.X < _midX ? Entrance : Exit;
+			spectator.GlobalPosition = entrance.GlobalPosition;
+			spectator.Initialize(this, entrance.GlobalPosition, seat);
 			return true;
 		}
 		return false;
@@ -89,15 +90,12 @@ public partial class SpectatorController : Node2D
 	private Seat SelectSeat()
 	{
 		int random = _rng.RandiRange(0, _seats.Count - 1);
-		int index = random;
-
-		while (_seats[index].Occupied)
+		for (int offset = 0; offset < _seats.Count; offset++)
 		{
-			if (++index >= _seats.Count) index = 0;
-			if (index == random) return null; // loop completed
+			var seat = _seats[(random + offset) % _seats.Count];
+			if (!seat.Occupied) return seat;
 		}
-
-		return _seats[index];
+		return null;
 	}
 }
 
