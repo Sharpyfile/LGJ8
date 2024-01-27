@@ -1,34 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://by2f5xoaunwg0"]
+[gd_scene load_steps=11 format=3 uid="uid://by2f5xoaunwg0"]
 
-[ext_resource type="PackedScene" uid="uid://bjvpkyag3nphy" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
+[ext_resource type="PackedScene" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
 [ext_resource type="Texture2D" uid="uid://cb4w7fde7wpxq" path="res://Sprites/icon.svg" id="2_8fvjv"]
-[ext_resource type="Texture2D" uid="uid://uwhivkvti1xv" path="res://Sprites/chair_placeholder.png" id="3_je8gn"]
-
-[sub_resource type="Animation" id="Animation_vvd6l"]
-resource_name = "RaiseHand"
-step = 0.01
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(),
-"points": PackedFloat32Array(),
-"times": PackedFloat32Array()
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(300, 0, 0, 0.1, -50, 0, -0.5, 0, 0, 0),
-"times": PackedFloat32Array(0, 1)
-}
+[ext_resource type="Texture2D" uid="uid://bwdgg81016n5w" path="res://Sprites/BG/BG_floor_wall.png" id="2_pkku1"]
+[ext_resource type="Texture2D" uid="uid://iu6lkb15xvih" path="res://Sprites/BG/BG_Seats.png" id="3_r0kip"]
+[ext_resource type="Script" path="res://Scripts/Seat.cs" id="4_4drqx"]
+[ext_resource type="Texture2D" uid="uid://bq5iaqciy1544" path="res://Sprites/BG/FG_stage_light.png" id="4_cnwnu"]
+[ext_resource type="Texture2D" uid="uid://bauk4tv52gar4" path="res://Sprites/BG/BG_Seats02.png" id="5_5dlw5"]
 
 [sub_resource type="Animation" id="Animation_qs3l7"]
 resource_name = "LowerHand"
@@ -53,6 +31,32 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 2),
 "points": PackedFloat32Array(0, 0, 0, 0.1, 50, 300, -0.5, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_vvd6l"]
+resource_name = "RaiseHand"
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(300, 0, 0, 0.1, -50, 0, -0.5, 0, 0, 0),
 "times": PackedFloat32Array(0, 1)
 }
 
@@ -103,11 +107,103 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Background" type="Node2D" parent="GameplayArea/Control2"]
+
+[node name="Floor" type="Sprite2D" parent="GameplayArea/Control2/Background"]
+position = Vector2(0, 235)
+texture = ExtResource("2_pkku1")
+
 [node name="Audience" type="Node2D" parent="GameplayArea/Control2"]
 position = Vector2(0, 5)
 
-[node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control2/Audience"]
-texture = ExtResource("3_je8gn")
+[node name="Seats" type="Node2D" parent="GameplayArea/Control2/Audience"]
+
+[node name="SeatsRow3" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats"]
+position = Vector2(0, -500)
+texture = ExtResource("3_r0kip")
+
+[node name="Seat17" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(661.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat16" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(396.75, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat15" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(132.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat14" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(-132.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat13" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(-396.75, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat12" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(-661.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="SeatsRow2" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats"]
+position = Vector2(0, -300)
+texture = ExtResource("5_5dlw5")
+
+[node name="Seat11" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+position = Vector2(529, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat10" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+position = Vector2(265, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat9" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+script = ExtResource("4_4drqx")
+
+[node name="Seat8" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+position = Vector2(-263.5, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat7" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+position = Vector2(-528.5, 0)
+script = ExtResource("4_4drqx")
+
+[node name="SeatsRow1" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats"]
+position = Vector2(0, -100)
+texture = ExtResource("3_r0kip")
+
+[node name="Seat6" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(661.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat5" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(396.75, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat4" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(132.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat3" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(-132.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat2" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(-396.75, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat1" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(-661.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Spectators" type="Node2D" parent="GameplayArea/Control2/Audience"]
+
+[node name="Stage" type="Node2D" parent="GameplayArea/Control2"]
+position = Vector2(0, 230)
+
+[node name="Stage" type="Sprite2D" parent="GameplayArea/Control2/Stage"]
+texture = ExtResource("4_cnwnu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameplayArea"]
 libraries = {

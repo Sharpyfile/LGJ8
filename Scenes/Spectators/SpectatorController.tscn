@@ -1,17 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddraicruvyq1c"]
+[gd_scene load_steps=10 format=3 uid="uid://ddraicruvyq1c"]
 
 [ext_resource type="Script" path="res://Scripts/SpectatorController.cs" id="1_cldwj"]
-[ext_resource type="PackedScene" uid="uid://wmt6bd4osod6" path="res://Scenes/Spectator.tscn" id="2_yoxos"]
+[ext_resource type="PackedScene" uid="uid://b51hsbyjw7efs" path="res://Scenes/Spectators/Cat_1.tscn" id="2_jsuj7"]
 [ext_resource type="Texture2D" uid="uid://uwhivkvti1xv" path="res://Sprites/chair_placeholder.png" id="3_2pbtn"]
+[ext_resource type="PackedScene" uid="uid://ctxoccs4ewq2d" path="res://Scenes/Spectators/Cat_2.tscn" id="3_v7ysd"]
+[ext_resource type="PackedScene" uid="uid://b7g6o1o70wi2p" path="res://Scenes/Spectators/Cat_3.tscn" id="4_7mc64"]
 [ext_resource type="Script" path="res://Scripts/Seat.cs" id="4_x6y63"]
+[ext_resource type="PackedScene" uid="uid://b2d2oqf0bng5m" path="res://Scenes/Spectators/Cat_4.tscn" id="5_snoeu"]
+[ext_resource type="PackedScene" uid="uid://c7p45n8hch8xn" path="res://Scenes/Spectators/Cat_5.tscn" id="6_xk3fc"]
+[ext_resource type="PackedScene" uid="uid://dwwgxaifk32dy" path="res://Scenes/Spectators/Cat_6.tscn" id="7_dd2gp"]
 
-[node name="SpectatorController" type="Node2D" node_paths=PackedStringArray("_entrace", "_exit", "_seatsParent", "_spectatorsParent")]
+[node name="SpectatorController" type="Node2D" node_paths=PackedStringArray("_entrance", "_exit", "_seatsParent", "_spectatorsParent", "_spectators")]
 script = ExtResource("1_cldwj")
-_entrace = NodePath("Entrace")
+_entrance = NodePath("Entrace")
 _exit = NodePath("Exit")
 _seatsParent = NodePath("Seats")
 _spectatorsParent = NodePath("Spectators")
-_spectatorScene = ExtResource("2_yoxos")
+_pool = Array[PackedScene]([ExtResource("2_jsuj7"), ExtResource("3_v7ysd"), ExtResource("4_7mc64"), ExtResource("5_snoeu"), ExtResource("6_xk3fc"), ExtResource("7_dd2gp")])
+_spectators = []
 
 [node name="Entrace" type="Node2D" parent="."]
 position = Vector2(-300, -50)

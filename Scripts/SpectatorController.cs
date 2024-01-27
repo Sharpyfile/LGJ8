@@ -26,7 +26,7 @@ public partial class SpectatorController : Node2D
 	private Array<Seat> _seats = new();
 
 	[Export] private Node _spectatorsParent;
-	[Export] private PackedScene _spectatorScene;
+	[Export] private Array<PackedScene> _pool;
 	[Export] private Array<Spectator> _spectators;
 
 	private RandomNumberGenerator _rng = new();
@@ -49,7 +49,7 @@ public partial class SpectatorController : Node2D
 			var seat = SelectSeat();
 			if (seat != null)
 			{
-				var spectator = _spectatorScene.Instantiate<Spectator>();
+				var spectator = _pool[_rng.RandiRange(0, _pool.Count - 1)].Instantiate<Spectator>();
 				_spectatorsParent.AddChild(spectator);
 
 				spectator.Position = _entrance.Position;
@@ -71,8 +71,8 @@ public partial class SpectatorController : Node2D
 		while (_seats[index].Occupied)
 		{
 			if (index == random) return null; // loop completed
-			if (index >= _seats.Count) index = 0;
 			index++;
+			if (index >= _seats.Count) index = 0;
 		}
 
 		return _seats[index];
