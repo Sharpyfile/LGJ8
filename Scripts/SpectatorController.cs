@@ -20,8 +20,8 @@ public partial class SpectatorController : Node2D
 
 	private double _spawnTimer = 0;
 
-	[Export] private Node2D _entrance;
-	[Export] private Node2D _exit;
+	[Export] public Node2D Entrance { get; private set; }
+	[Export] public Node2D Exit { get; private set; }
 	[Export] private Array<SeatsRow> _rows;
 	private Array<Seat> _seats = new();
 
@@ -53,13 +53,21 @@ public partial class SpectatorController : Node2D
 			if (seat != null)
 			{
 				var spectator = _pool[_rng.RandiRange(0, _pool.Count - 1)].Instantiate<Spectator>();
+				_spectators.Add(spectator);
 				seat.Row.AddChild(spectator);
 
-				spectator.GlobalPosition = _entrance.GlobalPosition;
-				spectator.Initialize(seat, _exit);
+
+				spectator.GlobalPosition = Entrance.GlobalPosition;
+				spectator.Initialize(this, Entrance.GlobalPosition, seat, Exit.GlobalPosition);
 			}
 			_spawnTimer -= _spawnRate;
 		}
+	}
+
+	public void Remove(Spectator spectator)
+	{
+		_spectators.Remove(spectator);
+		spectator.QueueFree();
 	}
 
 	/**

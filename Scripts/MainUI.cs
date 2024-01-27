@@ -6,41 +6,74 @@ public partial class MainUI : Control
 	[Export]
 	public TimerWithSlider Timer;
 
-    [Export]
-    private AnimationPlayer TransitionAnimator;
+	[Export]
+	private AnimationPlayer TransitionAnimator;
 
-    public override void _Ready()
-    {
-        TransitionAnimator.Play("SceneTransitionIn");
-        base._Ready();
-    }
+	[Export]
+	private SpectatorController _spectatorController;
 
-    public void OnClickStartAnimation()
-    {
-        TransitionAnimator.Play("SceneTransitionOut");
-    }
+	public override void _Ready()
+	{
+		TransitionAnimator.Play("SceneTransitionIn");
+		base._Ready();
+	}
 
-    public void OnFinishLoadMainGameplayScene(StringName animationName)
-    {
-        if (animationName == "SceneTransitionOut")
-            SceneManager.Instance.LoadMainMenuScene();
-    }
+	public void OnClickStartAnimation()
+	{
+		TransitionAnimator.Play("SceneTransitionOut");
+	}
 
-    public void OnClickRestartTimer()
+	public void OnFinishLoadMainGameplayScene(StringName animationName)
+	{
+		if (animationName == "SceneTransitionOut")
+			SceneManager.Instance.LoadMainMenuScene();
+	}
+
+	public void OnClickRestartTimer()
 	{
 		Timer.RestartTimer(10.0);
 		Timer.OnTimerStop = () => OnTimerStopBoo();
+		// TODO temporary
+		foreach (var spectator in _spectatorController.GetSpectators())
+		{
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+			spectator.Annoy();
+		}
 
-    }
+
+	}
 
 	private void OnTimerStopBoo()
-    {
-        Timer.TimerLabel.Text = "Timer ran out via mainUI, restart";
+	{
+		Timer.TimerLabel.Text = "Timer ran out via mainUI, restart";
 		AudioManager.Instance.PlaySound("crowdBoo1");
-    }
+	}
 
 	public void OnClickStopTimer()
 	{
 		Timer.StopTimer();
-    }
+	}
 }

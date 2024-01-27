@@ -8,10 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://c7p45n8hch8xn" path="res://Scenes/Spectators/Cat_5.tscn" id="6_xk3fc"]
 [ext_resource type="PackedScene" uid="uid://dwwgxaifk32dy" path="res://Scenes/Spectators/Cat_6.tscn" id="7_dd2gp"]
 
-[node name="SpectatorController" type="Node2D" node_paths=PackedStringArray("_entrance", "_exit", "_rows", "_spectators")]
+[node name="SpectatorController" type="Node2D" node_paths=PackedStringArray("_rows", "_spectators")]
 script = ExtResource("1_cldwj")
-_entrance = NodePath("")
-_exit = NodePath("")
 _rows = []
 _pool = Array[PackedScene]([ExtResource("2_jsuj7"), ExtResource("3_v7ysd"), ExtResource("4_7mc64"), ExtResource("5_snoeu"), ExtResource("6_xk3fc"), ExtResource("7_dd2gp")])
 _spectators = []
