@@ -15,8 +15,8 @@ public partial class SpectatorController : Node2D
 		return ret;
 	}
 
-	[Export] private double _speed = 5.0f;
-	[Export] private double _spawnRate = 5.0f;
+	[Export] private Vector2I _audienceOnStart = new Vector2I(4, 7);
+	[Export] private double _spawnRate = .2f;
 
 	private double _spawnTimer = 0;
 
@@ -27,6 +27,7 @@ public partial class SpectatorController : Node2D
 
 	[Export] private Array<PackedScene> _pool;
 	[Export] private Array<Spectator> _spectators;
+	[Export] private bool _isAudienceFull = false;
 
 	private RandomNumberGenerator _rng = new();
 
@@ -46,21 +47,15 @@ public partial class SpectatorController : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		_spawnTimer += delta;
-		if (_spawnTimer > _spawnRate)
+		// Fill audence on init 
+		if (!_isAudienceFull)
 		{
-			var seat = SelectSeat();
-			if (seat != null)
+			_spawnTimer += delta;
+			if (_spawnTimer > _spawnRate)
 			{
-				var spectator = _pool[_rng.RandiRange(0, _pool.Count - 1)].Instantiate<Spectator>();
-				_spectators.Add(spectator);
-				seat.Row.AddChild(spectator);
-
-
-				spectator.GlobalPosition = Entrance.GlobalPosition;
-				spectator.Initialize(this, Entrance.GlobalPosition, seat, Exit.GlobalPosition);
+				_isAudienceFull = !SpawnSpectator();
+				_spawnTimer -= _spawnRate;
 			}
-			_spawnTimer -= _spawnRate;
 		}
 	}
 
@@ -68,6 +63,24 @@ public partial class SpectatorController : Node2D
 	{
 		_spectators.Remove(spectator);
 		spectator.QueueFree();
+	}
+
+	private bool SpawnSpectator()
+	{
+
+		var seat = SelectSeat();
+		if (seat != null)
+		{
+			var spectator = _pool[_rng.RandiRange(0, _pool.Count - 1)].Instantiate<Spectator>();
+			_spectators.Add(spectator);
+			seat.Row.AddChild(spectator);
+
+
+			spectator.GlobalPosition = Entrance.GlobalPosition;
+			spectator.Initialize(this, Entrance.GlobalPosition, seat, Exit.GlobalPosition);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -78,12 +91,10 @@ public partial class SpectatorController : Node2D
 		int random = _rng.RandiRange(0, _seats.Count - 1);
 		int index = random;
 
-
 		while (_seats[index].Occupied)
 		{
+			if (++index >= _seats.Count) index = 0;
 			if (index == random) return null; // loop completed
-			index++;
-			if (index >= _seats.Count) index = 0;
 		}
 
 		return _seats[index];
