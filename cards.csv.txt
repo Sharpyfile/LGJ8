@@ -1,0 +1,14 @@
+Title;Cat_Influence;Fish_Influence;Bird_Influence
+Żarcik 1;1;0;-1
+Żarcik 2;0;-1;1
+Żarcik 3;-1;1;0
+Żarcik 4;0;-1;1
+Żarcik 5;-1;0;1
+Żarcik 6;-1;1;0
+Żarcik 7;1;-1;0
+Żarcik 8;0;-1;1
+Żarcik 9;-1;1;0
+Żarcik 10;-1;1;0
+Żarcik 11;-1;1;0
+Żarcik 12;-1;1;0
+Żarcik 13;-1;1;0
