@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://be60drpm8x8d"]
+[gd_scene load_steps=5 format=3 uid="uid://be60drpm8x8d"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenuUI.cs" id="1_advip"]
+[ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_c2wbj"]
 [ext_resource type="PackedScene" uid="uid://cjvdrgsxeuylq" path="res://Scenes/OptionsMenu.tscn" id="2_sdjuc"]
 [ext_resource type="PackedScene" uid="uid://6n7iprqku8uq" path="res://Scenes/Credits.tscn" id="3_c415j"]
 
@@ -55,21 +56,28 @@ grow_vertical = 2
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 text = "Start Game"
+script = ExtResource("2_c2wbj")
 
 [node name="OptionsButton" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 text = "Options"
+script = ExtResource("2_c2wbj")
+SoundVariant = 1
 
 [node name="CreditsButton" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 text = "Credits"
+script = ExtResource("2_c2wbj")
+SoundVariant = 2
 
 [node name="ExitButton" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 text = "Exit"
+script = ExtResource("2_c2wbj")
+SoundVariant = 3
 
 [node name="PlaySoundTest" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 40)
