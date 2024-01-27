@@ -91,17 +91,17 @@ public partial class Spectator : Node2D
 	 */
 	private bool Step(Node2D target)
 	{
-		Vector2 diff = target.Position - Position;
+		Vector2 diff = target.GlobalPosition - GlobalPosition;
 		Vector2 step = diff.Normalized() * _speed;
 
 		if (diff.Length() > step.Length())
 		{
-			Position += step;
+			GlobalPosition += step;
 			return false;
 		}
 		else
 		{
-			Position = target.Position;
+			GlobalPosition = target.GlobalPosition;
 			return true;
 		}
 	}

@@ -22,10 +22,9 @@ public partial class SpectatorController : Node2D
 
 	[Export] private Node2D _entrance;
 	[Export] private Node2D _exit;
-	[Export] private Node _seatsParent;
+	[Export] private Array<SeatsRow> _rows;
 	private Array<Seat> _seats = new();
 
-	[Export] private Node _spectatorsParent;
 	[Export] private Array<PackedScene> _pool;
 	[Export] private Array<Spectator> _spectators;
 
@@ -34,9 +33,13 @@ public partial class SpectatorController : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		foreach (var child in _seatsParent.GetChildren())
+		foreach (var row in _rows)
 		{
-			if (child is Seat) _seats.Add(child as Seat);
+			foreach (var seat in row.Seats)
+			{
+				_seats.Add(seat);
+				seat.Row = row;
+			}
 		}
 	}
 
@@ -50,9 +53,9 @@ public partial class SpectatorController : Node2D
 			if (seat != null)
 			{
 				var spectator = _pool[_rng.RandiRange(0, _pool.Count - 1)].Instantiate<Spectator>();
-				_spectatorsParent.AddChild(spectator);
+				seat.Row.AddChild(spectator);
 
-				spectator.Position = _entrance.Position;
+				spectator.GlobalPosition = _entrance.GlobalPosition;
 				spectator.Initialize(seat, _exit);
 			}
 			_spawnTimer -= _spawnRate;
