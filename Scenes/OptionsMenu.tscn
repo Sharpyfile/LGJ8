@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjvdrgsxeuylq"]
+[gd_scene load_steps=3 format=3 uid="uid://cjvdrgsxeuylq"]
 
 [ext_resource type="Script" path="res://Scripts/OptionMenuUI.cs" id="1_p57vb"]
+[ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_cca47"]
 
 [node name="OptionsMenu" type="Control" node_paths=PackedStringArray("ResolutionButton", "ScreenModeButton", "SoundVolumeSlider")]
 layout_mode = 3
@@ -24,39 +25,63 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ResolutionLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("2_cca47")
+theme_override_font_sizes/font_size = 24
 text = "Resolution"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ResolutionOptionButton" type="OptionButton" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("2_cca47")
+theme_override_font_sizes/font_size = 24
 
 [node name="ScreenModeLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("2_cca47")
+theme_override_font_sizes/font_size = 24
 text = "Screen mode"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ScreenModeButton" type="OptionButton" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("2_cca47")
+theme_override_font_sizes/font_size = 24
 
 [node name="Button" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("2_cca47")
+theme_override_font_sizes/font_size = 24
 text = "Apply graphic options"
 
 [node name="SpacingControl" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 25)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("2_cca47")
 
 [node name="SFXLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("2_cca47")
+theme_override_font_sizes/font_size = 24
 text = "SFX Volume"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SFXSlider" type="HSlider" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-min_value = -80.0
+theme = ExtResource("2_cca47")
+min_value = -40.0
 max_value = 0.0
-value = -20.0
+value = -10.0
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="OnClickApplyOptions"]
 [connection signal="value_changed" from="VBoxContainer/SFXSlider" to="." method="OnValueChangeSoundVolume"]

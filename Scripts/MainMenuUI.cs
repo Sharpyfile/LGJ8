@@ -51,5 +51,5 @@ public partial class MainMenuUI : Node
     public void OnClickPlayTypewritter()
 	{
 		AudioManager.Instance.PlaySound("synthCricket");
-	}
+	}	
 }
