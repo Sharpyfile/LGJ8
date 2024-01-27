@@ -5,11 +5,13 @@ using System.IO;
 
 public partial class Game : Node
 {
-	// List<T> allCards = new List<T>();
-	// List<T> cardsOnHand = new List<T>();
-	// List<T> audience = new List<T>();
+	List<Spectator> spectators = new List<Spectator>();
 
-	int audienceReaction = 0;
+	SpectatorController spectatorController = new SpectatorController();
+	CardController cardController = new CardController();
+	AudioManager audioManager = new AudioManager();
+
+	int overallSpectatorsReaction = 0;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -24,49 +26,54 @@ public partial class Game : Node
 	#region Initializing
 	public void DrawFullHand()
 	{
+		for (int i = 0; i < 5; i++)
+		{
+			cardController.DrawCard();
+		}
 	}
 
-	public void PopulateAudience()
+	public void PopulateSpectators()
 	{
 	}
 	#endregion
 
 	#region Card Operations
-	public void DrawCard()
-	{
-	}
+	//public void DrawCard()
+	//{
+	//}
 
-	public void RemoveCard()
-	{
-	}
+	//public void RemoveCard()
+	//{
+	//}
 	#endregion
 
-	#region Audience Operations
-	public void AddAudienceMember()
+	#region Spectators Operations
+	//public void AddSpectator()
+	//{
+	//}
+
+	//public void RemoveSpectator()
+	//{
+	//}
+
+	//public void SwapSpectator()
+	//{
+	//}
+
+	public void EvaluateSpectatorReaction(Spectator spectatorToEvaluate, Card cardToApply)
 	{
+		spectatorToEvaluate.ApplyCard(cardToApply);
 	}
 
-	public void RemoveAudienceMember()
+	public void EvaluateSpectatorsReaction(Card cardToApply)
 	{
-	}
-
-	public void SwapAudienceMember()
-	{
-	}
-
-	public void EvaluateAudienceMemberReaction()
-	{
-	}
-
-	public void EvaluateAudienceReaction()
-	{
-		// foreach (var audienceMember in audience)
-		// {
-		// 	EvaluateAudienceMemberReaction();
-		// 	//TODO:
-		// 	//calculate overall audience reaction
-		// 	//play sound according to overall audience reaction
-		// }
+		foreach (Spectator spectator in spectators)
+		{
+			spectator.ApplyCard(cardToApply);
+            //TODO:
+            //calculate overall spectators reaction
+            
+        }
 	}
 	#endregion
 
@@ -74,8 +81,9 @@ public partial class Game : Node
 	public void OpeningScene()
 	{
 		DrawFullHand();
-		PopulateAudience();
-		AudienceEnterAnimation();
+		audioManager.PlaySound("cardsMixing.mp3");
+		PopulateSpectators();
+		SpectatorsEnterAnimation();
 	}
 
 	public void EnterHandView()
@@ -83,30 +91,38 @@ public partial class Game : Node
 		HandEnterAnimation();
 	}
 
-	public void ExitHandView()
+	public void ExitHandView(Card cardToPlay)
 	{
 		HandExitAnimation();
-		RemoveCard();
-		DrawCard();
-		EnterAudienceReactionView();
-	}
+        EvaluateSpectatorsReaction(cardToPlay);
+		cardController.DiscardCard(cardToPlay);
+		cardController.DrawCard();
 
-	public void EnterAudienceReactionView()
-	{
-		EvaluateAudienceReaction();
-	}
+        switch (overallSpectatorsReaction)
+        {
+            case >= 4:
+                //play laughing crowd reaction
+                audioManager.PlaySound("crowdLaugh1.wav");
+                break;
+            case < 4:
+				//play neutral crowd reaction
+				audioManager.PlaySound("synthCricket.wav");
+                break;
+            default:
+				//play angry crowd reaction
+				audioManager.PlaySound("crowdBoo1.wav");
+				break;
+        }
 
-	public void ExitAudienceReactionView()
-	{
-		if (EvaluateGameEndCondition())
-		{
-			EnterGameEndView();
-		}
-		else
-		{
-			EnterHandView();
-		}
-	}
+        if (EvaluateGameEndCondition())
+        {
+            EnterGameEndView();
+        }
+        else
+        {
+            EnterHandView();
+        }
+    }
 
 	public void EnterGameEndView()
 	{
@@ -126,7 +142,7 @@ public partial class Game : Node
 	{
 	}
 
-	public void AudienceEnterAnimation()
+	public void SpectatorsEnterAnimation()
 	{
 	}
 	#endregion
@@ -134,6 +150,9 @@ public partial class Game : Node
 	public bool EvaluateGameEndCondition()
 	{
 		bool gameEndCondition = false;
+
+		//TODO:
+		//decide on and code when game ends
 
 		return gameEndCondition;
 	}
