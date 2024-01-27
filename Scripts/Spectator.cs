@@ -69,7 +69,7 @@ public partial class Spectator : Node2D
 
 	public void Annoy()
 	{
-        Annoyence--;
+        Annoyence++;
 	}
 
 	/**

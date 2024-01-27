@@ -8,7 +8,7 @@ public partial class SpectatorController : Node2D
 	[Export] private double _speed = 5.0f;
 	[Export] private double _spawnRate = 5.0f;
 
-	private double _timer = 0;
+	private double _spawnTimer = 0;
 
 	[Export] private Node2D _entrace;
 	[Export] private Node2D _exit;
@@ -32,8 +32,8 @@ public partial class SpectatorController : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		_timer += delta;
-		if (_timer > _spawnRate)
+		_spawnTimer += delta;
+		if (_spawnTimer > _spawnRate)
 		{
 			var seat = SelectSeat();
 			if (seat != null)
@@ -44,7 +44,7 @@ public partial class SpectatorController : Node2D
 				spectator.Position = _entrace.Position;
 				spectator.Initialize(seat, _exit);
 			}
-			_timer -= _spawnRate;
+			_spawnTimer -= _spawnRate;
 		}
 	}
 
