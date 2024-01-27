@@ -126,12 +126,6 @@ texture = ExtResource("3_r0kip")
 script = ExtResource("4_hwxbh")
 Seats = [NodePath("Seat12"), NodePath("Seat13"), NodePath("Seat14"), NodePath("Seat15"), NodePath("Seat16"), NodePath("Seat17")]
 
-[node name="Entrace" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
-position = Vector2(-1100, 0)
-
-[node name="Exit" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
-position = Vector2(1100, 0)
-
 [node name="Seat12" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
 position = Vector2(-661.25, 0)
 script = ExtResource("4_4drqx")
@@ -211,7 +205,11 @@ script = ExtResource("4_4drqx")
 position = Vector2(661.25, 0)
 script = ExtResource("4_4drqx")
 
-[node name="Spectators" type="Node2D" parent="GameplayArea/Control2/Audience"]
+[node name="Entrace" type="Node2D" parent="GameplayArea/Control2/Audience"]
+position = Vector2(-890, -550)
+
+[node name="Exit" type="Node2D" parent="GameplayArea/Control2/Audience"]
+position = Vector2(890, -550)
 
 [node name="Stage" type="Node2D" parent="GameplayArea/Control2"]
 position = Vector2(0, 230)
@@ -224,9 +222,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ar1p3")
 }
 
-[node name="SpectatorController" parent="GameplayArea" node_paths=PackedStringArray("_entrance", "_exit", "_rows") instance=ExtResource("8_bgajp")]
-_entrance = NodePath("../Control2/Audience/Seats/SeatsRow3/Entrace")
-_exit = NodePath("../Control2/Audience/Seats/SeatsRow3/Exit")
+[node name="SpectatorController" parent="GameplayArea" node_paths=PackedStringArray("Entrance", "Exit", "_rows") instance=ExtResource("8_bgajp")]
+Entrance = NodePath("../Control2/Audience/Entrace")
+Exit = NodePath("../Control2/Audience/Exit")
 _rows = [NodePath("../Control2/Audience/Seats/SeatsRow3"), NodePath("../Control2/Audience/Seats/SeatsRow2"), NodePath("../Control2/Audience/Seats/SeatsRow1")]
 
-[node name="MainCanvas" parent="." instance=ExtResource("1_imsjj")]
+[node name="MainCanvas" parent="." node_paths=PackedStringArray("_spectatorController") instance=ExtResource("1_imsjj")]
+_spectatorController = NodePath("../GameplayArea/SpectatorController")
