@@ -14,8 +14,15 @@ public partial class MainUI : Control
 	public void OnClickRestartTimer()
 	{
 		Timer.RestartTimer(10.0);
-        Timer.OnTimerStop = () => Timer.TimerLabel.Text = "Timer ran out via mainUI, restart";
-	}
+		Timer.OnTimerStop = () => OnTimerStopBoo();
+
+    }
+
+	private void OnTimerStopBoo()
+    {
+        Timer.TimerLabel.Text = "Timer ran out via mainUI, restart";
+		AudioManager.Instance.PlaySound("crowdBoo1");
+    }
 
 	public void OnClickStopTimer()
 	{

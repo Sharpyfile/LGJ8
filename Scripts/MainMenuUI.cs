@@ -9,11 +9,19 @@ public partial class MainMenuUI : Node
 	[Export]
 	private Control Credits;
 
+	private AudioPlayer AmbientPlayer;
+
     public override void _Ready()
     {
         base._Ready();
 		OptionMenu.Visible = false;
 		Credits.Visible = false;
+
+		if (AudioManager.Instance != null)
+		{
+			AmbientPlayer = AudioManager.Instance.GetAudioPlayer("cafeAmbience");
+
+        }
     }
 
     public void OnClickExitGame()
@@ -21,15 +29,13 @@ public partial class MainMenuUI : Node
 		SceneManager.Instance.ExitGame();
 	}
 
-	public void OnClickLoadMainMenu()
-	{
-		SceneManager.Instance.LoadMainMenuScene();
-	}
 
 	public void OnClickLoadMainGameplayScene()
 	{
 		SceneManager.Instance.LoadMainGameplayScene();
-	}
+        if (AmbientPlayer != null)		
+			AmbientPlayer.StopMusic(2.5f);
+    }
 
 	public void OnClickOpenHideOptions()
 	{
@@ -52,4 +58,5 @@ public partial class MainMenuUI : Node
 	{
 		AudioManager.Instance.PlaySound("synthCricket");
 	}	
+
 }
