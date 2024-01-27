@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Seat : Sprite2D
+public partial class Seat : Node2D
 {
 
 	public Spectator spectator;
