@@ -24,8 +24,7 @@ public partial class TimerWithSlider : Control
 	
 	public override void _Ready()
 	{
-		timerCurrentValue = TimerMaxValue;
-		OnTimerStop += () => TimerLabel.Text = "Time's out!";
+		timerCurrentValue = -1;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
