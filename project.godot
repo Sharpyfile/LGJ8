@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="LGJ8"
-run/main_scene="res://Scenes/CardController.tscn"
+run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
@@ -22,8 +22,9 @@ AudioManager="*res://Scenes/Managers/AudioManager.tscn"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=4
 
 [dotnet]
 

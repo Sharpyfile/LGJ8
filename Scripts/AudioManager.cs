@@ -30,4 +30,16 @@ public partial class AudioManager : Node
 			sound.PlaySound(ClipsAsDictionary[name]);
 		}
 	}
+
+	public AudioPlayer GetAudioPlayer(string name)
+	{
+        if (ClipsAsDictionary.ContainsKey(name))
+        {
+            AudioPlayer sound = AudioPlayerScene.Instantiate() as AudioPlayer;
+            AddChild(sound);
+            sound.PlaySound(ClipsAsDictionary[name]);
+			return sound;
+        }
+		return null;
+    }
 }

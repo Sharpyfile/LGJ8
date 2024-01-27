@@ -1,3 +1,119 @@
-[gd_scene format=3 uid="uid://by2f5xoaunwg0"]
+[gd_scene load_steps=7 format=3 uid="uid://by2f5xoaunwg0"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://bjvpkyag3nphy" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
+[ext_resource type="Texture2D" uid="uid://cb4w7fde7wpxq" path="res://Sprites/icon.svg" id="2_8fvjv"]
+[ext_resource type="Texture2D" uid="uid://uwhivkvti1xv" path="res://Sprites/chair_placeholder.png" id="3_je8gn"]
+
+[sub_resource type="Animation" id="Animation_vvd6l"]
+resource_name = "RaiseHand"
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(300, 0, 0, 0.1, -50, 0, -0.5, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_qs3l7"]
+resource_name = "LowerHand"
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 50, 300, -0.5, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ar1p3"]
+_data = {
+"LowerHand": SubResource("Animation_qs3l7"),
+"RaiseHand": SubResource("Animation_vvd6l")
+}
+
+[node name="Main" type="Node"]
+
+[node name="GameplayArea" type="Control" parent="."]
+clip_children = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 300.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="GameplayArea"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0001
+offset_bottom = -0.00012207
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hand" type="Node2D" parent="GameplayArea/Control"]
+position = Vector2(0, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control/Hand"]
+texture = ExtResource("2_8fvjv")
+
+[node name="Control2" type="Control" parent="GameplayArea"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Audience" type="Node2D" parent="GameplayArea/Control2"]
+position = Vector2(0, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control2/Audience"]
+texture = ExtResource("3_je8gn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameplayArea"]
+libraries = {
+"": SubResource("AnimationLibrary_ar1p3")
+}
+
+[node name="MainCanvas" parent="." instance=ExtResource("1_imsjj")]
