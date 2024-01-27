@@ -3,20 +3,14 @@ using System;
 
 public partial class Spectator : Node2D
 {
-	public enum State
-	{
-		ENTERING,
-		WATCHING,
-		EXITING
-	}
 
 
-	[Export] private Animal _type;
-	[Export] private State _state;
-	[Export] private float _speed = 5;
-	[Export] public int Annoyence { get; private set; } = 2;
+	[Export] public Animal Type { get; private set; }
+	[Export] public SpectatorState State { get; private set; }
+	[Export] public int Annoyance { get; private set; } = 2;
 	[Export] public int AnnoyLimit { get; private set; } = 5;
 
+	[Export] private float _speed = 5;
 	private Seat _seat;
 	private Node2D _exit;
 
@@ -28,23 +22,23 @@ public partial class Spectator : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		switch (_state)
+		switch (State)
 		{
-			case State.ENTERING:
+			case SpectatorState.ENTERING:
 				if (Step(_seat))
 				{
 					_seat.spectator = this;
-					_state = State.WATCHING;
+					State = SpectatorState.WATCHING;
 				}
 				break;
-			case State.WATCHING: 
-				if (Annoyence > AnnoyLimit)
+			case SpectatorState.WATCHING:
+				if (Annoyance > AnnoyLimit)
 				{
 					_seat.spectator = null;
-					_state = State.EXITING;
+					State = SpectatorState.EXITING;
 				}
 				break;
-			case State.EXITING:
+			case SpectatorState.EXITING:
 				if (Step(_exit))
 				{
 					QueueFree();
@@ -61,15 +55,15 @@ public partial class Spectator : Node2D
 
 	public void ApplyCard(ICardBasic card)
 	{
-		if (card.Influence.TryGetValue(_type, out int value))
+		if (card.Influence.TryGetValue(Type, out int value))
 		{
-			Annoyence -= value;
+			Annoyance -= value;
 		}
 	}
 
 	public void Annoy()
 	{
-        Annoyence++;
+		Annoyance++;
 	}
 
 	/**
