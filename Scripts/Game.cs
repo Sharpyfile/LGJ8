@@ -5,9 +5,12 @@ using System.IO;
 
 public partial class Game : Node
 {
-	// List<T> allCards = new List<T>();
-	// List<T> cardsOnHand = new List<T>();
-	// List<T> audience = new List<T>();
+	List<Card> allCards = new List<Card>();
+	List<Card> cardsOnHand = new List<Card>();
+	List<Spectator> spectators = new List<Spectator>();
+
+	SpectatorController spectatorController = new SpectatorController();
+	CardController cardController = new CardController();
 
 	int audienceReaction = 0;
 
@@ -24,6 +27,10 @@ public partial class Game : Node
 	#region Initializing
 	public void DrawFullHand()
 	{
+		for (int i = 0; i < 5; i++)
+		{
+			cardController.DrawCard();
+		}
 	}
 
 	public void PopulateAudience()
@@ -54,19 +61,20 @@ public partial class Game : Node
 	{
 	}
 
-	public void EvaluateAudienceMemberReaction()
+	public void EvaluateAudienceMemberReaction(Spectator spectatorToEvaluate, Card cardToApply)
 	{
+		spectatorToEvaluate.ApplyCard(cardToApply);
 	}
 
-	public void EvaluateAudienceReaction()
+	public void EvaluateAudienceReaction(Card cardToApply)
 	{
-		// foreach (var audienceMember in audience)
-		// {
-		// 	EvaluateAudienceMemberReaction();
-		// 	//TODO:
-		// 	//calculate overall audience reaction
-		// 	//play sound according to overall audience reaction
-		// }
+		foreach (Spectator spectator in spectators)
+		{
+			spectator.ApplyCard(cardToApply);
+			//TODO:
+			//calculate overall audience reaction
+			//play sound according to overall audience reaction
+		}
 	}
 	#endregion
 
@@ -83,17 +91,17 @@ public partial class Game : Node
 		HandEnterAnimation();
 	}
 
-	public void ExitHandView()
+	public void ExitHandView(Card cardToPlay)
 	{
 		HandExitAnimation();
-		RemoveCard();
-		DrawCard();
-		EnterAudienceReactionView();
+		EvaluateAudienceReaction(cardToPlay);
+		cardController.DiscardCard(cardToPlay);
+		cardController.DrawCard();
 	}
 
-	public void EnterAudienceReactionView()
+	public void EnterAudienceReactionView(Card cardToApply)
 	{
-		EvaluateAudienceReaction();
+		
 	}
 
 	public void ExitAudienceReactionView()
