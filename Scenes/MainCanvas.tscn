@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bjvpkyag3nphy"]
 
-[ext_resource type="Script" path="res://Scenes/MainUI.cs" id="1_fwt3o"]
+[ext_resource type="Script" path="res://Scripts/MainUI.cs" id="1_yjvoj"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_0r6cd"]
 [ext_resource type="PackedScene" uid="uid://th3do266bg5" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
 
@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fwt3o")
+script = ExtResource("1_yjvoj")
 Timer = NodePath("Timer")
 
 [node name="Button" type="Button" parent="."]
