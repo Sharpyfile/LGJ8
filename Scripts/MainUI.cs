@@ -22,27 +22,27 @@ public partial class MainUI : Control
 		base._Ready();
 	}
 
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
 
-		if (_spectatorController._isAudienceFull && !_isFullInitial)
+		if (_spectatorController.IsAudienceFull && !_isFullInitial)
 		{
 			_isFullInitial = true;
 			if (AudioManager.Instance.AmbientPlayer != null)
 			{
-                AudioManager.Instance.AmbientPlayer.StopMusic(1.5f);
-                AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer", 2.0f);
-            }
-        }
-    }
+				AudioManager.Instance.AmbientPlayer.StopMusic(1.5f);
+				AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer", 2.0f);
+			}
+		}
+	}
 
-    public void OnClickStartAnimation()
+	public void OnClickStartAnimation()
 	{
 		TransitionAnimator.Play("SceneTransitionOut");
 		if (AudioPlayer != null)
 			AudioPlayer.StopMusic(1.5f);
-    }
+	}
 
 	public void OnFinishLoadMainGameplayScene(StringName animationName)
 	{

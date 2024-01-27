@@ -27,7 +27,8 @@ public partial class SpectatorController : Node2D
 
 	[Export] private Array<PackedScene> _pool;
 	[Export] private Array<Spectator> _spectators;
-	[Export] public bool _isAudienceFull { get; private set; }
+	[Export] public bool IsAudienceFull { get; private set; }
+	[Export] public bool InitCompleted { get; private set; }
 
 	private RandomNumberGenerator _rng = new();
 	private float _midX;
@@ -50,14 +51,27 @@ public partial class SpectatorController : Node2D
 	public override void _Process(double delta)
 	{
 		// Fill audence on init 
-		if (!_isAudienceFull)
+		if (!IsAudienceFull)
 		{
 			_spawnTimer += delta;
 			if (_spawnTimer > _spawnRate)
 			{
-				_isAudienceFull = !SpawnSpectator();
+				IsAudienceFull = !SpawnSpectator();
 				_spawnTimer -= _spawnRate;
 			}
+		}
+		else if (!InitCompleted)
+		{
+			bool completed = true;
+			foreach (var spectator in _spectators)
+			{
+				if (spectator.State == SpectatorState.ENTERING)
+				{
+					completed = false;
+					break;
+				}
+			}
+			InitCompleted = completed;
 		}
 	}
 

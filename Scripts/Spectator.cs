@@ -65,6 +65,7 @@ public partial class Spectator : Node2D
 				}
 				break;
 			case SpectatorState.EXITING:
+
 				if (!_midpointReached)
 				{
 					_midpointReached = Step(_midpoint);
@@ -111,16 +112,10 @@ public partial class Spectator : Node2D
 		Vector2 diff = target - GlobalPosition;
 		Vector2 step = diff.Normalized() * _speed;
 
-		if (diff.Length() > step.Length())
-		{
-			GlobalPosition += step;
-			return false;
-		}
-		else
-		{
-			GlobalPosition = target;
-			return true;
-		}
+		var overshoot = _speed > diff.Length();
+		GlobalPosition = overshoot ? target : GlobalPosition + step;
+
+		return overshoot;
 	}
 
 	private void SetMood(Mood mood)
