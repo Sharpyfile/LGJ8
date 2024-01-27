@@ -85,6 +85,7 @@ public partial class Game : Node
 
 	public void ExitHandView()
 	{
+		HandExitAnimation();
 		RemoveCard();
 		DrawCard();
 		EnterAudienceReactionView();
@@ -97,7 +98,14 @@ public partial class Game : Node
 
     public void ExitAudienceReactionView()
     {
-        EvaluateGameEndCondition();
+        if (EvaluateGameEndCondition())
+        {
+            EnterGameEndView();
+        }
+        else
+        {
+            EnterHandView();
+        }
     }
 
     public void EnterGameEndView()
@@ -123,17 +131,10 @@ public partial class Game : Node
 	}
     #endregion
 
-    public void EvaluateGameEndCondition()
+    public bool EvaluateGameEndCondition()
 	{
 		bool gameEndCondition = false;
 
-		if (gameEndCondition)
-		{
-			EnterGameEndView();
-		}
-		else
-		{
-			EnterHandView();
-		}
+		return gameEndCondition;
 	}
 }
