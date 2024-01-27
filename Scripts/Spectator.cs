@@ -18,7 +18,8 @@ public partial class Spectator : Node2D
 	private Seat _seat;
 	private SpectatorController _controller;
 	private Vector2 _entrance;
-	private Vector2 _exit;
+	private Vector2 _midpoint;
+	private bool _midpointReached = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -31,13 +32,17 @@ public partial class Spectator : Node2D
 		switch (State)
 		{
 			case SpectatorState.ENTERING:
-				if (GlobalPosition.Y < _seat.GlobalPosition.Y)
+				if (!_midpointReached)
 				{
-					Step(new Vector2(_entrance.X, _seat.GlobalPosition.Y));
+					_midpointReached = Step(_midpoint);
 				}
 				else
 				{
-					if (Step(_seat.GlobalPosition)) State = SpectatorState.WATCHING;
+					if (Step(_seat.GlobalPosition))
+					{
+						State = SpectatorState.WATCHING;
+						_midpointReached = false;
+					}
 				}
 				break;
 			case SpectatorState.WATCHING:
@@ -60,26 +65,26 @@ public partial class Spectator : Node2D
 				}
 				break;
 			case SpectatorState.EXITING:
-				if (GlobalPosition.X < _exit.X)
+				if (!_midpointReached)
 				{
-					Step(new Vector2(_exit.X, _seat.GlobalPosition.Y));
+					_midpointReached = Step(_midpoint);
 				}
 				else
 				{
-					if (Step(_exit)) _controller.Remove(this);
+					if (Step(_entrance)) _controller.Remove(this);
 				}
 				break;
 		}
 	}
 
-	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat, Vector2 exit)
+	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat)
 	{
 		_controller = controller;
 		_seat = seat;
 		_seat.spectator = this;
 
 		_entrance = entrance;
-		_exit = exit;
+		_midpoint = new Vector2(entrance.X, _seat.GlobalPosition.Y);
 		SetMood(Mood.NEUTRAL);
 	}
 
