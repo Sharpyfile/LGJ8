@@ -23,7 +23,7 @@ public partial class Spectator : Node2D
 	[Export] private double _annoyence = 0.0;
 	[Export] private double _annoyPerSecond = 0.0333;
 
-	private Node2D _seat;
+	private Seat _seat;
 	private Node2D _exit;
 
 	// Called when the node enters the scene tree for the first time.
@@ -37,21 +37,31 @@ public partial class Spectator : Node2D
 		switch (_state)
 		{
 			case State.ENTERING:
-				if (Step(_seat)) _state = State.WATCHING;
+				if (Step(_seat))
+				{
+					_seat.spectator = this;
+					_state = State.WATCHING;
+				}
 				break;
 			case State.WATCHING: 
 				_annoyence += _annoyPerSecond * delta;
-				if (_annoyence > 1.0) _state = State.EXITING;
+				if (_annoyence > 1.0)
+				{
+					_seat.spectator = null;
+					_state = State.EXITING;
+				}
 				break;
 			case State.EXITING:
-				if (Step(_exit)) QueueFree();
+				if (Step(_exit))
+				{
+					QueueFree();
+				}
 				break;
 		}
 	}
 
-	public void Initialize(Node2D seat, Node2D exit)
+	public void Initialize(Seat seat, Node2D exit)
 	{
-		GD.Print(seat, exit);
 		_seat = seat;
 		_exit = exit;
 	}

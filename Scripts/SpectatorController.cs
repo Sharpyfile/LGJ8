@@ -13,20 +13,19 @@ public partial class SpectatorController : Node2D
 	[Export] private Node2D _entrace;
 	[Export] private Node2D _exit;
 	[Export] private Node _seatsParent;
-	private Array<Node2D> _seats = new();
+	private Array<Seat> _seats = new();
 
 	[Export] private Node _spectatorsParent;
 	[Export] private PackedScene _spectatorScene;
-	private Array<Node2D> _spectators = new();
 
-	private int _tmp_counter = 0;
+	private RandomNumberGenerator rng = new();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		foreach (var child in _seatsParent.GetChildren())
 		{
-			if (child is Node2D) _seats.Add(child as Node2D);
+			if (child is Seat) _seats.Add(child as Seat);
 		}
 	}
 
@@ -34,19 +33,38 @@ public partial class SpectatorController : Node2D
 	public override void _Process(double delta)
 	{
 		_timer += delta;
-
 		if (_timer > _spawnRate)
 		{
-			Spectator newSpectator = _spectatorScene.Instantiate<Spectator>();
+			var seat = SelectSeat();
+			if (seat != null)
+			{
+				var spectator = _spectatorScene.Instantiate<Spectator>();
+				_spectatorsParent.AddChild(spectator);
 
-			_spectators.Add(newSpectator);
-			_spectatorsParent.AddChild(newSpectator);
-
-			newSpectator.Position = _entrace.Position;
-			newSpectator.Initialize(_seats[_tmp_counter++], _exit);
-
-			if (_tmp_counter >= _seats.Count) _tmp_counter = 0;
+				spectator.Position = _entrace.Position;
+				spectator.Initialize(seat, _exit);
+			}
 			_timer -= _spawnRate;
 		}
 	}
+
+	/**
+	 * Return random seat or null, if all seats are occupied;
+	 */
+	private Seat SelectSeat()
+	{
+		int random = rng.RandiRange(0, _seats.Count - 1);
+		int index = random;
+
+
+		while (_seats[index].Occupied)
+		{
+			if (index == random) return null; // loop completed
+			if (index >= _seats.Count) index = 0;
+			index++;
+		}
+
+		return _seats[index];
+	}
 }
+
