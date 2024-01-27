@@ -87,20 +87,20 @@ public partial class Game : Node
 	public void EnterHandView()
 	{
 		HandEnterAnimation();
-        timer.RestartTimer(timer.TimerMaxValue);
-    }
+		timer.RestartTimer(timer.TimerMaxValue);
+	}
 
 	public void PlayCardView(Card cardToPlay)
 	{
 		int cardWeight = 0;
 		if (cardToPlay.Influence[Animal.CAT] > 0)
 		{
-            cardWeight = cardToPlay.Influence[Animal.CAT];
+			cardWeight = cardToPlay.Influence[Animal.CAT];
 		}
 		else if (cardToPlay.Influence[Animal.BIRD] > 0)
 		{
-            cardWeight = cardToPlay.Influence[Animal.BIRD];
-        }
+			cardWeight = cardToPlay.Influence[Animal.BIRD];
+		}
 		else
 		{
 			cardWeight = cardToPlay.Influence[Animal.FISH];
@@ -122,14 +122,14 @@ public partial class Game : Node
         }
 		else if (overallSpectatorsReaction <= spectatorsReactionThreshold)
 		{
-            //play neutral crowd reaction
-            audioManager.PlaySound("synthCricket.wav");
-        }
+			//play neutral crowd reaction
+			audioManager.PlaySound("synthCricket.wav");
+		}
 		else
 		{
-            //play laughing crowd reaction
-            audioManager.PlaySound("crowdLaugh1.wav");
-        }
+			//play laughing crowd reaction
+			audioManager.PlaySound("crowdLaugh1.wav");
+		}
 
 		if (EvaluateGameEndCondition())
 		{
@@ -152,21 +152,21 @@ public partial class Game : Node
 		{
 			spectator.Annoy();
 		}
-        if (EvaluateGameEndCondition())
-        {
-            EnterGameEndView();
-        }
-        else
-        {
-            EnterHandView();
-        }
-    }
+		if (EvaluateGameEndCondition())
+		{
+			EnterGameEndView();
+		}
+		else
+		{
+			EnterHandView();
+		}
+	}
 	#endregion
 
 	#region Animations
 	public void HandEnterAnimation()
 	{
-		
+
 	}
 
 	public void HandExitAnimation()
