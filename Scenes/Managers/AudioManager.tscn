@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ba3re04d56bax"]
+[gd_scene load_steps=16 format=3 uid="uid://ba3re04d56bax"]
 
 [ext_resource type="Script" path="res://Scripts/AudioManager.cs" id="1_xwbrx"]
 [ext_resource type="AudioStream" uid="uid://ep8b7jvy8rbh" path="res://Sounds/typewriterEndStroke.wav" id="2_4bq6t"]
@@ -14,8 +14,9 @@
 [ext_resource type="AudioStream" uid="uid://ulo66vedmd34" path="res://Sounds/jazzMenu2.wav" id="10_hk3qf"]
 [ext_resource type="AudioStream" uid="uid://djmfnvg1y0o1" path="res://Sounds/jazzMenu3.wav" id="11_iac74"]
 [ext_resource type="AudioStream" uid="uid://5rf7i513os3v" path="res://Sounds/cafeAmbience.mp3" id="13_lrvnb"]
+[ext_resource type="AudioStream" uid="uid://umytet7rx5uv" path="res://Sounds/Plain Loafer.mp3" id="14_yki5i"]
 
 [node name="AudioStreamPlayer" type="Node"]
 script = ExtResource("1_xwbrx")
-Clips = Array[AudioStream]([ExtResource("2_4bq6t"), ExtResource("3_uab1u"), ExtResource("4_k38e4"), ExtResource("5_b4rw1"), ExtResource("6_o37w1"), ExtResource("7_3nxbo"), ExtResource("8_ufb36"), ExtResource("9_5s5hf"), ExtResource("9_be4lr"), ExtResource("10_hk3qf"), ExtResource("11_iac74"), ExtResource("13_lrvnb")])
+Clips = Array[AudioStream]([ExtResource("2_4bq6t"), ExtResource("3_uab1u"), ExtResource("4_k38e4"), ExtResource("5_b4rw1"), ExtResource("6_o37w1"), ExtResource("7_3nxbo"), ExtResource("8_ufb36"), ExtResource("9_5s5hf"), ExtResource("9_be4lr"), ExtResource("10_hk3qf"), ExtResource("11_iac74"), ExtResource("13_lrvnb"), ExtResource("14_yki5i")])
 AudioPlayerScene = ExtResource("8_rhuus")
