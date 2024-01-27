@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cneplbc6lodoc"]
+[gd_scene load_steps=9 format=3 uid="uid://cneplbc6lodoc"]
 
 [ext_resource type="Script" path="res://Scripts/Card.cs" id="1_tt8yx"]
 [ext_resource type="Texture2D" uid="uid://dirhnskpo052m" path="res://Sprites/Card.png" id="2_4jrn1"]
 [ext_resource type="Texture2D" uid="uid://cb4w7fde7wpxq" path="res://Sprites/icon.svg" id="3_sm4j6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4mm7a"]
+diffuse_texture = ExtResource("2_4jrn1")
 
 [sub_resource type="LabelSettings" id="LabelSettings_jl2ti"]
 font_size = 32
@@ -20,27 +23,40 @@ font_color = Color(0.862745, 0.392157, 0, 1)
 font_size = 35
 font_color = Color(0.392157, 0.521569, 1, 1)
 
-[node name="Card" type="Node2D"]
+[node name="Card" type="Node2D" node_paths=PackedStringArray("JokeLabel", "BirdSprite", "CatSprite", "FishSprite")]
 script = ExtResource("1_tt8yx")
 Influence = {}
+JokeLabel = NodePath("Button/Joke")
+BirdSprite = NodePath("Button/Bird")
+CatSprite = NodePath("Button/Cat")
+FishSprite = NodePath("Button/Fish")
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(197, 290)
-texture = ExtResource("2_4jrn1")
+[node name="Button" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.5
+offset_top = -3.0
+offset_right = 397.5
+offset_bottom = 583.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = SubResource("CanvasTexture_4mm7a")
 
-[node name="Joke" type="Label" parent="Background"]
-offset_left = -163.0
-offset_top = -244.0
-offset_right = 137.0
-offset_bottom = -178.0
+[node name="Joke" type="Label" parent="Button"]
+layout_mode = 0
+offset_left = 37.5
+offset_top = 49.0
+offset_right = 337.5
+offset_bottom = 115.0
 text = "DUPA"
 label_settings = SubResource("LabelSettings_jl2ti")
 
-[node name="Bird" type="Sprite2D" parent="Background"]
-position = Vector2(-116, -124)
+[node name="Bird" type="Sprite2D" parent="Button"]
+position = Vector2(84.5, 169)
 texture = ExtResource("3_sm4j6")
 
-[node name="Influence" type="Label" parent="Background/Bird"]
+[node name="Influence" type="Label" parent="Button/Bird"]
 anchors_preset = -1
 anchor_right = 0.507813
 anchor_bottom = 0.210938
@@ -51,11 +67,11 @@ offset_bottom = 12.0
 label_settings = SubResource("LabelSettings_0umc3")
 metadata/_edit_use_anchors_ = true
 
-[node name="Cat" type="Sprite2D" parent="Background"]
-position = Vector2(-113, 23)
+[node name="Cat" type="Sprite2D" parent="Button"]
+position = Vector2(87.5, 316)
 texture = ExtResource("3_sm4j6")
 
-[node name="Influence" type="Label" parent="Background/Cat"]
+[node name="Influence" type="Label" parent="Button/Cat"]
 anchors_preset = -1
 anchor_right = 0.804688
 anchor_bottom = 0.179688
@@ -66,11 +82,11 @@ offset_bottom = -4.0
 label_settings = SubResource("LabelSettings_p8dxl")
 metadata/_edit_use_anchors_ = true
 
-[node name="Fish" type="Sprite2D" parent="Background"]
-position = Vector2(-113, 169)
+[node name="Fish" type="Sprite2D" parent="Button"]
+position = Vector2(87.5, 462)
 texture = ExtResource("3_sm4j6")
 
-[node name="Influence" type="Label" parent="Background/Fish"]
+[node name="Influence" type="Label" parent="Button/Fish"]
 anchors_preset = -1
 anchor_right = 0.648438
 anchor_bottom = 0.25
@@ -80,3 +96,5 @@ offset_right = 135.0
 offset_bottom = -5.0
 label_settings = SubResource("LabelSettings_7hpys")
 metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Button" to="." method="PlayCard"]

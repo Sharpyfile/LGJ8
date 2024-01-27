@@ -24,41 +24,53 @@ public partial class Card : Node2D, ICardBasic
 		set
 		{
 			_text = value;
-			BGSprite.GetChild<Label>(0).Text = value;
+			JokeLabel.Text = value;
 		}
 	}
 
 	[Export]
 	public Dictionary<Animal, int> Influence { get; set; }
 
-	private Sprite2D BGSprite { get { return GetChild<Sprite2D>(0); } }
-	private Sprite2D Bird { get { return BGSprite.GetChild<Sprite2D>(1); } }
-	private Sprite2D Cat { get { return BGSprite.GetChild<Sprite2D>(2); } }
-	private Sprite2D Fish { get { return BGSprite.GetChild<Sprite2D>(3); } }
+	[Export]
+	public Label JokeLabel { get; private set; }
+	[Export]
+	public Sprite2D BirdSprite { get; private set; }
+	[Export]
+	public Sprite2D CatSprite { get; private set; }
+	[Export]
+	public Sprite2D FishSprite { get; private set; }
 
 	private readonly Color BAD_COLOR = new Color("#FF0000");
 	private readonly Color GOOD_COLOR = new Color("#00FF00");
 	private readonly Color NEUTRAL_COLOR = new Color("#000");
 
-	public void Initialize(CardBasic card)
+	private CardController _controller;
+
+	public void Initialize(CardBasic card, CardController controller)
 	{
 		Text = card.Text;
 		Influence = card.Influence;
+		_controller = controller;
 
 		Influence.TryGetValue(Animal.BIRD, out int influence);
-		var birdLabel = Bird.GetChild<Label>(0);
+		var birdLabel = BirdSprite.GetChild<Label>(0);
 		birdLabel.Text = influence.ToString();
 		birdLabel.LabelSettings.FontColor = getColor(influence);
 
 		Influence.TryGetValue(Animal.CAT, out influence);
-		var catLabel = Cat.GetChild<Label>(0);
+		var catLabel = CatSprite.GetChild<Label>(0);
 		catLabel.Text = influence.ToString();
 		catLabel.LabelSettings.FontColor = getColor(influence);
 
 		Influence.TryGetValue(Animal.FISH, out influence);
-		var fishLabel = Fish.GetChild<Label>(0);
+		var fishLabel = FishSprite.GetChild<Label>(0);
 		fishLabel.Text = influence.ToString();
 		fishLabel.LabelSettings.FontColor = getColor(influence);
+	}
+
+	public void PlayCard()
+	{
+		_controller.DiscardCard(this);
 	}
 
 

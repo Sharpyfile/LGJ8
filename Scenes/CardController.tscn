@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/CardController.cs" id="1_belry"]
 [ext_resource type="PackedScene" uid="uid://cneplbc6lodoc" path="res://Scenes/Card.tscn" id="2_5i5g4"]
 
-[node name="CardController" type="Node"]
+[node name="CardController" type="Node" node_paths=PackedStringArray("Hand")]
 script = ExtResource("1_belry")
 CardPrefab = ExtResource("2_5i5g4")
+Hand = []
 
 [node name="Node2D" type="Node2D" parent="."]
