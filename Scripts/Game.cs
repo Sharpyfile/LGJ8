@@ -5,14 +5,12 @@ using System.IO;
 
 public partial class Game : Node
 {
-	List<Card> allCards = new List<Card>();
-	List<Card> cardsOnHand = new List<Card>();
 	List<Spectator> spectators = new List<Spectator>();
 
 	SpectatorController spectatorController = new SpectatorController();
 	CardController cardController = new CardController();
 
-	int audienceReaction = 0;
+	int overallSpectatorsReaction = 0;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -33,7 +31,7 @@ public partial class Game : Node
 		}
 	}
 
-	public void PopulateAudience()
+	public void PopulateSpectators()
 	{
 	}
 	#endregion
@@ -48,43 +46,33 @@ public partial class Game : Node
 	//}
 	#endregion
 
-	#region Audience Operations
-	//public void AddAudienceMember()
+	#region Spectators Operations
+	//public void AddSpectator()
 	//{
 	//}
 
-	//public void RemoveAudienceMember()
+	//public void RemoveSpectator()
 	//{
 	//}
 
-	//public void SwapAudienceMember()
+	//public void SwapSpectator()
 	//{
 	//}
 
-	public void EvaluateAudienceMemberReaction(Spectator spectatorToEvaluate, Card cardToApply)
+	public void EvaluateSpectatorReaction(Spectator spectatorToEvaluate, Card cardToApply)
 	{
 		spectatorToEvaluate.ApplyCard(cardToApply);
 	}
 
-	public void EvaluateAudienceReaction(Card cardToApply)
+	public void EvaluateSpectatorsReaction(Card cardToApply)
 	{
 		foreach (Spectator spectator in spectators)
 		{
 			spectator.ApplyCard(cardToApply);
-			//TODO:
-			//calculate overall audience reaction
-			//play sound according to overall audience reaction
-			switch(audienceReaction)
-			{
-				case >= 4:
-                    //play laughing crowd reaction
-                    break;
-				case < 4:
-					//play neutral crowd reaction
-					break;
-				default:
-                    //play angry crowd reaction
-            }
+            //TODO:
+            //calculate overall spectators reaction
+            //play sound according to overall spectators reaction
+            
         }
 	}
 	#endregion
@@ -93,8 +81,8 @@ public partial class Game : Node
 	public void OpeningScene()
 	{
 		DrawFullHand();
-		PopulateAudience();
-		AudienceEnterAnimation();
+		PopulateSpectators();
+		SpectatorsEnterAnimation();
 	}
 
 	public void EnterHandView()
@@ -105,27 +93,31 @@ public partial class Game : Node
 	public void ExitHandView(Card cardToPlay)
 	{
 		HandExitAnimation();
-		EvaluateAudienceReaction(cardToPlay);
+        EvaluateSpectatorsReaction(cardToPlay);
 		cardController.DiscardCard(cardToPlay);
 		cardController.DrawCard();
-	}
 
-	public void EnterAudienceReactionView(Card cardToApply)
-	{
-		
-	}
+        switch (overallSpectatorsReaction)
+        {
+            case >= 4:
+                //play laughing crowd reaction
+                break;
+            case < 4:
+                //play neutral crowd reaction
+                break;
+            default:
+                //play angry crowd reaction
+        }
 
-	public void ExitAudienceReactionView()
-	{
-		if (EvaluateGameEndCondition())
-		{
-			EnterGameEndView();
-		}
-		else
-		{
-			EnterHandView();
-		}
-	}
+        if (EvaluateGameEndCondition())
+        {
+            EnterGameEndView();
+        }
+        else
+        {
+            EnterHandView();
+        }
+    }
 
 	public void EnterGameEndView()
 	{
@@ -145,7 +137,7 @@ public partial class Game : Node
 	{
 	}
 
-	public void AudienceEnterAnimation()
+	public void SpectatorsEnterAnimation()
 	{
 	}
 	#endregion
