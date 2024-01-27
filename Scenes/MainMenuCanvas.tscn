@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://be60drpm8x8d"]
+[gd_scene load_steps=6 format=3 uid="uid://be60drpm8x8d"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenuUI.cs" id="1_advip"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_c2wbj"]
 [ext_resource type="PackedScene" uid="uid://cjvdrgsxeuylq" path="res://Scenes/OptionsMenu.tscn" id="2_sdjuc"]
+[ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_wf6vt"]
 [ext_resource type="PackedScene" uid="uid://6n7iprqku8uq" path="res://Scenes/Credits.tscn" id="3_c415j"]
 
 [node name="MainManuCanvas" type="Control" node_paths=PackedStringArray("OptionMenu", "Credits")]
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 script = ExtResource("1_advip")
 OptionMenu = NodePath("OptionsMenu")
 Credits = NodePath("Credits")
@@ -53,35 +55,45 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="StartGameButton" type="Button" parent="Column/VBoxContainer"]
-custom_minimum_size = Vector2(200, 40)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+theme = ExtResource("2_wf6vt")
+theme_override_font_sizes/font_size = 24
 text = "Start Game"
 script = ExtResource("2_c2wbj")
 
 [node name="OptionsButton" type="Button" parent="Column/VBoxContainer"]
-custom_minimum_size = Vector2(200, 40)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+theme = ExtResource("2_wf6vt")
+theme_override_font_sizes/font_size = 24
 text = "Options"
 script = ExtResource("2_c2wbj")
 SoundVariant = 1
 
 [node name="CreditsButton" type="Button" parent="Column/VBoxContainer"]
-custom_minimum_size = Vector2(200, 40)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+theme = ExtResource("2_wf6vt")
+theme_override_font_sizes/font_size = 24
 text = "Credits"
 script = ExtResource("2_c2wbj")
 SoundVariant = 2
 
 [node name="ExitButton" type="Button" parent="Column/VBoxContainer"]
-custom_minimum_size = Vector2(200, 40)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+theme = ExtResource("2_wf6vt")
+theme_override_font_sizes/font_size = 24
 text = "Exit"
 script = ExtResource("2_c2wbj")
 SoundVariant = 3
 
 [node name="PlaySoundTest" type="Button" parent="Column/VBoxContainer"]
-custom_minimum_size = Vector2(200, 40)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+theme = ExtResource("2_wf6vt")
+theme_override_font_sizes/font_size = 24
 text = "Play Sound test"
 
 [node name="Label" type="Label" parent="Column"]
@@ -92,6 +104,7 @@ anchor_bottom = 0.2
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
 text = "Łódzki Game Jam 8
 Make me Laugh
 "
