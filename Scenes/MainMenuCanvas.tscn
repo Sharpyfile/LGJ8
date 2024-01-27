@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://be60drpm8x8d"]
+[gd_scene load_steps=8 format=3 uid="uid://be60drpm8x8d"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenuUI.cs" id="1_advip"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_c2wbj"]
 [ext_resource type="PackedScene" uid="uid://cjvdrgsxeuylq" path="res://Scenes/OptionsMenu.tscn" id="2_sdjuc"]
 [ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_wf6vt"]
 [ext_resource type="PackedScene" uid="uid://6n7iprqku8uq" path="res://Scenes/Credits.tscn" id="3_c415j"]
+[ext_resource type="PackedScene" uid="uid://b2fr4ng70v4p0" path="res://Animations/SplashScreenAnimator.tscn" id="6_d6w2x"]
+[ext_resource type="PackedScene" uid="uid://dv8bpmyi00htt" path="res://Animations/SceneTransitionAnimation.tscn" id="7_3a23g"]
 
-[node name="MainManuCanvas" type="Control" node_paths=PackedStringArray("OptionMenu", "Credits")]
+[node name="MainManuCanvas" type="Control" node_paths=PackedStringArray("OptionMenu", "Credits", "TransitionAnimator")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +19,7 @@ size_flags_horizontal = 3
 script = ExtResource("1_advip")
 OptionMenu = NodePath("OptionsMenu")
 Credits = NodePath("Credits")
+TransitionAnimator = NodePath("SceneTransitionAnimation")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -57,6 +60,7 @@ grow_vertical = 2
 [node name="StartGameButton" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_wf6vt")
 theme_override_font_sizes/font_size = 24
 text = "Start Game"
@@ -65,6 +69,7 @@ script = ExtResource("2_c2wbj")
 [node name="OptionsButton" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_wf6vt")
 theme_override_font_sizes/font_size = 24
 text = "Options"
@@ -74,6 +79,7 @@ SoundVariant = 1
 [node name="CreditsButton" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_wf6vt")
 theme_override_font_sizes/font_size = 24
 text = "Credits"
@@ -83,6 +89,7 @@ SoundVariant = 2
 [node name="ExitButton" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_wf6vt")
 theme_override_font_sizes/font_size = 24
 text = "Exit"
@@ -92,6 +99,7 @@ SoundVariant = 3
 [node name="PlaySoundTest" type="Button" parent="Column/VBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_wf6vt")
 theme_override_font_sizes/font_size = 24
 text = "Play Sound test"
@@ -103,8 +111,9 @@ anchor_right = 1.0
 anchor_bottom = 0.2
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_wf6vt")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 text = "Łódzki Game Jam 8
 Make me Laugh
 "
@@ -117,8 +126,15 @@ layout_mode = 1
 [node name="Credits" parent="." instance=ExtResource("3_c415j")]
 layout_mode = 1
 
-[connection signal="pressed" from="Column/VBoxContainer/StartGameButton" to="." method="OnClickLoadMainGameplayScene"]
+[node name="SceneTransitionAnimation" parent="." instance=ExtResource("7_3a23g")]
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("6_d6w2x")]
+
+[connection signal="pressed" from="Column/VBoxContainer/StartGameButton" to="." method="OnClickStartAnimation"]
 [connection signal="pressed" from="Column/VBoxContainer/OptionsButton" to="." method="OnClickOpenHideOptions"]
 [connection signal="pressed" from="Column/VBoxContainer/CreditsButton" to="." method="OnClickOpenHideCredits"]
 [connection signal="pressed" from="Column/VBoxContainer/ExitButton" to="." method="OnClickExitGame"]
 [connection signal="pressed" from="Column/VBoxContainer/PlaySoundTest" to="." method="OnClickPlayTypewritter"]
+[connection signal="animation_finished" from="SceneTransitionAnimation" to="." method="OnFinishLoadMainGameplayScene"]
+
+[editable path="AnimationPlayer"]
