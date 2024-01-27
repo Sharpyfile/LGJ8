@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using Godot;
+using Godot.Collections;
 
 public partial class CardController : Node
 {
@@ -13,11 +13,14 @@ public partial class CardController : Node
 	[Export]
 	public Node2D PositionNode { get; set; }
 
+	[Export]
+	public Array<Card> Hand { get; set; }
 
 	private List<CardBasic> CardsToDraw = new();
 	private List<CardBasic> Deck = new();
 	private RandomNumberGenerator rng = new();
 	private double counter = 0.0;
+	private readonly int HAND_SIZE = 5;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -45,28 +48,27 @@ public partial class CardController : Node
 		CardsToDraw = new List<CardBasic>(Deck);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void DiscardCard(Card cardObject)
 	{
-		counter += delta;
-		if (counter >= 3.0)
-		{
-			GenerateCard();
-			counter = 0.0;
-		}
+		//TODO: Send to audience
+		Hand.Remove(cardObject);
+		cardObject.QueueFree();
 	}
 
-	public void GenerateCard()
+	public void DrawCard()
 	{
-		if (CardsToDraw.Count == 0)
+		if (Hand.Count < HAND_SIZE)
 		{
-			CardsToDraw = new List<CardBasic>(Deck);
+			if (CardsToDraw.Count == 0)
+			{
+				CardsToDraw = new List<CardBasic>(Deck);
+			}
+			int index = rng.RandiRange(0, CardsToDraw.Count);
+			Card cardObject = CardPrefab.Instantiate<Card>();
+			cardObject.Initialize(CardsToDraw[index], this);
+			CardsToDraw.RemoveAt(index);
+			PositionNode.AddChild(cardObject);
+			Hand.Add(cardObject);
 		}
-		int index = rng.RandiRange(0, CardsToDraw.Count);
-		Card cardObject = CardPrefab.Instantiate<Card>();
-		cardObject.Initialize(CardsToDraw[index]);
-		CardsToDraw.RemoveAt(index);
-		PositionNode.AddChild(cardObject);
-
 	}
 }
