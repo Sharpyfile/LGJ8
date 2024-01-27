@@ -37,17 +37,17 @@ public partial class Spectator : Node2D
 				break;
 			case SpectatorState.WATCHING:
 				Happiness = Math.Clamp(Happiness, (int)Mood.EXIT, (int)Mood.HAPPY);
-				if (Happiness > (int)Mood.NEUTRAL && Mood != Mood.HAPPY)
+				if (Happiness > (int)Mood.NEUTRAL)
 				{
-					ShowMood(Mood.HAPPY);
+					if (Mood != Mood.HAPPY) ShowMood(Mood.HAPPY);
 				}
-				else if (Happiness > (int)Mood.ANNOYED && Mood != Mood.NEUTRAL)
+				else if (Happiness > (int)Mood.ANNOYED)
 				{
-					ShowMood(Mood.NEUTRAL);
+					if (Mood != Mood.NEUTRAL) ShowMood(Mood.NEUTRAL);
 				}
-				else if (Happiness > (int)Mood.EXIT && Mood != Mood.ANNOYED)
+				else if (Happiness > (int)Mood.EXIT)
 				{
-					ShowMood(Mood.ANNOYED);
+					if (Mood != Mood.ANNOYED) ShowMood(Mood.ANNOYED);
 				}
 				else
 				{
@@ -108,7 +108,8 @@ public partial class Spectator : Node2D
 
 	private void ShowMood(Mood mood)
 	{
-		switch (Mood = mood)
+		Mood = mood;
+		switch (mood)
 		{
 			case Mood.HAPPY:
 				_spriteHappy.Visible = true;

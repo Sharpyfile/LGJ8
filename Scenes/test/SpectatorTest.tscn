@@ -1,10 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://co72lftkpybvj"]
 
-[ext_resource type="PackedScene" uid="uid://ddraicruvyq1c" path="res://Scenes/SpectatorController.tscn" id="1_w1xwh"]
+[ext_resource type="PackedScene" uid="uid://ddraicruvyq1c" path="res://Scenes/Spectators/SpectatorController.tscn" id="1_w1xwh"]
 
 [node name="SpectatorTest" type="Node2D"]
 
-[node name="SpectatorController" parent="." node_paths=PackedStringArray("_spectators") instance=ExtResource("1_w1xwh")]
-_spectators = []
+[node name="SpectatorController" parent="." instance=ExtResource("1_w1xwh")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
