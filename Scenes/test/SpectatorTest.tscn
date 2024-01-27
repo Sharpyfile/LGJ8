@@ -4,6 +4,7 @@
 
 [node name="SpectatorTest" type="Node2D"]
 
-[node name="SpectatorController" parent="." instance=ExtResource("1_w1xwh")]
+[node name="SpectatorController" parent="." node_paths=PackedStringArray("_spectators") instance=ExtResource("1_w1xwh")]
+_spectators = []
 
 [node name="Camera2D" type="Camera2D" parent="."]

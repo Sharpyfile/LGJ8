@@ -5,13 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://uwhivkvti1xv" path="res://Sprites/chair_placeholder.png" id="3_2pbtn"]
 [ext_resource type="Script" path="res://Scripts/Seat.cs" id="4_x6y63"]
 
-[node name="SpectatorController" type="Node2D" node_paths=PackedStringArray("_entrace", "_exit", "_seatsParent", "_spectatorsParent")]
+[node name="SpectatorController" type="Node2D" node_paths=PackedStringArray("_exit", "_seatsParent", "_spectatorsParent", "_spectators")]
 script = ExtResource("1_cldwj")
-_entrace = NodePath("Entrace")
 _exit = NodePath("Exit")
 _seatsParent = NodePath("Seats")
 _spectatorsParent = NodePath("Spectators")
 _spectatorScene = ExtResource("2_yoxos")
+_spectators = []
 
 [node name="Entrace" type="Node2D" parent="."]
 position = Vector2(-300, -50)

@@ -3,12 +3,16 @@ using System;
 
 public partial class Spectator : Node2D
 {
+	[Export] private Sprite2D _spriteHappy;
+	[Export] private Sprite2D _spriteNeutral;
+	[Export] private Sprite2D _spriteAnnoyed;
+
 
 
 	[Export] public Animal Type { get; private set; }
 	[Export] public SpectatorState State { get; private set; }
-	[Export] public int Annoyance { get; private set; } = 2;
-	[Export] public int AnnoyLimit { get; private set; } = 5;
+	[Export] public int Happiness { get; private set; } = 6;
+	[Export] public Mood Mood { get; private set; }
 
 	[Export] private float _speed = 5;
 	private Seat _seat;
@@ -32,10 +36,24 @@ public partial class Spectator : Node2D
 				}
 				break;
 			case SpectatorState.WATCHING:
-				if (Annoyance > AnnoyLimit)
+				Happiness = Math.Clamp(Happiness, (int)Mood.EXIT, (int)Mood.HAPPY);
+				if (Happiness > (int)Mood.NEUTRAL && Mood != Mood.HAPPY)
 				{
-					_seat.spectator = null;
+					ShowMood(Mood.HAPPY);
+				}
+				else if (Happiness > (int)Mood.ANNOYED && Mood != Mood.NEUTRAL)
+				{
+					ShowMood(Mood.NEUTRAL);
+				}
+				else if (Happiness > (int)Mood.EXIT && Mood != Mood.ANNOYED)
+				{
+					ShowMood(Mood.ANNOYED);
+				}
+				else
+				{
+					Mood = Mood.EXIT;
 					State = SpectatorState.EXITING;
+					_seat.spectator = null;
 				}
 				break;
 			case SpectatorState.EXITING:
@@ -53,17 +71,19 @@ public partial class Spectator : Node2D
 		_exit = exit;
 	}
 
-	public void ApplyCard(ICardBasic card)
+	public int ApplyCard(ICardBasic card)
 	{
 		if (card.Influence.TryGetValue(Type, out int value))
 		{
-			Annoyance -= value;
+			Happiness += value;
+			return value;
 		}
+		return 0;
 	}
 
 	public void Annoy()
 	{
-		Annoyance++;
+		Happiness--;
 	}
 
 	/**
@@ -83,6 +103,29 @@ public partial class Spectator : Node2D
 		{
 			Position = target.Position;
 			return true;
+		}
+	}
+
+	private void ShowMood(Mood mood)
+	{
+		switch (Mood = mood)
+		{
+			case Mood.HAPPY:
+				_spriteHappy.Visible = true;
+				_spriteNeutral.Visible = false;
+				_spriteAnnoyed.Visible = false;
+				break;
+			case Mood.NEUTRAL:
+				_spriteNeutral.Visible = true;
+				_spriteHappy.Visible = false;
+				_spriteAnnoyed.Visible = false;
+				break;
+			case Mood.ANNOYED:
+			case Mood.EXIT:
+				_spriteAnnoyed.Visible = true;
+				_spriteHappy.Visible = false;
+				_spriteNeutral.Visible = false;
+				break;
 		}
 	}
 }
