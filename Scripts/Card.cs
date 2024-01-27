@@ -7,8 +7,6 @@ public class CardBasic : ICardBasic
 	public Dictionary<Animal, int> Influence { get; set; }
 }
 
-public enum Animal { CAT, BIRD, FISH }
-
 public interface ICardBasic
 {
 	public string Text { get; set; }

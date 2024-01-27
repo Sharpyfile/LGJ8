@@ -3,12 +3,6 @@ using System;
 
 public partial class Spectator : Node2D
 {
-	public enum Type { 
-		CAT,
-		FISH, 
-		BIRD
-	}
-
 	public enum State
 	{
 		ENTERING,
@@ -17,11 +11,11 @@ public partial class Spectator : Node2D
 	}
 
 
-	[Export] private Type _type;
+	[Export] private Animal _type;
 	[Export] private State _state;
 	[Export] private float _speed = 5;
-	[Export] private double _annoyence = 0.0;
-	[Export] private double _annoyPerSecond = 0.0333;
+	[Export] public int Annoyence { get; private set; } = 2;
+	[Export] public int AnnoyLimit { get; private set; } = 5;
 
 	private Seat _seat;
 	private Node2D _exit;
@@ -44,8 +38,7 @@ public partial class Spectator : Node2D
 				}
 				break;
 			case State.WATCHING: 
-				_annoyence += _annoyPerSecond * delta;
-				if (_annoyence > 1.0)
+				if (Annoyence > AnnoyLimit)
 				{
 					_seat.spectator = null;
 					_state = State.EXITING;
@@ -64,6 +57,19 @@ public partial class Spectator : Node2D
 	{
 		_seat = seat;
 		_exit = exit;
+	}
+
+	public void ApplyCard(ICardBasic card)
+	{
+		if (card.Influence.TryGetValue(_type, out int value))
+		{
+			Annoyence -= value;
+		}
+	}
+
+	public void Annoy()
+	{
+        Annoyence--;
 	}
 
 	/**
