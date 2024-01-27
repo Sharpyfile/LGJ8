@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7g6o1o70wi2p"]
+[gd_scene load_steps=6 format=3 uid="uid://b7g6o1o70wi2p"]
 
 [ext_resource type="Script" path="res://Scripts/Spectator.cs" id="1_xuo3a"]
 [ext_resource type="Texture2D" uid="uid://2i6njpnm3wbv" path="res://Sprites/Cat/RedCat01_Smile.png" id="2_d5x2d"]
 [ext_resource type="Texture2D" uid="uid://cfa3igkkv6od2" path="res://Sprites/Cat/RedCat01_Neutral.png" id="3_enp6y"]
 [ext_resource type="Texture2D" uid="uid://6bkb3me8g4q0" path="res://Sprites/Cat/RedCat01_Angry.png" id="4_fcdoo"]
+[ext_resource type="PackedScene" uid="uid://7qpwg3lqpj6o" path="res://Scenes/Spectators/AngryCloud.tscn" id="5_kme3i"]
 
-[node name="Spectator" type="Node2D" node_paths=PackedStringArray("_spriteHappy", "_spriteNeutral", "_spriteAnnoyed")]
+[node name="Spectator" type="Node2D" node_paths=PackedStringArray("_spriteHappy", "_spriteNeutral", "_spriteAnnoyed", "_angryCloud")]
 script = ExtResource("1_xuo3a")
 _spriteHappy = NodePath("Sprite2D_happy")
 _spriteNeutral = NodePath("Sprite2D_neutral")
 _spriteAnnoyed = NodePath("Sprite2D_annoyed")
+_angryCloud = NodePath("AngryCloud")
 
 [node name="Sprite2D_happy" type="Sprite2D" parent="."]
 texture = ExtResource("2_d5x2d")
@@ -19,3 +21,6 @@ texture = ExtResource("3_enp6y")
 
 [node name="Sprite2D_annoyed" type="Sprite2D" parent="."]
 texture = ExtResource("4_fcdoo")
+
+[node name="AngryCloud" parent="." instance=ExtResource("5_kme3i")]
+position = Vector2(15, -126)
