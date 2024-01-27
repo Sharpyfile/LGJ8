@@ -16,6 +16,9 @@ public partial class MainUI : Control
 
 	private bool _isFullInitial = false;
 
+	private bool GameOver = false;
+
+
 	public override void _Ready()
 	{
 		TransitionAnimator.Play("SceneTransitionIn");
@@ -26,13 +29,13 @@ public partial class MainUI : Control
 	{
 		base._Process(delta);
 
-		if (_spectatorController.IsAudienceFull && !_isFullInitial)
+		if (_spectatorController.InitCompleted && !_isFullInitial)
 		{
 			_isFullInitial = true;
 			if (AudioManager.Instance.AmbientPlayer != null)
 			{
 				AudioManager.Instance.AmbientPlayer.StopMusic(1.5f);
-				AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer", 2.0f);
+                AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer", 2.0f);
 			}
 		}
 	}
@@ -44,10 +47,21 @@ public partial class MainUI : Control
 			AudioPlayer.StopMusic(1.5f);
 	}
 
+	public void ShowGameOver()
+	{
+		GameOver = true;
+		OnClickStartAnimation();
+	}
+
 	public void OnFinishLoadMainGameplayScene(StringName animationName)
 	{
 		if (animationName == "SceneTransitionOut")
-			SceneManager.Instance.LoadMainMenuScene();
+		{
+			if (GameOver)
+				SceneManager.Instance.LoadGameOverScene();
+			else
+				SceneManager.Instance.LoadMainMenuScene();
+        }
 	}
 
 	public void OnClickRestartTimer()

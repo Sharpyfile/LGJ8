@@ -19,6 +19,7 @@ public partial class TimerWithSlider : Control
 	private Color GoodColor;
 
 	private double timerCurrentValue;
+	private bool playedCough = false;
 
 	public Action OnTimerStop;
 	
@@ -41,6 +42,12 @@ public partial class TimerWithSlider : Control
 
             // set timer label for time
             TimerLabel.Text = string.Format("{0:0.00}", timerCurrentValue) + " s";
+
+			if (!playedCough && SliderInside.Scale.X < 0.25f)
+			{
+				playedCough = true;
+				AudioManager.Instance.PlaySound("cough");
+			}
 
             // If timer is below 0, zero it and set label again to ""
             if (timerCurrentValue <= 0.0 && OnTimerStop != null)
@@ -66,7 +73,7 @@ public partial class TimerWithSlider : Control
 	{
 		TimerMaxValue = newMaxValue;
 		timerCurrentValue = TimerMaxValue;
-
+		playedCough = false;
         SliderInside.Scale = new Vector2(1, 1);
     }
 }
