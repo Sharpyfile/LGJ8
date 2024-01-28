@@ -44,10 +44,6 @@ public partial class Card : Node2D, ICardBasic
 
 	public int index;
 
-	private readonly Color BAD_COLOR = new Color("#FF0000");
-	private readonly Color GOOD_COLOR = new Color("#00FF00");
-	private readonly Color NEUTRAL_COLOR = new Color("#000");
-
 	private CardController _controller;
 
 	private int XOffset = 0;
@@ -149,8 +145,8 @@ public partial class Card : Node2D, ICardBasic
 
 	private Color GetColor(int v)
 	{
-		if (v == 0) return NEUTRAL_COLOR;
-		else if (v > 0) return GOOD_COLOR;
-		else return BAD_COLOR;
+		if (v == 0) return Constants.NEUTRAL_COLOR;
+		else if (v > 0) return Constants.GOOD_COLOR;
+		else return Constants.BAD_COLOR;
 	}
 }

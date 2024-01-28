@@ -1,43 +1,73 @@
-[gd_scene load_steps=4 format=3 uid="uid://cd2wdgdnw78rf"]
+[gd_scene load_steps=8 format=3 uid="uid://cd2wdgdnw78rf"]
 
 [ext_resource type="Script" path="res://Scripts/ScribbledCard.cs" id="1_wocmo"]
-[ext_resource type="Texture2D" uid="uid://bgoqwo56xc4km" path="res://Sprites/ScribbledCard.png" id="2_hv0tx"]
+[ext_resource type="Texture2D" uid="uid://c81tqbk2rihil" path="res://Sprites/Notes/Notes01.png" id="2_oot62"]
+[ext_resource type="Texture2D" uid="uid://ddcaw876mmssc" path="res://Sprites/Notes/Notes02.png" id="3_3pifc"]
 [ext_resource type="Texture2D" uid="uid://ckuidiajrhvpq" path="res://Sprites/Circle.png" id="3_5r7fj"]
+[ext_resource type="Texture2D" uid="uid://bbpry8qhgqvk5" path="res://Sprites/Notes/Notes03.png" id="4_i6s0q"]
+[ext_resource type="Texture2D" uid="uid://dc2oxbahnvyt0" path="res://Sprites/Notes/Notes04.png" id="5_wl2b0"]
+[ext_resource type="Texture2D" uid="uid://caaxmnpgnlxk6" path="res://Sprites/Notes/Notes05.png" id="6_mctx7"]
 
 [node name="ScribbledCard" type="Node2D"]
 script = ExtResource("1_wocmo")
+Textures = [ExtResource("2_oot62"), ExtResource("3_3pifc"), ExtResource("4_i6s0q"), ExtResource("5_wl2b0"), ExtResource("6_mctx7")]
+BirdPositions = PackedVector2Array(190, 44, 180, 61, 168, 53, 180, 57, 183, 49)
+FishPositions = PackedVector2Array(140, 43, 135, 55, 124, 51, 135, 51, 139, 47)
+CatPositions = PackedVector2Array(86, 41, 90, 52, 81, 46, 89, 46, 93, 46)
+metadata/_edit_lock_ = true
 
 [node name="Button" type="Button" parent="."]
-offset_left = -110.0
-offset_top = -60.0
-offset_right = 118.0
-offset_bottom = 76.0
-focus_mode = 0
-icon = ExtResource("2_hv0tx")
+offset_left = -137.0
+offset_top = -77.0
+offset_right = 138.0
+offset_bottom = 77.0
+icon = ExtResource("6_mctx7")
+flat = true
+icon_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="BirdIndicator" type="Node2D" parent="Button"]
-
-[node name="Dot1" type="Sprite2D" parent="Button/BirdIndicator"]
+position = Vector2(183, 49)
 
 [node name="Dot2" type="Sprite2D" parent="Button/BirdIndicator"]
-
-[node name="FishIndicator" type="Node2D" parent="Button"]
-
-[node name="Dot1" type="Sprite2D" parent="Button/FishIndicator"]
-
-[node name="Dot2" type="Sprite2D" parent="Button/FishIndicator"]
-
-[node name="CatIndicator" type="Node2D" parent="Button"]
-position = Vector2(59, 39)
-
-[node name="Dot1" type="Sprite2D" parent="Button/CatIndicator"]
 modulate = Color(1, 0, 0, 1)
+position = Vector2(19, -17)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_5r7fj")
 
+[node name="Dot1" type="Sprite2D" parent="Button/BirdIndicator"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(25, -4)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_5r7fj")
+
+[node name="FishIndicator" type="Node2D" parent="Button"]
+position = Vector2(139, 47)
+
+[node name="Dot2" type="Sprite2D" parent="Button/FishIndicator"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(19, -17)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_5r7fj")
+
+[node name="Dot1" type="Sprite2D" parent="Button/FishIndicator"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(25, -4)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_5r7fj")
+
+[node name="CatIndicator" type="Node2D" parent="Button"]
+position = Vector2(93, 46)
+
 [node name="Dot2" type="Sprite2D" parent="Button/CatIndicator"]
 modulate = Color(1, 0, 0, 1)
-position = Vector2(-9, -9)
+position = Vector2(19, -17)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_5r7fj")
+
+[node name="Dot1" type="Sprite2D" parent="Button/CatIndicator"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(25, -4)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_5r7fj")
 
