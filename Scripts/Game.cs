@@ -9,6 +9,7 @@ public partial class Game : Node
 	CardController cardController = new CardController();
 	AudioManager audioManager = new AudioManager();
 	TimerWithSlider timer = new TimerWithSlider();
+	MainUI mainUI = new MainUI();
 
 	int overallSpectatorsReaction = 0;
 	int spectatorsReactionThreshold = 0;
@@ -25,17 +26,17 @@ public partial class Game : Node
 	}
 
 	#region Initializing
-	public void DrawFullHand()
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			cardController.DrawCard();
-		}
-	}
+	//public void DrawFullHand()
+	//{
+	//	for (int i = 0; i < 5; i++)
+	//	{
+	//		cardController.DrawCard();
+	//	}
+	//}
 
-	public void PopulateSpectators()
-	{
-	}
+	//public void PopulateSpectators()
+	//{
+	//}
 	#endregion
 
 	#region Card Operations
@@ -66,33 +67,34 @@ public partial class Game : Node
 		spectatorToEvaluate.ApplyCard(cardToApply);
 	}
 
-	public void EvaluateSpectatorsReaction(Card cardToApply)
-	{
-		foreach (Spectator spectator in spectatorController.GetSpectators())
-		{
-			overallSpectatorsReaction += spectator.ApplyCard(cardToApply);
-		}
-	}
+	//public void EvaluateSpectatorsReaction(Card cardToApply)
+	//{
+	//	foreach (Spectator spectator in spectatorController.GetSpectators())
+	//	{
+	//		overallSpectatorsReaction += spectator.ApplyCard(cardToApply);
+	//	}
+	//}
 	#endregion
 
 	#region Main loop parts
-	public void OpeningScene()
-	{
-		DrawFullHand();
-		audioManager.PlaySound("cardsMixing.mp3");
-		PopulateSpectators();
-		SpectatorsEnterAnimation();
-	}
+	//public void OpeningScene()
+	//{
+	//	audioManager.PlaySound("cardsMixing.mp3");
+	//	//SpectatorsEnterAnimation();
+	//}
 
 	public void EnterHandView()
 	{
-		HandEnterAnimation();
+		//HandEnterAnimation();
 		timer.RestartTimer(timer.TimerMaxValue);
 	}
 
-	public void PlayCardView(Card cardToPlay)
+	public void PlayCard(Card cardToPlay)
 	{
-		int cardWeight = 0;
+        timer.StopTimer();
+
+        int cardWeight = 0;
+
 		if (cardToPlay.Influence[Animal.CAT] > 0)
 		{
 			cardWeight = cardToPlay.Influence[Animal.CAT];
@@ -108,14 +110,12 @@ public partial class Game : Node
 
         spectatorsReactionThreshold = spectatorController.GetSpectators().Count * cardWeight / 3;
 
-        timer.StopTimer();
-		CardHighlightAnimation(cardToPlay);
-		HandExitAnimation();
-		EvaluateSpectatorsReaction(cardToPlay);
-		cardController.DiscardCard(cardToPlay);
-		cardController.DrawCard();
+        foreach (Spectator spectator in spectatorController.GetSpectators())
+        {
+            overallSpectatorsReaction += spectator.ApplyCard(cardToPlay);
+        }
 
-		if (overallSpectatorsReaction <= spectatorsReactionThreshold*(-1))
+        if (overallSpectatorsReaction <= spectatorsReactionThreshold*(-1))
 		{
             //play angry crowd reaction
             audioManager.PlaySound("crowdBoo1.wav");
@@ -132,13 +132,9 @@ public partial class Game : Node
 		}
 
 		if (EvaluateGameEndCondition())
-		{
-			EnterGameEndView();
-		}
-		else
-		{
-			EnterHandView();
-		}
+        {
+            mainUI.ShowGameOver();
+        }
 	}
 
 	public void EnterGameEndView()
@@ -147,44 +143,41 @@ public partial class Game : Node
 
 	public void RanOutOfTime()
 	{
-		HandExitAnimation();
+		//HandExitAnimation();
 		foreach (Spectator spectator in spectatorController.GetSpectators())
 		{
 			spectator.Annoy();
+			EnterHandView();
 		}
 		if (EvaluateGameEndCondition())
 		{
-			EnterGameEndView();
-		}
-		else
-		{
-			EnterHandView();
+			mainUI.ShowGameOver();
 		}
 	}
 	#endregion
 
 	#region Animations
-	public void HandEnterAnimation()
-	{
+	//public void HandEnterAnimation()
+	//{
 
-	}
+	//}
 
-	public void HandExitAnimation()
-	{
-	}
+	//public void HandExitAnimation()
+	//{
+	//}
 
-	public void CardHighlightAnimation (Card card)
-	{
+	//public void CardHighlightAnimation (Card card)
+	//{
 
-	}
+	//}
 
-	public void SceneOpeningAnimation()
-	{
-	}
+	//public void SceneOpeningAnimation()
+	//{
+	//}
 
-	public void SpectatorsEnterAnimation()
-	{
-	}
+	//public void SpectatorsEnterAnimation()
+	//{
+	//}
 	#endregion
 
 	public bool EvaluateGameEndCondition()
