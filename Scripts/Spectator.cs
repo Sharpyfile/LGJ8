@@ -185,9 +185,9 @@ public partial class Spectator : Node2D
 
 	private void setAllEmotes(bool value)
 	{
-		_happyEmote.Visible = value;
-		_neutralEmote.Visible = value;
-		_angryEmote.Visible = value;
+		if (_happyEmote != null) _happyEmote.Visible = value;
+		if (_neutralEmote != null) _neutralEmote.Visible = value;
+		if (_angryEmote != null) _angryEmote.Visible = value;
 	}
 }
 

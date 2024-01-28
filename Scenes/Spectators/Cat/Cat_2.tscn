@@ -15,9 +15,9 @@ _spriteHappy = NodePath("Sprite2D_happy")
 _spriteNeutral = NodePath("Sprite2D_neutral")
 _spriteAnnoyed = NodePath("Sprite2D_annoyed")
 _angryCloud = NodePath("AngryCloud")
-_happyEmote = NodePath("SmileEmote")
-_neutralEmote = NodePath("NeutralEmote")
-_angryEmote = NodePath("AngryEmote")
+_happyEmote = NodePath("SmileEmoji")
+_neutralEmote = NodePath("NeutralEmoji")
+_angryEmote = NodePath("AngryEmoji")
 
 [node name="Sprite2D_happy" type="Sprite2D" parent="."]
 texture = ExtResource("2_wyimg")
@@ -31,11 +31,8 @@ texture = ExtResource("4_866q3")
 [node name="AngryCloud" parent="." instance=ExtResource("5_sqy3x")]
 position = Vector2(24, -103)
 
-[node name="SmileEmote" parent="." node_paths=PackedStringArray("ChildOuter") instance=ExtResource("6_oehp0")]
-ChildOuter = NodePath("")
+[node name="AngryEmoji" parent="." instance=ExtResource("7_x6m6m")]
 
-[node name="AngryEmote" parent="." node_paths=PackedStringArray("ChildOuter") instance=ExtResource("7_x6m6m")]
-ChildOuter = NodePath("")
+[node name="NeutralEmoji" parent="." instance=ExtResource("8_m0qx2")]
 
-[node name="NeutralEmote" parent="." node_paths=PackedStringArray("ChildOuter") instance=ExtResource("8_m0qx2")]
-ChildOuter = NodePath("")
+[node name="SmileEmoji" parent="." instance=ExtResource("6_oehp0")]
