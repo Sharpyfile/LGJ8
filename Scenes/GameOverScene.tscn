@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://deweldpe53dv2"]
+[gd_scene load_steps=6 format=3 uid="uid://ce754lh8yywok"]
 
 [ext_resource type="Script" path="res://Scripts/GameOverUI.cs" id="1_d2p4s"]
 [ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_d51m4"]
@@ -81,8 +81,10 @@ anchor_bottom = 0.4
 offset_bottom = 30.0
 grow_horizontal = 2
 theme = ExtResource("2_d51m4")
-text = "blah blah blah your arse is full of horses 
-so your position can be considered stable.
+text = "Well it happened. You died of embarassement. Live. On stage. 
+And that was the funniest thing you did the whole night.
+
+Your arse is full of horses so your position can be considered stable.
 Be better next time ya doofus"
 horizontal_alignment = 1
 
