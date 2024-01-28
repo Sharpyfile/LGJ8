@@ -41,7 +41,7 @@ metadata/_edit_horizontal_guides_ = [58.0]
 metadata/_edit_vertical_guides_ = [438.0, 65.0, 820.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(438, 173)
+position = Vector2(437, 160)
 texture = ExtResource("2_4jrn1")
 
 [node name="Question" type="Label" parent="Sprite2D"]

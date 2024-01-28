@@ -32,7 +32,7 @@ public partial class Spectator : Node2D
 		setAngryCloud(false);
 		setAllEmotes(false);
 
-    }
+	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -102,7 +102,6 @@ public partial class Spectator : Node2D
 		if (card.Influence.TryGetValue(Type, out int value))
 		{
 			Happiness += value;
-			GD.Print($"{Type}: {value}, {Happiness}");
 			ApplyEmote(value);
 			return value;
 		}
@@ -163,7 +162,7 @@ public partial class Spectator : Node2D
 
 	private void ApplyEmote(int mood)
 	{
-		switch(mood) 
+		switch (mood)
 		{
 			case > 0:
 				_happyEmote.Visible = true;
@@ -184,9 +183,9 @@ public partial class Spectator : Node2D
 
 	private void setAllEmotes(bool value)
 	{
-        _happyEmote.Visible = value;
-        _neutralEmote.Visible = value;
-        _angryEmote.Visible = value;
-    }
+		_happyEmote.Visible = value;
+		_neutralEmote.Visible = value;
+		_angryEmote.Visible = value;
+	}
 }
 
