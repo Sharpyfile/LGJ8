@@ -12,6 +12,9 @@ public partial class SceneManager : Node
 	[Export]
 	private PackedScene GameOverScene;
 
+	[Export]
+	private PackedScene GameWinScene;
+
 	public static SceneManager Instance { get; private set; }
 
 	public override void _Ready()
@@ -32,6 +35,11 @@ public partial class SceneManager : Node
     public void LoadGameOverScene()
     {
         GetTree().ChangeSceneToPacked(GameOverScene);
+    }
+
+    public void LoadGameWinScene()
+    {
+        GetTree().ChangeSceneToPacked(GameWinScene);
     }
 
     public void ExitGame()

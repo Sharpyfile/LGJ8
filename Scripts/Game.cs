@@ -11,6 +11,7 @@ public partial class Game : Node
 	private int _overallSpectatorsReaction = 0;
 	private int _spectatorsReactionThreshold = 0;
 	private bool _ready = false;
+	private int _jokeCounter;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -108,6 +109,8 @@ public partial class Game : Node
 		int count = _spectatorController.GetSpectators().Count;
 		_spectatorsReactionThreshold = count * cardWeight / 3;
 
+		if (++_jokeCounter % 3 == 0) _spectatorController.IncreaseCap();
+
 		foreach (Spectator spectator in _spectatorController.GetSpectators())
 		{
 			_overallSpectatorsReaction += spectator.ApplyCard(cardToPlay);
@@ -129,11 +132,15 @@ public partial class Game : Node
 			AudioManager.Instance.PlaySound("crowdLaugh1.wav");
 		}
 
-		if (EvaluateGameEndCondition())
+		if (EvaluateGameOverCondition())
 		{
 			_mainUI.ShowGameOver();
 		}
-	}
+        if (EvaluateGameWinCondition())
+        {
+            _mainUI.ShowGameWin();
+        }
+    }
 
 	public void EnterGameEndView()
 	{
@@ -147,9 +154,13 @@ public partial class Game : Node
 			spectator.Annoy();
 			EnterHandView();
 		}
-		if (EvaluateGameEndCondition())
+		if (EvaluateGameOverCondition())
 		{
 			_mainUI.ShowGameOver();
+		}
+		if(EvaluateGameWinCondition())
+		{
+			_mainUI.ShowGameWin();
 		}
 	}
 	#endregion
@@ -178,13 +189,37 @@ public partial class Game : Node
 	//}
 	#endregion
 
-	public bool EvaluateGameEndCondition()
+	public bool EvaluateGameOverCondition()
 	{
 		bool gameEndCondition = false;
 
-		//TODO:
-		//decide on when game ends and code it
+		if (_spectatorController.GetSpectators().Count == 0)
+		{
+			gameEndCondition = true;
+		}
 
 		return gameEndCondition;
+	}
+
+	public bool EvaluateGameWinCondition()
+	{
+        // 2/3 of all audience (17) rounded up is 12. So to win, you need 12 or more happy spectators
+        bool gameWinCondition = false;
+		int happySpectators = 0;
+
+		foreach(Spectator spectator in _spectatorController.GetSpectators() )
+		{
+			if(spectator.Mood == Mood.HAPPY)
+			{
+				happySpectators++;
+			}
+		}
+
+		if (happySpectators >= 12)
+		{
+			gameWinCondition = true;
+		}
+
+		return gameWinCondition;
 	}
 }

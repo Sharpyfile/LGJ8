@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://ddraicruvyq1c"]
 
 [ext_resource type="Script" path="res://Scripts/SpectatorController.cs" id="1_cldwj"]
-[ext_resource type="PackedScene" uid="uid://b51hsbyjw7efs" path="res://Scenes/Spectators/Cat/Cat_1.tscn" id="2_bc22q"]
+[ext_resource type="PackedScene" uid="uid://cmf5hfe04e883" path="res://Scenes/Spectators/Cat/Cat_1b.tscn" id="2_at5oa"]
 [ext_resource type="PackedScene" uid="uid://ctxoccs4ewq2d" path="res://Scenes/Spectators/Cat/Cat_2.tscn" id="3_ssdik"]
 [ext_resource type="PackedScene" uid="uid://b7g6o1o70wi2p" path="res://Scenes/Spectators/Cat/Cat_3.tscn" id="4_aqty1"]
 [ext_resource type="PackedScene" uid="uid://b2d2oqf0bng5m" path="res://Scenes/Spectators/Cat/Cat_4.tscn" id="5_176oe"]
@@ -22,5 +22,5 @@
 [node name="SpectatorController" type="Node" node_paths=PackedStringArray("_rows", "_spectators")]
 script = ExtResource("1_cldwj")
 _rows = []
-_pool = Array[PackedScene]([ExtResource("2_bc22q"), ExtResource("3_ssdik"), ExtResource("4_aqty1"), ExtResource("5_176oe"), ExtResource("6_q8ufc"), ExtResource("7_4cy73"), ExtResource("8_00ej1"), ExtResource("9_jx2sq"), ExtResource("10_60guy"), ExtResource("11_kyka4"), ExtResource("12_bgnvp"), ExtResource("13_blp5q"), ExtResource("14_cy7f4"), ExtResource("15_dgfrc"), ExtResource("16_5rdal"), ExtResource("17_2vtsr"), ExtResource("18_3yocm")])
+_pool = Array[PackedScene]([ExtResource("2_at5oa"), ExtResource("3_ssdik"), ExtResource("4_aqty1"), ExtResource("5_176oe"), ExtResource("6_q8ufc"), ExtResource("7_4cy73"), ExtResource("8_00ej1"), ExtResource("9_jx2sq"), ExtResource("10_60guy"), ExtResource("11_kyka4"), ExtResource("12_bgnvp"), ExtResource("13_blp5q"), ExtResource("14_cy7f4"), ExtResource("15_dgfrc"), ExtResource("16_5rdal"), ExtResource("17_2vtsr"), ExtResource("18_3yocm")])
 _spectators = []

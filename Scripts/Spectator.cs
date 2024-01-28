@@ -55,7 +55,7 @@ public partial class Spectator : Node2D
 				break;
 			case SpectatorState.WATCHING:
 				Happiness = Math.Clamp(Happiness, (int)Mood.EXIT, (int)Mood.HAPPY);
-				setAngryCloud(Happiness == 1);
+				setAngryCloud(Happiness <= 2);
 
 				if (Happiness > (int)Mood.NEUTRAL)
 				{
@@ -87,7 +87,7 @@ public partial class Spectator : Node2D
 		}
 	}
 
-	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat)
+	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat, int moodVariation)
 	{
 		_controller = controller;
 		_seat = seat;
@@ -95,6 +95,7 @@ public partial class Spectator : Node2D
 
 		_entrance = entrance;
 		_midpoint = new Vector2(entrance.X, _seat.GlobalPosition.Y);
+		Mood += moodVariation;
 	}
 
 	public int ApplyCard(ICardBasic card)
@@ -166,17 +167,18 @@ public partial class Spectator : Node2D
 		{
 			case > 0:
 				_happyEmote.Visible = true;
+				_neutralEmote.Visible = false;
+				_angryEmote.Visible = false;
 				break;
 			case 0:
 				_neutralEmote.Visible = true;
+				_happyEmote.Visible = false;
+				_angryEmote.Visible = false;
 				break;
 			case < 0:
 				_angryEmote.Visible = true;
-				break;
-			default:
 				_happyEmote.Visible = false;
 				_neutralEmote.Visible = false;
-				_angryEmote.Visible = false;
 				break;
 		}
 	}
