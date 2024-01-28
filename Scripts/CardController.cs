@@ -104,7 +104,6 @@ public partial class CardController : Node
 		clickedCard = null;
 		DrawCard(clickedCardIndex);
 		clickedCardIndex = -1;
-		Disable();
 	}
 
 	public void InitializeHand()
@@ -168,7 +167,7 @@ public partial class CardController : Node
 				{
 					if (clickedCard != updatedCard && clickedCard != null)
 						clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
-					else if (clickedCard == updatedCard && clickedCard.SetReadyToReinialize)
+					else if (clickedCard == updatedCard && clickedCard.SetReadyToReinitialize)
 						break;
 
 					updatedCard.RunAnimation(CardAnimationState.SlIDE_IN);
