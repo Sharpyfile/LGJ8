@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://be60drpm8x8d"]
+[gd_scene load_steps=9 format=3 uid="uid://be60drpm8x8d"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenuUI.cs" id="1_advip"]
+[ext_resource type="Texture2D" uid="uid://dixwjotchjgul" path="res://Sprites/CurtainWithCapuchine.png" id="2_6iyh4"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_c2wbj"]
 [ext_resource type="PackedScene" uid="uid://cjvdrgsxeuylq" path="res://Scenes/OptionsMenu.tscn" id="2_sdjuc"]
 [ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_wf6vt"]
@@ -30,10 +31,19 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0352941, 0.223529, 0.0627451, 1)
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6iyh4")
+
 [node name="Column" type="Control" parent="."]
 layout_mode = 1
-anchor_left = 0.65
-anchor_right = 0.95
+anchor_left = 0.05
+anchor_right = 0.35
 anchor_bottom = 1.0
 grow_vertical = 2
 
@@ -44,7 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.490196)
+color = Color(0.886275, 0.776471, 0.129412, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Column"]
 layout_mode = 1
@@ -108,7 +118,8 @@ theme = ExtResource("2_wf6vt")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "Łódzki Game Jam 8
-Make me Laugh
+Ape-solutely Hilarious Comedy Club
+7
 "
 horizontal_alignment = 1
 vertical_alignment = 1
