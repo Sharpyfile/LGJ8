@@ -92,7 +92,7 @@ public partial class CardController : Node
 			Hand[index] = drewCard;
 			AvailableCards.RemoveAt(rngIndex);
 			ScribbledCardNodes[index].GetChild<ScribbledCard>(0).Initialize(drewCard, index, this);
-			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this);
+			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 20);
 		}
 	}
 
@@ -117,9 +117,10 @@ public partial class CardController : Node
 						{
 							throw new System.Exception("There is card in node " + previousCard.index.ToString());
 						}
+						var transform = previousCard.Transform;
 						ClickedCardNode.RemoveChild(previousCard);
-						//TODO: animation
 						UICardNodes[previousCard.index].AddChild(previousCard);
+						previousCard.RunAnimation();
 					}
 
 					if (HoveredCardNode.GetChildCount() == 0)
@@ -128,8 +129,8 @@ public partial class CardController : Node
 					}
 					Card clickedCard = HoveredCardNode.GetChild<Card>(0);
 					HoveredCardNode.RemoveChild(clickedCard);
-					//TODO: animation
 					ClickedCardNode.AddChild(clickedCard);
+					clickedCard.RunAnimation();
 					break;
 				}
 			case CardState.NOT_CLICKED:
@@ -144,8 +145,8 @@ public partial class CardController : Node
 						throw new System.Exception("There is card in node " + clickedCard.index.ToString());
 					}
 					ClickedCardNode.RemoveChild(clickedCard);
-					//TODO: animation
 					UICardNodes[clickedCard.index].AddChild(clickedCard);
+					clickedCard.RunAnimation();
 					break;
 				}
 			case CardState.HOVERED:
@@ -160,8 +161,8 @@ public partial class CardController : Node
 					}
 					Card hoveredCard = UICardNodes[index].GetChild<Card>(0);
 					UICardNodes[index].RemoveChild(hoveredCard);
-					//TODO: animation
 					HoveredCardNode.AddChild(hoveredCard);
+					hoveredCard.RunAnimation();
 					break;
 				}
 			case CardState.NOT_HOVERED:
@@ -175,8 +176,8 @@ public partial class CardController : Node
 							throw new System.Exception("There is card in node " + previousCard.index.ToString());
 						}
 						HoveredCardNode.RemoveChild(previousCard);
-						//TODO: animation
 						UICardNodes[previousCard.index].AddChild(previousCard);
+						previousCard.RunAnimation();
 					}
 					break;
 				}
