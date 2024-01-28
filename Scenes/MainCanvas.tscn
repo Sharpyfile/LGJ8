@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjvpkyag3nphy"]
+[gd_scene load_steps=8 format=3 uid="uid://bjvpkyag3nphy"]
 
 [ext_resource type="Script" path="res://Scripts/MainUI.cs" id="1_yjvoj"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_0r6cd"]
 [ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_c8b7l"]
-[ext_resource type="PackedScene" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
+[ext_resource type="PackedScene" uid="uid://th3do266bg5" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
 [ext_resource type="PackedScene" uid="uid://dv8bpmyi00htt" path="res://Animations/SceneTransitionAnimation.tscn" id="5_7krku"]
+[ext_resource type="Texture2D" uid="uid://bagpbquo4wlaa" path="res://Sprites/BG/hand.png" id="6_qpx6m"]
+[ext_resource type="Script" path="res://Scripts/ScribbledCard.cs" id="7_m78w3"]
 
-[node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer", "TransitionAnimator")]
+[node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer", "ScribbledCardNodes", "TransitionAnimator")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yjvoj")
 Timer = NodePath("Timer")
+ScribbledCardNodes = [NodePath("Control/Hand/CheatSheet1"), NodePath("Control/Hand/CheatSheet2"), NodePath("Control/Hand/CheatSheet3"), NodePath("Control/Hand/CheatSheet4"), NodePath("Control/Hand/CheatSheet5")]
 TransitionAnimator = NodePath("SceneTransitionAnimation")
 
 [node name="Button" type="Button" parent="."]
@@ -67,11 +70,51 @@ SoundVariant = 1
 
 [node name="Timer" parent="." instance=ExtResource("3_aemv8")]
 offset_left = 15.0
-offset_top = 967.0
+offset_top = 577.0
 offset_right = 265.0
-offset_bottom = 1047.0
+offset_bottom = 657.0
 
 [node name="SceneTransitionAnimation" parent="." instance=ExtResource("5_7krku")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0001
+offset_bottom = -0.00012207
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hand" type="Node2D" parent="Control"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Hand"]
+position = Vector2(548, -209)
+texture = ExtResource("6_qpx6m")
+
+[node name="CheatSheet1" type="Node2D" parent="Control/Hand"]
+position = Vector2(294, -250)
+script = ExtResource("7_m78w3")
+
+[node name="CheatSheet2" type="Node2D" parent="Control/Hand"]
+position = Vector2(512, -264)
+script = ExtResource("7_m78w3")
+
+[node name="CheatSheet3" type="Node2D" parent="Control/Hand"]
+position = Vector2(496, -131)
+script = ExtResource("7_m78w3")
+
+[node name="CheatSheet4" type="Node2D" parent="Control/Hand"]
+position = Vector2(700, -229)
+script = ExtResource("7_m78w3")
+
+[node name="CheatSheet5" type="Node2D" parent="Control/Hand"]
+position = Vector2(695, -91)
+script = ExtResource("7_m78w3")
 
 [connection signal="pressed" from="Button" to="." method="OnClickStartAnimation"]
 [connection signal="pressed" from="RestartTimerButton" to="." method="OnClickRestartTimer"]

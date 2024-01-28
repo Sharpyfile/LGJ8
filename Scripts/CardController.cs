@@ -20,23 +20,24 @@ public partial class CardController : Node
 	public Node2D HoveredCardNode { get; set; }
 
 	[Export]
-	public Node2D[] ScribbledCardNodes { get; set; } = new Node2D[HAND_SIZE];
+	public MainUI MainUI { get; set; }
 
 	[Export]
-	public Node2D[] UICardNodes { get; set; } = new Node2D[HAND_SIZE];
+	public Node2D[] UICardNodes { get; set; } = new Node2D[Constants.HAND_SIZE];
 
 	[Export]
 	public Game GameController { get; private set; }
 
+	private Node2D[] ScribbledCardNodes { get; set; } = new Node2D[Constants.HAND_SIZE];
 	private List<CardBasic> AvailableCards = new();
 	private List<CardBasic> Deck = new();
-	private CardBasic[] Hand = new CardBasic[HAND_SIZE];
+	private CardBasic[] Hand = new CardBasic[Constants.HAND_SIZE];
 	private RandomNumberGenerator rng = new();
 	private double counter = 0.0;
-	private static readonly int HAND_SIZE = 5;
 
 	private Card clickedCard;
 	private Card hoveredCard;
+	private bool isEnabled;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -62,12 +63,13 @@ public partial class CardController : Node
 			}
 		}
 		AvailableCards = new List<CardBasic>(Deck);
+		ScribbledCardNodes = MainUI.ScribbledCardNodes;
 		InitializeHand();
 	}
 
 	public void InitializeHand()
 	{
-		for (int i = 0; i < HAND_SIZE; ++i)
+		for (int i = 0; i < Constants.HAND_SIZE; ++i)
 		{
 			ScribbledCard scribbledCard = ScribbledCardPrefab.Instantiate<ScribbledCard>();
 			ScribbledCardNodes[i].AddChild(scribbledCard);
@@ -79,7 +81,7 @@ public partial class CardController : Node
 
 	public void DrawCard(int index)
 	{
-		if (index < HAND_SIZE)
+		if (index < Constants.HAND_SIZE)
 		{
 			if (AvailableCards.Count == 0)
 			{
@@ -96,15 +98,14 @@ public partial class CardController : Node
 
 	public void PlayCard(int index)
 	{
-
 		GameController.PlayCard(Hand[index]);
+		UpdateCardsState(index, CardState.NOT_CLICKED);
 		DrawCard(index);
 		//TODO: hide card
 	}
 
 	public void UpdateCardsState(int index, CardState state)
 	{
-
 		switch (state)
 		{
 			case CardState.CLICKED:
@@ -131,7 +132,22 @@ public partial class CardController : Node
 					ClickedCardNode.AddChild(clickedCard);
 					break;
 				}
-
+			case CardState.NOT_CLICKED:
+				{
+					if (ClickedCardNode.GetChildCount() == 0)
+					{
+						throw new System.Exception("There should be a card in clicked node");
+					}
+					Card clickedCard = ClickedCardNode.GetChild<Card>(0);
+					if (UICardNodes[clickedCard.index].GetChildCount() != 0)
+					{
+						throw new System.Exception("There is card in node " + clickedCard.index.ToString());
+					}
+					ClickedCardNode.RemoveChild(clickedCard);
+					//TODO: animation
+					UICardNodes[clickedCard.index].AddChild(clickedCard);
+					break;
+				}
 			case CardState.HOVERED:
 				{
 					if (HoveredCardNode.GetChildCount() != 0)
@@ -150,20 +166,21 @@ public partial class CardController : Node
 				}
 			case CardState.NOT_HOVERED:
 				{
-					if (HoveredCardNode.GetChildCount() == 0)
+					//TODO: ChildCount() == 0 ???
+					if (HoveredCardNode.GetChildCount() != 0)
 					{
-						throw new System.Exception("There should be a card in hovered node");
+						Card previousCard = HoveredCardNode.GetChild<Card>(0);
+						if (UICardNodes[previousCard.index].GetChildCount() != 0)
+						{
+							throw new System.Exception("There is card in node " + previousCard.index.ToString());
+						}
+						HoveredCardNode.RemoveChild(previousCard);
+						//TODO: animation
+						UICardNodes[previousCard.index].AddChild(previousCard);
 					}
-					Card previousCard = HoveredCardNode.GetChild<Card>(0);
-					if (UICardNodes[previousCard.index].GetChildCount() != 0)
-					{
-						throw new System.Exception("There is card in node " + previousCard.index.ToString());
-					}
-					HoveredCardNode.RemoveChild(previousCard);
-					//TODO: animation
-					UICardNodes[previousCard.index].AddChild(previousCard);
 					break;
 				}
+
 		}
 	}
 
@@ -172,7 +189,17 @@ public partial class CardController : Node
 		foreach (CardBasic card in Hand)
 			AvailableCards.Add(card);
 
-		for (int i = 0; i < HAND_SIZE; ++i)
+		for (int i = 0; i < Constants.HAND_SIZE; ++i)
 			DrawCard(i);
+	}
+
+	public void Enable()
+	{
+		isEnabled = true;
+	}
+
+	private void Disable()
+	{
+		isEnabled = false;
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://by2f5xoaunwg0"]
+[gd_scene load_steps=14 format=3 uid="uid://by2f5xoaunwg0"]
 
 [ext_resource type="PackedScene" uid="uid://bjvpkyag3nphy" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
 [ext_resource type="Texture2D" uid="uid://bwdgg81016n5w" path="res://Sprites/BG/BG_floor_wall.png" id="2_pkku1"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bq5iaqciy1544" path="res://Sprites/BG/FG_stage_light.png" id="4_cnwnu"]
 [ext_resource type="Script" path="res://Scripts/SeatsRow.cs" id="4_hwxbh"]
 [ext_resource type="Texture2D" uid="uid://bauk4tv52gar4" path="res://Sprites/BG/BG_Seats02.png" id="5_5dlw5"]
-[ext_resource type="Texture2D" uid="uid://baq7qklytmq3a" path="res://Sprites/BG/hand.png" id="7_qg3xw"]
-[ext_resource type="Script" path="res://Scripts/ScribbledCard.cs" id="8_6oehm"]
 [ext_resource type="PackedScene" uid="uid://ddraicruvyq1c" path="res://Scenes/Spectators/SpectatorController.tscn" id="8_bgajp"]
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="10_or8pf"]
 [ext_resource type="PackedScene" uid="uid://crobfgjgw657a" path="res://Scenes/CardController.tscn" id="10_u44kb"]
@@ -204,46 +202,6 @@ position = Vector2(0, 200)
 [node name="Stage" type="Sprite2D" parent="GameplayArea/Control2/Stage"]
 texture = ExtResource("4_cnwnu")
 
-[node name="Control" type="Control" parent="GameplayArea"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0001
-offset_bottom = -0.00012207
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Hand" type="Node2D" parent="GameplayArea/Control"]
-
-[node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control/Hand"]
-position = Vector2(548, -209)
-texture = ExtResource("7_qg3xw")
-
-[node name="CheatSheet1" type="Node2D" parent="GameplayArea/Control/Hand"]
-position = Vector2(294, -250)
-script = ExtResource("8_6oehm")
-
-[node name="CheatSheet2" type="Node2D" parent="GameplayArea/Control/Hand"]
-position = Vector2(512, -264)
-script = ExtResource("8_6oehm")
-
-[node name="CheatSheet3" type="Node2D" parent="GameplayArea/Control/Hand"]
-position = Vector2(496, -131)
-script = ExtResource("8_6oehm")
-
-[node name="CheatSheet4" type="Node2D" parent="GameplayArea/Control/Hand"]
-position = Vector2(700, -229)
-script = ExtResource("8_6oehm")
-
-[node name="CheatSheet5" type="Node2D" parent="GameplayArea/Control/Hand"]
-position = Vector2(695, -91)
-script = ExtResource("8_6oehm")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameplayArea"]
 libraries = {
 "": SubResource("AnimationLibrary_ar1p3")
@@ -257,12 +215,15 @@ Entrance = NodePath("../Control2/Audience/Entrace")
 Exit = NodePath("../Control2/Audience/Exit")
 _rows = [NodePath("../Control2/Audience/Seats/SeatsRow3"), NodePath("../Control2/Audience/Seats/SeatsRow2"), NodePath("../Control2/Audience/Seats/SeatsRow1")]
 
-[node name="CardController" parent="GameplayArea" node_paths=PackedStringArray("ScribbledCardNodes", "GameController") instance=ExtResource("10_u44kb")]
-ScribbledCardNodes = [NodePath("../Control/Hand/CheatSheet1"), NodePath("../Control/Hand/CheatSheet2"), NodePath("../Control/Hand/CheatSheet3"), NodePath("../Control/Hand/CheatSheet4"), NodePath("../Control/Hand/CheatSheet5")]
-GameController = NodePath("../../GameController")
-
 [node name="MainCanvas" parent="." node_paths=PackedStringArray("_spectatorController") instance=ExtResource("1_imsjj")]
 _spectatorController = NodePath("../GameplayArea/SpectatorController")
 
-[node name="GameController" type="Node" parent="."]
+[node name="GameController" type="Node" parent="." node_paths=PackedStringArray("_mainUI", "_spectatorController", "_cardController")]
 script = ExtResource("10_or8pf")
+_mainUI = NodePath("../MainCanvas")
+_spectatorController = NodePath("../GameplayArea/SpectatorController")
+_cardController = NodePath("../CardController")
+
+[node name="CardController" parent="." node_paths=PackedStringArray("MainUI", "GameController") instance=ExtResource("10_u44kb")]
+MainUI = NodePath("../MainCanvas")
+GameController = NodePath("../GameController")

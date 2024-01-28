@@ -9,6 +9,14 @@ public enum SpectatorState
 public enum CardState
 {
     CLICKED,
+    NOT_CLICKED,
     HOVERED,
     NOT_HOVERED
+}
+
+public enum CardAnimationState
+{
+    BEGIN_SLIDE,
+    DURING_SLIDE,
+    END_SLIDE,
 }

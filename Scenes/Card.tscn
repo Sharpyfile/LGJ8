@@ -11,15 +11,15 @@ font_size = 18
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0umc3"]
-font_size = 20
+font_size = 180
 font_color = Color(0.0941176, 0.647059, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_p8dxl"]
-font_size = 20
+font_size = 180
 font_color = Color(0.862745, 0.392157, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_7hpys"]
-font_size = 20
+font_size = 180
 font_color = Color(0.392157, 0.521569, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_n0and"]
@@ -77,9 +77,10 @@ anchor_top = 0.355
 anchor_right = 1.555
 anchor_bottom = 0.612
 offset_left = -266.6
-offset_top = -249.935
-offset_right = -250.193
-offset_bottom = -249.966
+offset_top = -290.176
+offset_right = -244.1
+offset_bottom = -177.676
+text = "100"
 label_settings = SubResource("LabelSettings_0umc3")
 metadata/_edit_use_anchors_ = true
 
@@ -98,6 +99,8 @@ offset_left = -250.0
 offset_top = -250.0
 offset_right = -250.0
 offset_bottom = -250.0
+text = "100
+"
 label_settings = SubResource("LabelSettings_p8dxl")
 metadata/_edit_use_anchors_ = true
 
@@ -116,6 +119,7 @@ offset_left = -250.038
 offset_top = -249.88
 offset_right = -249.819
 offset_bottom = -249.88
+text = "100"
 label_settings = SubResource("LabelSettings_7hpys")
 metadata/_edit_use_anchors_ = true
 
