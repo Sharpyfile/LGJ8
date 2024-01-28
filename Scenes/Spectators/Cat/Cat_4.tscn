@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2d2oqf0bng5m"]
+[gd_scene load_steps=9 format=3 uid="uid://b2d2oqf0bng5m"]
 
 [ext_resource type="Script" path="res://Scripts/Spectator.cs" id="1_fuvhy"]
 [ext_resource type="Texture2D" uid="uid://ca54moqicqslk" path="res://Sprites/Cat/RedCat02_Smile.png" id="2_iapyd"]
 [ext_resource type="Texture2D" uid="uid://c6210kvsk7qyu" path="res://Sprites/Cat/RedCat02_Neutra.png" id="3_y0iyb"]
 [ext_resource type="Texture2D" uid="uid://myxxxqcsvynd" path="res://Sprites/Cat/RedCat02_Angry.png" id="4_cetih"]
 [ext_resource type="PackedScene" uid="uid://7qpwg3lqpj6o" path="res://Scenes/Spectators/AngryCloud.tscn" id="5_vwske"]
+[ext_resource type="PackedScene" uid="uid://dhxjb1h02sapq" path="res://Scenes/Emotes/EmoteSmile.tscn" id="6_1ghl8"]
+[ext_resource type="PackedScene" uid="uid://bmeddnwk2ph4p" path="res://Scenes/Emotes/EmoteAngry.tscn" id="7_175mj"]
+[ext_resource type="PackedScene" uid="uid://dff62s6mmphmc" path="res://Scenes/Emotes/EmoteNeutral.tscn" id="8_a8a3j"]
 
 [node name="Spectator" type="Node2D" node_paths=PackedStringArray("_spriteHappy", "_spriteNeutral", "_spriteAnnoyed", "_angryCloud")]
 script = ExtResource("1_fuvhy")
@@ -24,3 +27,9 @@ texture = ExtResource("4_cetih")
 
 [node name="AngryCloud" parent="." instance=ExtResource("5_vwske")]
 position = Vector2(10, -127)
+
+[node name="SmileEmote" parent="." instance=ExtResource("6_1ghl8")]
+
+[node name="AngryEmote" parent="." instance=ExtResource("7_175mj")]
+
+[node name="NeutralEmote" parent="." instance=ExtResource("8_a8a3j")]

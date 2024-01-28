@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dff62s6mmphmc"]
+
+[ext_resource type="Script" path="res://Scripts/Emote.cs" id="1_r7hso"]
+[ext_resource type="Texture2D" uid="uid://bjl4qb4ipblp0" path="res://Sprites/NeutralEmote.png" id="2_fy20l"]
+
+[node name="Emoji" type="Node2D" node_paths=PackedStringArray("ChildOuter")]
+script = ExtResource("1_r7hso")
+ChildOuter = NodePath("Pivot/Neutral")
+
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(-75, -75)
+
+[node name="Neutral" type="Sprite2D" parent="Pivot"]
+clip_children = 2
+texture = ExtResource("2_fy20l")
