@@ -6,12 +6,15 @@ public partial class Emote : Node2D
     [Export]
     private double OpacityCooldown;
     [Export]
-    private double MaxOpacityCooldown = 1.0f;
+    private double MaxOpacityCooldown = 10.0f;
     [Export]
     private Vector2 MaxAbsoluteOffset = new(-5, 5);
 
     [Export]
     private Node2D ChildOuter;
+
+    [Export]
+    private float FrequencyModifier = 3.0f;
 
     [Export]
     private double timer = 0;
@@ -20,7 +23,7 @@ public partial class Emote : Node2D
     private State AnimationState = State.FadingIn;
 
     [Export]
-    public bool DestroyOnFadeOut = true;
+    public bool DestroyOnFadeOut = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -47,7 +50,7 @@ public partial class Emote : Node2D
         if (OpacityCooldown < 0 && AnimationState == State.FadingIn)
         {
             OpacityCooldown = MaxOpacityCooldown;
-            AnimationState = State.Pulsing;
+            AnimationState = State.FadingOut;
 
         }
         else if (OpacityCooldown > MaxOpacityCooldown && AnimationState == State.FadingOut)
@@ -64,12 +67,16 @@ public partial class Emote : Node2D
             float positionX = (float)GD.RandRange(MaxAbsoluteOffset.X, MaxAbsoluteOffset.Y);
             float positionY = (float)GD.RandRange(MaxAbsoluteOffset.X, MaxAbsoluteOffset.Y);
 
+            float parentScaleComponent = 1.0f + (Mathf.Sin((float)timer * FrequencyModifier) * 0.1f);
+
             ChildOuter.Position = new Vector2(positionX, positionY);
+
+            this.Visible = false;
         }
     }
 
     private enum State
     {
-        FadingIn, Pulsing, FadingOut
+        FadingIn, FadingOut
     }
 }
