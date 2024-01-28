@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cd2wdgdnw78rf"]
+[gd_scene load_steps=3 format=3 uid="uid://cd2wdgdnw78rf"]
 
 [ext_resource type="Script" path="res://Scripts/ScribbledCard.cs" id="1_wocmo"]
+[ext_resource type="Texture2D" uid="uid://cb4w7fde7wpxq" path="res://Sprites/icon.svg" id="2_quqll"]
 
 [node name="ScribbledCard" type="Node2D"]
 script = ExtResource("1_wocmo")
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+icon = ExtResource("2_quqll")
+
+[connection signal="mouse_entered" from="Button" to="." method="OnHover"]
+[connection signal="mouse_exited" from="Button" to="." method="OnUnHover"]
+[connection signal="pressed" from="Button" to="." method="OnClick"]

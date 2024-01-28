@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bagpbquo4wlaa"
-path="res://.godot/imported/hand.png-c1e6f44af030191eeae121af243ef3b3.ctex"
+uid="uid://bh25rk4ya13ee"
+path="res://.godot/imported/CircleLarge.png-6a5a312169003a189e9c3336c8ab18ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BG/hand.png"
-dest_files=["res://.godot/imported/hand.png-c1e6f44af030191eeae121af243ef3b3.ctex"]
+source_file="res://Sprites/CircleLarge.png"
+dest_files=["res://.godot/imported/CircleLarge.png-6a5a312169003a189e9c3336c8ab18ad.ctex"]
 
 [params]
 

@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://crobfgjgw657a"]
+[gd_scene load_steps=4 format=3 uid="uid://crobfgjgw657a"]
 
 [ext_resource type="Script" path="res://Scripts/CardController.cs" id="1_belry"]
 [ext_resource type="PackedScene" uid="uid://cneplbc6lodoc" path="res://Scenes/Card.tscn" id="2_5i5g4"]
+[ext_resource type="PackedScene" uid="uid://cd2wdgdnw78rf" path="res://Scenes/ScribbledCard.tscn" id="2_joe23"]
 
-[node name="CardController" type="Node" node_paths=PackedStringArray("PositionNodes", "Hand")]
+[node name="CardController" type="Node" node_paths=PackedStringArray("ClickedCardNode", "HoveredCardNode", "ScribbledCardNodes", "UICardNodes")]
 script = ExtResource("1_belry")
+ScribbledCardPrefab = ExtResource("2_joe23")
 CardPrefab = ExtResource("2_5i5g4")
-PositionNodes = [NodePath("ScribbledCards/First Card"), NodePath("ScribbledCards/Second Card"), NodePath("ScribbledCards/Third Card"), NodePath("ScribbledCards/Fourth Card"), NodePath("ScribbledCards/Fifth Card")]
-Hand = []
+ClickedCardNode = NodePath("BigCardNodes/ClickedNode")
+HoveredCardNode = NodePath("BigCardNodes/HoverNode")
+ScribbledCardNodes = [NodePath("ScribbledCards/First Card"), NodePath("ScribbledCards/Second Card"), NodePath("ScribbledCards/Third Card"), NodePath("ScribbledCards/Fourth Card"), NodePath("ScribbledCards/Fifth Card")]
+UICardNodes = [NodePath("UICards/First Card"), NodePath("UICards/Second Card"), NodePath("UICards/Third Card"), NodePath("UICards/Fourth Card"), NodePath("UICards/Fifth Card")]
 
 [node name="ScribbledCards" type="Node2D" parent="."]
 position = Vector2(100, 100)
@@ -27,17 +31,29 @@ position = Vector2(550, 250)
 position = Vector2(1100, 0)
 
 [node name="UICards" type="Node2D" parent="."]
+position = Vector2(0, 1080)
 
 [node name="First Card" type="Node2D" parent="UICards"]
+position = Vector2(0, -50)
 
 [node name="Second Card" type="Node2D" parent="UICards"]
+position = Vector2(10, -40)
 
 [node name="Third Card" type="Node2D" parent="UICards"]
+position = Vector2(20, -30)
 
 [node name="Fourth Card" type="Node2D" parent="UICards"]
+position = Vector2(30, -20)
 
 [node name="Fifth Card" type="Node2D" parent="UICards"]
+position = Vector2(40, -10)
 
-[node name="ClickedNode" type="Node2D" parent="."]
+[node name="BigCardNodes" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, 1080)
 
-[node name="HoverNode" type="Node2D" parent="."]
+[node name="ClickedNode" type="Node2D" parent="BigCardNodes"]
+position = Vector2(0, -300)
+
+[node name="HoverNode" type="Node2D" parent="BigCardNodes"]
+position = Vector2(0, -280)

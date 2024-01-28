@@ -20,6 +20,7 @@ public partial class SpectatorController : Node2D
 
 	private double _spawnTimer = 0;
 
+	[Export] private Node2D _spectatorsParent;
 	[Export] public Node2D Entrance { get; private set; }
 	[Export] public Node2D Exit { get; private set; }
 	[Export] private Array<SeatsRow> _rows;
@@ -88,7 +89,7 @@ public partial class SpectatorController : Node2D
 		{
 			var spectator = _pool[_rng.RandiRange(0, _pool.Count - 1)].Instantiate<Spectator>();
 			_spectators.Add(spectator);
-			seat.Row.AddChild(spectator);
+			_spectatorsParent.AddChild(spectator);
 
 			var entrance = seat.GlobalPosition.X < _midX ? Entrance : Exit;
 			spectator.GlobalPosition = entrance.GlobalPosition;

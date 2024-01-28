@@ -27,7 +27,7 @@ public partial class CardController : Node
 
 	private List<CardBasic> AvailableCards = new();
 	private List<CardBasic> Deck = new();
-	private List<CardBasic> Hand = new(HAND_SIZE);
+	private CardBasic[] Hand = new CardBasic[HAND_SIZE];
 	private RandomNumberGenerator rng = new();
 	private double counter = 0.0;
 	private static readonly int HAND_SIZE = 5;
@@ -59,6 +59,7 @@ public partial class CardController : Node
 			}
 		}
 		AvailableCards = new List<CardBasic>(Deck);
+		InitializeHand();
 	}
 
 	public void InitializeHand()
@@ -81,7 +82,7 @@ public partial class CardController : Node
 			{
 				AvailableCards = new List<CardBasic>(Deck);
 			}
-			int rngIndex = rng.RandiRange(0, AvailableCards.Count);
+			int rngIndex = rng.RandiRange(0, AvailableCards.Count - 1);
 			CardBasic drewCard = AvailableCards[rngIndex];
 			Hand[index] = drewCard;
 			AvailableCards.RemoveAt(rngIndex);
@@ -98,9 +99,7 @@ public partial class CardController : Node
 
 	public void UpdateCardsState(int index, CardState state)
 	{
-		Card selectedCard = UICardNodes[index].GetChild<Card>(0);
-		UICardNodes[index].RemoveChild(selectedCard);
-		//TODO: animation
+
 		switch (state)
 		{
 			case CardState.CLICKED:
@@ -108,17 +107,23 @@ public partial class CardController : Node
 					if (ClickedCardNode.GetChildCount() != 0)
 					{
 						Card previousCard = ClickedCardNode.GetChild<Card>(0);
-						if (UICardNodes[previousCard.index].GetChildCount() == 0)
-						{
-							UICardNodes[previousCard.index].AddChild(previousCard);
-							ClickedCardNode.RemoveChild(previousCard);
-						}
-						else
+						if (UICardNodes[previousCard.index].GetChildCount() != 0)
 						{
 							throw new System.Exception("There is card in node " + previousCard.index.ToString());
 						}
+						ClickedCardNode.RemoveChild(previousCard);
+						//TODO: animation
+						UICardNodes[previousCard.index].AddChild(previousCard);
 					}
-					ClickedCardNode.AddChild(selectedCard);
+
+					if (HoveredCardNode.GetChildCount() == 0)
+					{
+						throw new System.Exception("There should be a card in hovered node");
+					}
+					Card clickedCard = HoveredCardNode.GetChild<Card>(0);
+					HoveredCardNode.RemoveChild(clickedCard);
+					//TODO: animation
+					ClickedCardNode.AddChild(clickedCard);
 					break;
 				}
 
@@ -128,7 +133,14 @@ public partial class CardController : Node
 					{
 						throw new System.Exception("There should be no card in hovered node");
 					}
-					HoveredCardNode.AddChild(selectedCard);
+					if (UICardNodes[index].GetChildCount() == 0)
+					{
+						throw new System.Exception("There is no card in node " + index.ToString());
+					}
+					Card hoveredCard = UICardNodes[index].GetChild<Card>(0);
+					UICardNodes[index].RemoveChild(hoveredCard);
+					//TODO: animation
+					HoveredCardNode.AddChild(hoveredCard);
 					break;
 				}
 			case CardState.NOT_HOVERED:
@@ -138,15 +150,13 @@ public partial class CardController : Node
 						throw new System.Exception("There should be a card in hovered node");
 					}
 					Card previousCard = HoveredCardNode.GetChild<Card>(0);
-					if (UICardNodes[previousCard.index].GetChildCount() == 0)
-					{
-						UICardNodes[previousCard.index].AddChild(previousCard);
-					}
-					else
+					if (UICardNodes[previousCard.index].GetChildCount() != 0)
 					{
 						throw new System.Exception("There is card in node " + previousCard.index.ToString());
 					}
 					HoveredCardNode.RemoveChild(previousCard);
+					//TODO: animation
+					UICardNodes[previousCard.index].AddChild(previousCard);
 					break;
 				}
 		}
@@ -154,6 +164,10 @@ public partial class CardController : Node
 
 	public void OnTimeout()
 	{
-		//TODO: take cards from hand and shuffle them into Available Cards
+		foreach (CardBasic card in Hand)
+			AvailableCards.Add(card);
+
+		for (int i = 0; i < HAND_SIZE; ++i)
+			DrawCard(i);
 	}
 }

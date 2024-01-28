@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scripts/GameOverUI.cs" id="1_d2p4s"]
 [ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_d51m4"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="3_3n8cr"]
-[ext_resource type="Texture2D" uid="uid://ckuidiajrhvpq" path="res://Sprites/Circle.png" id="5_osjjo"]
 [ext_resource type="PackedScene" uid="uid://dv8bpmyi00htt" path="res://Animations/SceneTransitionAnimation.tscn" id="5_rv4ed"]
+[ext_resource type="Texture2D" uid="uid://bh25rk4ya13ee" path="res://Sprites/CircleLarge.png" id="5_w6hbg"]
 
 [node name="GameOverCanvas" type="Control" node_paths=PackedStringArray("TransitionAnimator")]
 layout_mode = 3
@@ -48,7 +48,8 @@ anchor_right = 1.0
 anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_osjjo")
+texture = ExtResource("5_w6hbg")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="Control" type="Control" parent="ColorRect/TextureRect"]
@@ -98,6 +99,7 @@ grow_vertical = 2
 [node name="TryAgainButton" type="Button" parent="ColorRect/TextureRect/Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_d51m4")
 theme_override_font_sizes/font_size = 24
 text = "Try Again"
@@ -107,6 +109,7 @@ SoundVariant = 1
 [node name="MainMenuButton" type="Button" parent="ColorRect/TextureRect/Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_d51m4")
 theme_override_font_sizes/font_size = 24
 text = "Main Menu"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bagpbquo4wlaa"
-path="res://.godot/imported/hand.png-c1e6f44af030191eeae121af243ef3b3.ctex"
+uid="uid://bw1kny14wiip3"
+path="res://.godot/imported/Button.png-8cdf9c08259ab2737f65365e2c322e4c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BG/hand.png"
-dest_files=["res://.godot/imported/hand.png-c1e6f44af030191eeae121af243ef3b3.ctex"]
+source_file="res://Sprites/Button.png"
+dest_files=["res://.godot/imported/Button.png-8cdf9c08259ab2737f65365e2c322e4c.ctex"]
 
 [params]
 

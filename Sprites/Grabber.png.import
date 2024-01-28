@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bagpbquo4wlaa"
-path="res://.godot/imported/hand.png-c1e6f44af030191eeae121af243ef3b3.ctex"
+uid="uid://cc3ngb1ivq0sv"
+path="res://.godot/imported/Grabber.png-47c572b6d84822e1eed9fb9cfb9a8c77.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BG/hand.png"
-dest_files=["res://.godot/imported/hand.png-c1e6f44af030191eeae121af243ef3b3.ctex"]
+source_file="res://Sprites/Grabber.png"
+dest_files=["res://.godot/imported/Grabber.png-47c572b6d84822e1eed9fb9cfb9a8c77.ctex"]
 
 [params]
 

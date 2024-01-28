@@ -101,7 +101,7 @@ public partial class MainUI : Control
 
 	private void OnTimerStopBoo()
 	{
-		Timer.TimerLabel.Text = "Timer ran out via mainUI, restart";
+		Timer.TimerLabel.Text = "Time's up!";
 		AudioManager.Instance.PlaySound("crowdBoo1");
 	}
 
