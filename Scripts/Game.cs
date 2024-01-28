@@ -1,28 +1,33 @@
-using Godot;
 using System;
-using System.Collections.Generic;
-using System.IO;
+using Godot;
 
 public partial class Game : Node
 {
-	SpectatorController spectatorController = new SpectatorController();
-	CardController cardController = new CardController();
-	AudioManager audioManager = new AudioManager();
-	TimerWithSlider timer = new TimerWithSlider();
-	MainUI mainUI = new MainUI();
+	[Export]
+	private MainUI _mainUI;
+	[Export]
+	private SpectatorController _spectatorController = new SpectatorController();
+	[Export]
+	private CardController _cardController = new CardController();
 
-	int overallSpectatorsReaction = 0;
-	int spectatorsReactionThreshold = 0;
+	private int _overallSpectatorsReaction = 0;
+	private int _spectatorsReactionThreshold = 0;
+	private bool _isEverythingInitiated = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		timer.OnTimerStop = () => RanOutOfTime();
+		_mainUI.Timer.OnTimerStop = () => RanOutOfTime();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (_spectatorController.InitCompleted && !_isEverythingInitiated)
+		{
+			_isEverythingInitiated = true;
+			EnterHandView();
+		}
 	}
 
 	#region Initializing
@@ -86,55 +91,45 @@ public partial class Game : Node
 	public void EnterHandView()
 	{
 		//HandEnterAnimation();
-		timer.RestartTimer(timer.TimerMaxValue);
+		_mainUI.Timer.RestartTimer(_mainUI.Timer.TimerMaxValue);
 	}
 
-	public void PlayCard(Card cardToPlay)
+	public void PlayCard(CardBasic cardToPlay)
 	{
-        timer.StopTimer();
+		_mainUI.Timer.StopTimer();
 
-        int cardWeight = 0;
+		int cardWeight = cardToPlay.Influence[Animal.CAT];
+		cardWeight = Math.Max(cardWeight, cardToPlay.Influence[Animal.BIRD]);
+		cardWeight = Math.Max(cardWeight, cardToPlay.Influence[Animal.FISH]);
 
-		if (cardToPlay.Influence[Animal.CAT] > 0)
+		int count = _spectatorController.GetSpectators().Count;
+		_spectatorsReactionThreshold = count * cardWeight / 3;
+
+		foreach (Spectator spectator in _spectatorController.GetSpectators())
 		{
-			cardWeight = cardToPlay.Influence[Animal.CAT];
-		}
-		else if (cardToPlay.Influence[Animal.BIRD] > 0)
-		{
-			cardWeight = cardToPlay.Influence[Animal.BIRD];
-		}
-		else
-		{
-			cardWeight = cardToPlay.Influence[Animal.FISH];
+			_overallSpectatorsReaction += spectator.ApplyCard(cardToPlay);
 		}
 
-        spectatorsReactionThreshold = spectatorController.GetSpectators().Count * cardWeight / 3;
-
-        foreach (Spectator spectator in spectatorController.GetSpectators())
-        {
-            overallSpectatorsReaction += spectator.ApplyCard(cardToPlay);
-        }
-
-        if (overallSpectatorsReaction <= spectatorsReactionThreshold*(-1))
+		if (_overallSpectatorsReaction <= _spectatorsReactionThreshold * (-1))
 		{
-            //play angry crowd reaction
-            audioManager.PlaySound("crowdBoo1.wav");
-        }
-		else if (overallSpectatorsReaction <= spectatorsReactionThreshold)
+			//play angry crowd reaction
+			AudioManager.Instance.PlaySound("crowdBoo1.wav");
+		}
+		else if (_overallSpectatorsReaction <= _spectatorsReactionThreshold)
 		{
 			//play neutral crowd reaction
-			audioManager.PlaySound("synthCricket.wav");
+			AudioManager.Instance.PlaySound("synthCricket.wav");
 		}
 		else
 		{
 			//play laughing crowd reaction
-			audioManager.PlaySound("crowdLaugh1.wav");
+			AudioManager.Instance.PlaySound("crowdLaugh1.wav");
 		}
 
 		if (EvaluateGameEndCondition())
-        {
-            mainUI.ShowGameOver();
-        }
+		{
+			_mainUI.ShowGameOver();
+		}
 	}
 
 	public void EnterGameEndView()
@@ -144,14 +139,14 @@ public partial class Game : Node
 	public void RanOutOfTime()
 	{
 		//HandExitAnimation();
-		foreach (Spectator spectator in spectatorController.GetSpectators())
+		foreach (Spectator spectator in _spectatorController.GetSpectators())
 		{
 			spectator.Annoy();
 			EnterHandView();
 		}
 		if (EvaluateGameEndCondition())
 		{
-			mainUI.ShowGameOver();
+			_mainUI.ShowGameOver();
 		}
 	}
 	#endregion

@@ -1,32 +1,38 @@
-[gd_scene load_steps=9 format=3 uid="uid://cneplbc6lodoc"]
+[gd_scene load_steps=11 format=3 uid="uid://cneplbc6lodoc"]
 
 [ext_resource type="Script" path="res://Scripts/Card.cs" id="1_tt8yx"]
 [ext_resource type="Texture2D" uid="uid://dirhnskpo052m" path="res://Sprites/Card.png" id="2_4jrn1"]
-[ext_resource type="Texture2D" uid="uid://cb4w7fde7wpxq" path="res://Sprites/icon.svg" id="3_sm4j6"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_4mm7a"]
-diffuse_texture = ExtResource("2_4jrn1")
+[ext_resource type="Texture2D" uid="uid://cl05oxuxuedvf" path="res://Sprites/Logo/Logo_Parrot.png" id="3_voa7f"]
+[ext_resource type="Texture2D" uid="uid://dufrnr410ldf5" path="res://Sprites/Logo/Logo_Cat.png" id="4_74stv"]
+[ext_resource type="Texture2D" uid="uid://d1shoa0inoxqq" path="res://Sprites/Logo/Logo_Fish.png" id="5_y6tfr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jl2ti"]
-font_size = 32
+font_size = 18
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0umc3"]
-font_size = 30
+font_size = 180
 font_color = Color(0.0941176, 0.647059, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_p8dxl"]
-font_size = 34
+font_size = 180
 font_color = Color(0.862745, 0.392157, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_7hpys"]
-font_size = 35
+font_size = 180
 font_color = Color(0.392157, 0.521569, 1, 1)
 
-[node name="Card" type="Node2D" node_paths=PackedStringArray("JokeLabel", "BirdSprite", "CatSprite", "FishSprite")]
+[sub_resource type="LabelSettings" id="LabelSettings_n0and"]
+font_size = 18
+font_color = Color(0, 0, 0, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Card" type="Node2D" node_paths=PackedStringArray("QuestionLabel", "RiposteLabel", "BirdSprite", "CatSprite", "FishSprite")]
 script = ExtResource("1_tt8yx")
 Influence = {}
-JokeLabel = NodePath("Button/Joke")
+QuestionLabel = NodePath("Button/Question")
+RiposteLabel = NodePath("Button/Riposte")
 BirdSprite = NodePath("Button/Bird")
 CatSprite = NodePath("Button/Cat")
 FishSprite = NodePath("Button/Fish")
@@ -35,66 +41,101 @@ FishSprite = NodePath("Button/Fish")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -3.5
-offset_top = -3.0
-offset_right = 397.5
-offset_bottom = 583.0
+offset_right = 508.0
+offset_bottom = 208.0
 grow_horizontal = 2
 grow_vertical = 2
-icon = SubResource("CanvasTexture_4mm7a")
+icon = ExtResource("2_4jrn1")
+metadata/_edit_use_anchors_ = true
 
-[node name="Joke" type="Label" parent="Button"]
-layout_mode = 0
+[node name="Question" type="Label" parent="Button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0344488
+anchor_top = 0.125
+anchor_right = 0.24311
+anchor_bottom = 0.125
 offset_left = 37.5
 offset_top = 49.0
 offset_right = 337.5
 offset_bottom = 115.0
 text = "DUPA"
 label_settings = SubResource("LabelSettings_jl2ti")
+horizontal_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="Bird" type="Sprite2D" parent="Button"]
-position = Vector2(84.5, 169)
-texture = ExtResource("3_sm4j6")
+position = Vector2(54, 40)
+scale = Vector2(0.12425, 0.12425)
+texture = ExtResource("3_voa7f")
 
 [node name="Influence" type="Label" parent="Button/Bird"]
 anchors_preset = -1
-anchor_right = 0.507813
-anchor_bottom = 0.210938
-offset_left = 96.0
-offset_top = -11.0
-offset_right = 136.0
-offset_bottom = 12.0
+anchor_left = 1.0
+anchor_top = 0.355
+anchor_right = 1.555
+anchor_bottom = 0.612
+offset_left = -266.6
+offset_top = -290.176
+offset_right = -244.1
+offset_bottom = -177.676
+text = "100"
 label_settings = SubResource("LabelSettings_0umc3")
 metadata/_edit_use_anchors_ = true
 
 [node name="Cat" type="Sprite2D" parent="Button"]
-position = Vector2(87.5, 316)
-texture = ExtResource("3_sm4j6")
+position = Vector2(202, 38)
+scale = Vector2(0.114, 0.114)
+texture = ExtResource("4_74stv")
 
 [node name="Influence" type="Label" parent="Button/Cat"]
 anchors_preset = -1
-anchor_right = 0.804688
-anchor_bottom = 0.179688
-offset_left = 93.0
-offset_top = -27.0
-offset_right = 133.0
-offset_bottom = -4.0
+anchor_left = 1.062
+anchor_top = 0.308
+anchor_right = 1.962
+anchor_bottom = 0.694
+offset_left = -250.0
+offset_top = -250.0
+offset_right = -250.0
+offset_bottom = -250.0
+text = "100
+"
 label_settings = SubResource("LabelSettings_p8dxl")
 metadata/_edit_use_anchors_ = true
 
 [node name="Fish" type="Sprite2D" parent="Button"]
-position = Vector2(87.5, 462)
-texture = ExtResource("3_sm4j6")
+position = Vector2(347, 38)
+scale = Vector2(0.121, 0.121)
+texture = ExtResource("5_y6tfr")
 
 [node name="Influence" type="Label" parent="Button/Fish"]
 anchors_preset = -1
-anchor_right = 0.648438
-anchor_bottom = 0.25
-offset_left = 95.0
-offset_top = -28.0
-offset_right = 135.0
-offset_bottom = -5.0
+anchor_left = 1.029
+anchor_top = 0.351
+anchor_right = 1.757
+anchor_bottom = 0.647
+offset_left = -250.038
+offset_top = -249.88
+offset_right = -249.819
+offset_bottom = -249.88
+text = "100"
 label_settings = SubResource("LabelSettings_7hpys")
+metadata/_edit_use_anchors_ = true
+
+[node name="Riposte" type="Label" parent="Button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0964567
+anchor_top = 0.745192
+anchor_right = 0.824803
+anchor_bottom = 0.745192
+offset_right = 40.0
+offset_bottom = 23.0
+text = "DUPA DUPA DUPA"
+label_settings = SubResource("LabelSettings_n0and")
+horizontal_alignment = 1
+autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Button" to="." method="PlayCard"]
