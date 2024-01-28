@@ -3,9 +3,41 @@
 [ext_resource type="Script" path="res://Scripts/CardController.cs" id="1_belry"]
 [ext_resource type="PackedScene" uid="uid://cneplbc6lodoc" path="res://Scenes/Card.tscn" id="2_5i5g4"]
 
-[node name="CardController" type="Node" node_paths=PackedStringArray("Hand")]
+[node name="CardController" type="Node" node_paths=PackedStringArray("PositionNodes", "Hand")]
 script = ExtResource("1_belry")
 CardPrefab = ExtResource("2_5i5g4")
+PositionNodes = [NodePath("ScribbledCards/First Card"), NodePath("ScribbledCards/Second Card"), NodePath("ScribbledCards/Third Card"), NodePath("ScribbledCards/Fourth Card"), NodePath("ScribbledCards/Fifth Card")]
 Hand = []
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="ScribbledCards" type="Node2D" parent="."]
+position = Vector2(100, 100)
+
+[node name="First Card" type="Node2D" parent="ScribbledCards"]
+
+[node name="Second Card" type="Node2D" parent="ScribbledCards"]
+position = Vector2(0, 250)
+
+[node name="Third Card" type="Node2D" parent="ScribbledCards"]
+position = Vector2(550, 0)
+
+[node name="Fourth Card" type="Node2D" parent="ScribbledCards"]
+position = Vector2(550, 250)
+
+[node name="Fifth Card" type="Node2D" parent="ScribbledCards"]
+position = Vector2(1100, 0)
+
+[node name="UICards" type="Node2D" parent="."]
+
+[node name="First Card" type="Node2D" parent="UICards"]
+
+[node name="Second Card" type="Node2D" parent="UICards"]
+
+[node name="Third Card" type="Node2D" parent="UICards"]
+
+[node name="Fourth Card" type="Node2D" parent="UICards"]
+
+[node name="Fifth Card" type="Node2D" parent="UICards"]
+
+[node name="ClickedNode" type="Node2D" parent="."]
+
+[node name="HoverNode" type="Node2D" parent="."]

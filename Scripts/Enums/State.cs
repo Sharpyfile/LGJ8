@@ -5,3 +5,10 @@ public enum SpectatorState
     WATCHING,
     EXITING
 }
+
+public enum CardState
+{
+    CLICKED,
+    HOVERED,
+    NOT_HOVERED
+}
