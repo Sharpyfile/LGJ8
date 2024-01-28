@@ -45,9 +45,10 @@ public partial class Card : Node2D, ICardBasic
 	public bool ReadyToReinitialize { get; private set; }
 	public bool SetReadyToReinitialize { get; private set; }
 
-	[Export] public InfluenceColor catText;
-	[Export] public InfluenceColor fishText;
-	[Export] public InfluenceColor parrotText;
+	[Export] public InfluenceColor catText { get; private set; }
+
+	[Export] public InfluenceColor fishText { get; private set; }
+	[Export] public InfluenceColor parrotText { get; private set; }
 
 	public void Initialize(CardBasic card, int index, CardController controller, int XOffset, Vector2 targetPosition, double slideTime)
 	{
@@ -64,13 +65,13 @@ public partial class Card : Node2D, ICardBasic
 		this.XOffset = XOffset;
 
 		Influence.TryGetValue(Animal.CAT, out int catInfluence);
-		catText.Initialize(catInfluence);
+		GetChild<Sprite2D>(0).GetChild<Sprite2D>(1).GetChild<InfluenceColor>(0).Initialize(catInfluence);
 
 		Influence.TryGetValue(Animal.FISH, out int fishInfluence);
-		fishText.Initialize(fishInfluence);
+		GetChild<Sprite2D>(0).GetChild<Sprite2D>(2).GetChild<InfluenceColor>(0).Initialize(fishInfluence);
 
 		Influence.TryGetValue(Animal.BIRD, out int birdInfluence);
-		parrotText.Initialize(birdInfluence);
+		GetChild<Sprite2D>(0).GetChild<Sprite2D>(3).GetChild<InfluenceColor>(0).Initialize(birdInfluence);
 		GD.Print("Init card ", GetParent().Name, ',', catInfluence, ',', fishInfluence, ',', birdInfluence);
 	}
 

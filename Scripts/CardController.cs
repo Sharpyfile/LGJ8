@@ -101,7 +101,7 @@ public partial class CardController : Node
 		clickedCard = null;
 		DrawCard(clickedCardIndex);
 		Disable();
-        clickedCardIndex = -1;
+		clickedCardIndex = -1;
 	}
 
 	public void InitializeHand()
@@ -126,8 +126,8 @@ public partial class CardController : Node
 			CardBasic drewCard = AvailableCards[rngIndex];
 			AvailableCards.RemoveAt(rngIndex);
 			Hand[index] = drewCard;
-			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 15, HoveredCardNode.Position, CardSlideTime);
 			ScribbledCardNodes[index].GetChild<ScribbledCard>(0).Initialize(drewCard, index, this);
+			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 15, HoveredCardNode.Position, CardSlideTime);
 		}
 	}
 
