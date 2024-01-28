@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bq5iaqciy1544" path="res://Sprites/BG/FG_stage_light.png" id="4_cnwnu"]
 [ext_resource type="Script" path="res://Scripts/SeatsRow.cs" id="4_hwxbh"]
 [ext_resource type="Texture2D" uid="uid://bauk4tv52gar4" path="res://Sprites/BG/BG_Seats02.png" id="5_5dlw5"]
-[ext_resource type="Texture2D" uid="uid://n4fquausyw2m" path="res://Sprites/BG/hand.png" id="7_qg3xw"]
+[ext_resource type="Texture2D" uid="uid://dq4dxokmtc37s" path="res://Sprites/BG/hand.png" id="7_qg3xw"]
 [ext_resource type="PackedScene" uid="uid://ddraicruvyq1c" path="res://Scenes/Spectators/SpectatorController.tscn" id="8_bgajp"]
 
 [sub_resource type="Animation" id="Animation_qs3l7"]
@@ -96,9 +96,11 @@ position = Vector2(0, 350)
 texture = ExtResource("2_pkku1")
 
 [node name="Audience" type="Node2D" parent="GameplayArea/Control2"]
+y_sort_enabled = true
 position = Vector2(0, 5)
 
 [node name="Seats" type="Node2D" parent="GameplayArea/Control2/Audience"]
+y_sort_enabled = true
 
 [node name="SeatsRow3" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats" node_paths=PackedStringArray("Seats")]
 position = Vector2(0, -400)
@@ -184,6 +186,9 @@ script = ExtResource("4_4drqx")
 position = Vector2(661.25, 0)
 script = ExtResource("4_4drqx")
 
+[node name="Spectators" type="Node2D" parent="GameplayArea/Control2/Audience"]
+y_sort_enabled = true
+
 [node name="Entrace" type="Node2D" parent="GameplayArea/Control2/Audience"]
 position = Vector2(-890, -550)
 
@@ -232,8 +237,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ar1p3")
 }
 
-[node name="SpectatorController" parent="GameplayArea" node_paths=PackedStringArray("Entrance", "Exit", "_rows") instance=ExtResource("8_bgajp")]
+[node name="SpectatorController" parent="GameplayArea" node_paths=PackedStringArray("_spectatorsParent", "Entrance", "Exit", "_rows") instance=ExtResource("8_bgajp")]
+y_sort_enabled = true
 position = Vector2(233, -1581)
+_spectatorsParent = NodePath("../Control2/Audience/Spectators")
 Entrance = NodePath("../Control2/Audience/Entrace")
 Exit = NodePath("../Control2/Audience/Exit")
 _rows = [NodePath("../Control2/Audience/Seats/SeatsRow3"), NodePath("../Control2/Audience/Seats/SeatsRow2"), NodePath("../Control2/Audience/Seats/SeatsRow1")]
