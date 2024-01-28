@@ -9,12 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://bmeddnwk2ph4p" path="res://Scenes/Emotes/EmoteAngry.tscn" id="7_ey5tl"]
 [ext_resource type="PackedScene" uid="uid://dff62s6mmphmc" path="res://Scenes/Emotes/EmoteNeutral.tscn" id="8_jacmn"]
 
-[node name="Spectator" type="Node2D" node_paths=PackedStringArray("_spriteHappy", "_spriteNeutral", "_spriteAnnoyed", "_angryCloud")]
+[node name="Spectator" type="Node2D" node_paths=PackedStringArray("_spriteHappy", "_spriteNeutral", "_spriteAnnoyed", "_angryCloud", "_happyEmote", "_neutralEmote", "_angryEmote")]
 script = ExtResource("1_tyb2p")
 _spriteHappy = NodePath("Sprite2D_happy")
 _spriteNeutral = NodePath("Sprite2D_neutral")
 _spriteAnnoyed = NodePath("Sprite2D_annoyed")
 _angryCloud = NodePath("AngryCloud")
+_happyEmote = NodePath("SmileEmote")
+_neutralEmote = NodePath("NeutralEmote")
+_angryEmote = NodePath("AngryEmote")
 Type = 1
 
 [node name="Sprite2D_happy" type="Sprite2D" parent="."]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dhxjb1h02sapq"]
 
 [ext_resource type="Script" path="res://Scripts/Emote.cs" id="1_rqumu"]
-[ext_resource type="Texture2D" uid="uid://bvf5727yexas" path="res://Sprites/Smile.png" id="2_7erd3"]
+[ext_resource type="Texture2D" uid="uid://c4kil5uoapuki" path="res://Sprites/SmileEmote.png" id="2_7erd3"]
 
 [node name="Emoji" type="Node2D" node_paths=PackedStringArray("ChildOuter")]
 script = ExtResource("1_rqumu")
