@@ -6,7 +6,7 @@ using System.IO;
 public partial class Game : Node
 {
 	SpectatorController spectatorController = new SpectatorController();
-	CardController cardController = new CardController();
+	//CardController cardController = new CardController();
 	AudioManager audioManager = new AudioManager();
 	TimerWithSlider timer = new TimerWithSlider();
 
@@ -25,17 +25,17 @@ public partial class Game : Node
 	}
 
 	#region Initializing
-	public void DrawFullHand()
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			cardController.DrawCard();
-		}
-	}
+	//public void DrawFullHand()
+	//{
+	//	for (int i = 0; i < 5; i++)
+	//	{
+	//		cardController.DrawCard();
+	//	}
+	//}
 
-	public void PopulateSpectators()
-	{
-	}
+	//public void PopulateSpectators()
+	//{
+	//}
 	#endregion
 
 	#region Card Operations
@@ -78,10 +78,8 @@ public partial class Game : Node
 	#region Main loop parts
 	public void OpeningScene()
 	{
-		DrawFullHand();
 		audioManager.PlaySound("cardsMixing.mp3");
-		PopulateSpectators();
-		SpectatorsEnterAnimation();
+		//SpectatorsEnterAnimation();
 	}
 
 	public void EnterHandView()
@@ -90,9 +88,12 @@ public partial class Game : Node
 		timer.RestartTimer(timer.TimerMaxValue);
 	}
 
-	public void PlayCardView(Card cardToPlay)
+	public bool PlayCard(Card cardToPlay)
 	{
-		int cardWeight = 0;
+        timer.StopTimer();
+
+        int cardWeight = 0;
+
 		if (cardToPlay.Influence[Animal.CAT] > 0)
 		{
 			cardWeight = cardToPlay.Influence[Animal.CAT];
@@ -108,14 +109,12 @@ public partial class Game : Node
 
         spectatorsReactionThreshold = spectatorController.GetSpectators().Count * cardWeight / 3;
 
-        timer.StopTimer();
-		CardHighlightAnimation(cardToPlay);
-		HandExitAnimation();
-		EvaluateSpectatorsReaction(cardToPlay);
-		cardController.DiscardCard(cardToPlay);
-		cardController.DrawCard();
+        foreach (Spectator spectator in spectatorController.GetSpectators())
+        {
+            overallSpectatorsReaction += spectator.ApplyCard(cardToPlay);
+        }
 
-		if (overallSpectatorsReaction <= spectatorsReactionThreshold*(-1))
+        if (overallSpectatorsReaction <= spectatorsReactionThreshold*(-1))
 		{
             //play angry crowd reaction
             audioManager.PlaySound("crowdBoo1.wav");
