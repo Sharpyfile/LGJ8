@@ -25,6 +25,9 @@ public partial class CardController : Node
 	[Export]
 	public Node2D[] UICardNodes { get; set; } = new Node2D[HAND_SIZE];
 
+	[Export]
+	public Game GameController { get; private set; }
+
 	private List<CardBasic> AvailableCards = new();
 	private List<CardBasic> Deck = new();
 	private CardBasic[] Hand = new CardBasic[HAND_SIZE];
@@ -93,8 +96,10 @@ public partial class CardController : Node
 
 	public void PlayCard(int index)
 	{
-		//TODO: Play card to GameController
+
+		GameController.PlayCard(Hand[index]);
 		DrawCard(index);
+		//TODO: hide card
 	}
 
 	public void UpdateCardsState(int index, CardState state)

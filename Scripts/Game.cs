@@ -5,10 +5,10 @@ public partial class Game : Node
 	[Export]
 	private MainUI _mainUI;
 
-    private SpectatorController _spectatorController = new SpectatorController();
-    private CardController _cardController = new CardController();
+	private SpectatorController _spectatorController = new SpectatorController();
+	private CardController _cardController = new CardController();
 
-    private int _overallSpectatorsReaction = 0;
+	private int _overallSpectatorsReaction = 0;
 	private int _spectatorsReactionThreshold = 0;
 	private bool _isEverythingInitiated = false;
 
@@ -91,9 +91,9 @@ public partial class Game : Node
 		_mainUI.Timer.RestartTimer(_mainUI.Timer.TimerMaxValue);
 	}
 
-	public void PlayCard(Card cardToPlay)
+	public void PlayCard(CardBasic cardToPlay)
 	{
-        _mainUI.Timer.StopTimer();
+		_mainUI.Timer.StopTimer();
 
 		int cardWeight = 0;
 
@@ -110,18 +110,18 @@ public partial class Game : Node
 			cardWeight = cardToPlay.Influence[Animal.FISH];
 		}
 
-        _spectatorsReactionThreshold = _spectatorController.GetSpectators().Count * cardWeight / 3;
+		_spectatorsReactionThreshold = _spectatorController.GetSpectators().Count * cardWeight / 3;
 
-        foreach (Spectator spectator in _spectatorController.GetSpectators())
-        {
-            _overallSpectatorsReaction += spectator.ApplyCard(cardToPlay);
-        }
-
-        if (_overallSpectatorsReaction <= _spectatorsReactionThreshold*(-1))
+		foreach (Spectator spectator in _spectatorController.GetSpectators())
 		{
-            //play angry crowd reaction
-            AudioManager.Instance.PlaySound("crowdBoo1.wav");
-        }
+			_overallSpectatorsReaction += spectator.ApplyCard(cardToPlay);
+		}
+
+		if (_overallSpectatorsReaction <= _spectatorsReactionThreshold * (-1))
+		{
+			//play angry crowd reaction
+			AudioManager.Instance.PlaySound("crowdBoo1.wav");
+		}
 		else if (_overallSpectatorsReaction <= _spectatorsReactionThreshold)
 		{
 			//play neutral crowd reaction
@@ -134,9 +134,9 @@ public partial class Game : Node
 		}
 
 		if (EvaluateGameEndCondition())
-        {
-            _mainUI.ShowGameOver();
-        }
+		{
+			_mainUI.ShowGameOver();
+		}
 	}
 
 	public void EnterGameEndView()
