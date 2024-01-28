@@ -40,10 +40,7 @@ public partial class Card : Node2D, ICardBasic
 	[Export]
 	public Sprite2D FishSprite { get; private set; }
 
-	[Export]
-	public int MaxYOffset = 0;
-
-	public CardAnimationState animationState = CardAnimationState.IDLE;
+	public CardAnimationState CardAnimationState = CardAnimationState.IDLE;
 
 	public int index;
 
@@ -54,9 +51,19 @@ public partial class Card : Node2D, ICardBasic
 	private CardController _controller;
 
 	private int XOffset = 0;
+	private int YOffset = 0;
+	private double _currentAnimationTime;
+	private double _slideTime;
+	private float _lerpWeight = 0;
+	private Vector2 _initialPosition;
+	private Vector2 _targetPosition;
+	public bool ReadyToReinitialize { get; private set; }
+	public bool SetReadyToReinialize { get; private set; }
 
-	public void Initialize(CardBasic card, int index, CardController controller, int XOffset)
+	public void Initialize(CardBasic card, int index, CardController controller, int XOffset, Vector2 targetPosition, double slideTime)
 	{
+		ReadyToReinitialize = false;
+        _currentAnimationTime = 0;
 		Question = card.Question;
 		Riposte = card.Riposte;
 		Influence = card.Influence;
@@ -78,24 +85,65 @@ public partial class Card : Node2D, ICardBasic
 		fishLabel.Text = influence.ToString();
 		fishLabel.LabelSettings.FontColor = GetColor(influence);
 
-		Position = new Vector2(XOffset, 0);
-		this.XOffset = XOffset;
+		_initialPosition = Position;
+		_targetPosition = targetPosition;
+		_slideTime = slideTime;
+        this.XOffset = XOffset;
 	}
 
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
+		if (CardAnimationState == CardAnimationState.SlIDE_IN)
+		{
+			_currentAnimationTime += delta;
+			_lerpWeight = (float)(_currentAnimationTime / _slideTime);
+            Position = Position.Lerp(_targetPosition, _lerpWeight);
 
-	}
+			if (_currentAnimationTime > _slideTime)
+			{
+				Position = _targetPosition;
+                CardAnimationState = CardAnimationState.TOP;
+            }
+		}
+		else if (CardAnimationState == CardAnimationState.SLIDE_OUT)
+        {
+            _currentAnimationTime += delta;
+            _lerpWeight = (float)(_currentAnimationTime / _slideTime);
+
+            Position = Position.Lerp(_initialPosition, _lerpWeight);
+            if (_currentAnimationTime > _slideTime)
+            {
+                Position = _initialPosition;
+                CardAnimationState = CardAnimationState.IDLE;
+
+				if (SetReadyToReinialize)				
+                    ReadyToReinitialize = true;
+                
+            }
+        }
+    }
 
 	public void PlayCard()
 	{
 		_controller.PlayCard(index);
 	}
 
-	public void RunAnimation()
+	public void RunAnimation(CardAnimationState animationState, bool reinitializeOnSlide = false)
 	{
-		animationState = CardAnimationState.SLIDE;
+		// Get value between position and cast it as _currentAnimationTime
+		if (CardAnimationState == CardAnimationState.SlIDE_IN && animationState == CardAnimationState.SLIDE_OUT ||
+            CardAnimationState == CardAnimationState.SLIDE_OUT && animationState == CardAnimationState.SlIDE_IN)
+		{
+			_currentAnimationTime = _slideTime - _currentAnimationTime;
+        }
+		else
+		{
+			_currentAnimationTime = 0;
+		}
+
+		SetReadyToReinialize = reinitializeOnSlide;
+        CardAnimationState = animationState;
 	}
 
 

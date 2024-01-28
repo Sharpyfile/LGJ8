@@ -36,7 +36,12 @@ public partial class GameOverUI : Control
         if (animationName == "SceneTransitionOut")
         {
             if (TryAgain)
+            {
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.AmbientPlayer = AudioManager.Instance.GetAudioPlayer("cafeAmbience");
+
                 SceneManager.Instance.LoadMainGameplayScene();
+            }
             else
                 SceneManager.Instance.LoadMainMenuScene();
         }
