@@ -26,10 +26,24 @@ public partial class MainUI : Control
 	private bool GameOver = false;
 
 
+	private bool _hideHand = false;
+	private bool _showHand = false;
+
+	[Export]
+	private double _showHideCooldown = 1.5;
+	private double _showHideTimer = 0;
+
+	[Export]
+	private Control _handTarget;
+	private Vector2 _initialHandPosition;
+
+
 	public override void _Ready()
 	{
 		TransitionAnimator.Play("SceneTransitionIn");
-		base._Ready();
+		_initialHandPosition = _hand.Position;
+
+        base._Ready();
 	}
 
 	public override void _Process(double delta)
@@ -45,6 +59,11 @@ public partial class MainUI : Control
 			}
             AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer", 2.0f);
         }
+
+		if (_showHand)
+			ShowHandAnimation(delta);
+		else if (_hideHand)
+			HideHandAnimation(delta);
 	}
 
 	public void OnClickStartAnimation()
@@ -117,19 +136,56 @@ public partial class MainUI : Control
 		Timer.StopTimer();
 	}
 
+	private void ShowHandAnimation(double delta)
+	{
+        if (_showHideTimer < _showHideCooldown)
+        {
+            _showHideTimer += delta;
+            double weight = _showHideTimer / _showHideCooldown;
+            _hand.Position = _hand.Position.Lerp(_initialHandPosition, (float)weight);
+
+            if (_showHideTimer >= _showHideCooldown)
+            {
+                _showHand = false;
+                _hand.Position = _initialHandPosition;
+            }
+        }
+    }
+
+	private void HideHandAnimation(double delta)
+	{
+		if (_showHideTimer < _showHideCooldown)
+		{
+			_showHideTimer += delta;
+			double weight = _showHideTimer / _showHideCooldown;
+			_hand.Position = _hand.Position.Lerp(_handTarget.Position, (float)weight);
+
+			if (_showHideTimer >= _showHideCooldown)
+			{
+				_hideHand = false;
+				_hand.Position = _handTarget.Position;
+            }
+		}
+	}
+
 	/**
 	* Sets hand visibility and timer activity
 	*/
 	public void ShowHand(bool value)
 	{
-		_hand.Visible = value; // TODO animation
-		if (value)
+		// _hand.Visible = value; // TODO animation
+		_showHideTimer = 0;
+
+        if (value)
 		{
+			_showHand = true;
 			Timer.RestartTimer(Timer.TimerMaxValue);
 		}
 		else
 		{
+			_hideHand = true;
 			Timer.StopTimer();
 		}
-	}
+
+    }
 }

@@ -100,7 +100,8 @@ public partial class CardController : Node
 	{
 		clickedCard = null;
 		DrawCard(clickedCardIndex);
-		clickedCardIndex = -1;
+		Disable();
+        clickedCardIndex = -1;
 	}
 
 	public void InitializeHand()
