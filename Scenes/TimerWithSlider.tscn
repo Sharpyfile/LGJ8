@@ -1,41 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://th3do266bg5"]
+[gd_scene load_steps=3 format=3 uid="uid://th3do266bg5"]
 
 [ext_resource type="Script" path="res://Scripts/TimerWithSlider.cs" id="1_ygueb"]
+
+[sub_resource type="Gradient" id="Gradient_cc58a"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 
 [node name="TimerWithSlider" type="Control" node_paths=PackedStringArray("SliderInside", "TimerLabel")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 348.0
 offset_top = 26.0
-offset_right = 598.0
-offset_bottom = 106.0
+offset_right = 723.0
+offset_bottom = 76.0
 script = ExtResource("1_ygueb")
-SliderInside = NodePath("VBoxContainer/SliderBackround/SliderInside2/SliderInside")
-TimerLabel = NodePath("VBoxContainer/Label")
-BadColor = Color(1, 0, 0, 1)
-GoodColor = Color(0, 0.996078, 0, 1)
+SliderInside = NodePath("SliderBackround/SliderInside2/SliderInside")
+TimerLabel = NodePath("Label")
+GradientColor = SubResource("Gradient_cc58a")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
+[node name="SliderBackround" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(318, 50)
 layout_mode = 2
-text = "30:00 s"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
+offset_left = -0.5
+offset_right = 317.5
+offset_bottom = 50.0
+size_flags_horizontal = 3
+color = Color(0.133333, 0.333333, 0.333333, 1)
 
-[node name="SliderBackround" type="ColorRect" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="SliderInside2" type="ColorRect" parent="VBoxContainer/SliderBackround"]
+[node name="SliderInside2" type="ColorRect" parent="SliderBackround"]
 clip_children = 2
 layout_mode = 1
 anchors_preset = -1
@@ -47,9 +39,9 @@ offset_right = -5.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.133333, 0.184314, 1)
+color = Color(0.133333, 0.333333, 0.333333, 1)
 
-[node name="SliderInside" type="ColorRect" parent="VBoxContainer/SliderBackround/SliderInside2"]
+[node name="SliderInside" type="ColorRect" parent="SliderBackround/SliderInside2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -57,3 +49,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.572549, 0.737255, 1)
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+offset_left = 323.0
+offset_right = 646.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "30:00 s"
+vertical_alignment = 1

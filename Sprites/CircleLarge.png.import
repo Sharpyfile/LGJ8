@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckuidiajrhvpq"
-path="res://.godot/imported/Circle.png-0c45e21435093ae348e4b37cb96ba5fa.ctex"
+uid="uid://bh25rk4ya13ee"
+path="res://.godot/imported/CircleLarge.png-6a5a312169003a189e9c3336c8ab18ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Circle.png"
-dest_files=["res://.godot/imported/Circle.png-0c45e21435093ae348e4b37cb96ba5fa.ctex"]
+source_file="res://Sprites/CircleLarge.png"
+dest_files=["res://.godot/imported/CircleLarge.png-6a5a312169003a189e9c3336c8ab18ad.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
