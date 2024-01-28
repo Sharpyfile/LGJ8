@@ -167,17 +167,18 @@ public partial class Spectator : Node2D
 		{
 			case > 0:
 				_happyEmote.Visible = true;
+				_neutralEmote.Visible = false;
+				_angryEmote.Visible = false;
 				break;
 			case 0:
 				_neutralEmote.Visible = true;
+				_happyEmote.Visible = false;
+				_angryEmote.Visible = false;
 				break;
 			case < 0:
 				_angryEmote.Visible = true;
-				break;
-			default:
 				_happyEmote.Visible = false;
 				_neutralEmote.Visible = false;
-				_angryEmote.Visible = false;
 				break;
 		}
 	}
