@@ -74,9 +74,9 @@ SoundVariant = 1
 
 [node name="Timer" parent="." instance=ExtResource("3_aemv8")]
 offset_left = 15.0
-offset_top = 657.0
+offset_top = 640.0
 offset_right = 265.0
-offset_bottom = 737.0
+offset_bottom = 720.0
 
 [node name="SceneTransitionAnimation" parent="." instance=ExtResource("5_7krku")]
 

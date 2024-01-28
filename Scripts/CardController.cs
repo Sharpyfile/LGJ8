@@ -15,9 +15,6 @@ public partial class CardController : Node
 	public PackedScene CardPrefab { get; set; }
 
 	[Export]
-	public Node2D ClickedCardNode { get; set; }
-
-	[Export]
 	public Node2D HoveredCardNode { get; set; }
 
 	[Export]
@@ -104,7 +101,6 @@ public partial class CardController : Node
 		clickedCard = null;
 		DrawCard(clickedCardIndex);
 		clickedCardIndex = -1;
-		Disable();
 	}
 
 	public void InitializeHand()
@@ -132,7 +128,7 @@ public partial class CardController : Node
 			Hand[index] = drewCard;
 			AvailableCards.RemoveAt(rngIndex);
 			ScribbledCardNodes[index].GetChild<ScribbledCard>(0).Initialize(drewCard, index, this);
-			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 20, HoveredCardNode.Position, CardSlideTime);
+			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 15, HoveredCardNode.Position, CardSlideTime);
 		}
 	}
 
@@ -168,7 +164,7 @@ public partial class CardController : Node
 				{
 					if (clickedCard != updatedCard && clickedCard != null)
 						clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
-					else if (clickedCard == updatedCard && clickedCard.SetReadyToReinialize)
+					else if (clickedCard == updatedCard && clickedCard.SetReadyToReinitialize)
 						break;
 
 					updatedCard.RunAnimation(CardAnimationState.SlIDE_IN);
