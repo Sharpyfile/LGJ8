@@ -24,6 +24,7 @@ public partial class Game : Node
 		if (_spectatorController.InitCompleted && !_isEverythingInitiated)
 		{
 			_isEverythingInitiated = true;
+			EnterHandView();
 		}
 	}
 
