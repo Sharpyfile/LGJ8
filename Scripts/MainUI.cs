@@ -35,7 +35,7 @@ public partial class MainUI : Control
 			if (AudioManager.Instance.AmbientPlayer != null)
 			{
 				AudioManager.Instance.AmbientPlayer.StopMusic(1.5f);
-                AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer", 2.0f);
+				AudioPlayer = AudioManager.Instance.GetAudioPlayer("Plain Loafer", 2.0f);
 			}
 		}
 	}
@@ -61,7 +61,7 @@ public partial class MainUI : Control
 				SceneManager.Instance.LoadGameOverScene();
 			else
 				SceneManager.Instance.LoadMainMenuScene();
-        }
+		}
 	}
 
 	public void OnClickRestartTimer()

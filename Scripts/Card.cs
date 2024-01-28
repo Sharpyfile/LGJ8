@@ -1,38 +1,36 @@
 using Godot;
 using Godot.Collections;
 
-public class CardBasic : ICardBasic
-{
-	public string Text { get; set; }
-	public Dictionary<Animal, int> Influence { get; set; }
-}
 
-public interface ICardBasic
-{
-	public string Text { get; set; }
-	public Dictionary<Animal, int> Influence { get; set; }
-}
 
 public partial class Card : Node2D, ICardBasic
 {
 
-	private string _text;
+	private string _question;
 	[Export]
-	public string Text
+	public string Question
 	{
-		get { return _text; }
+		get { return _question; }
 		set
-		{
-			_text = value;
-			JokeLabel.Text = value;
-		}
+		{ _question = value; QuestionLabel.Text = value; }
+	}
+
+	private string _riposte;
+	[Export]
+	public string Riposte
+	{
+		get { return _riposte; }
+		set { _question = value; RiposteLabel.Text = value; }
 	}
 
 	[Export]
 	public Dictionary<Animal, int> Influence { get; set; }
 
 	[Export]
-	public Label JokeLabel { get; private set; }
+	public Label QuestionLabel { get; private set; }
+	[Export]
+	public Label RiposteLabel { get; private set; }
+
 	[Export]
 	public Sprite2D BirdSprite { get; private set; }
 	[Export]
@@ -46,10 +44,14 @@ public partial class Card : Node2D, ICardBasic
 
 	private CardController _controller;
 
-	public void Initialize(CardBasic card, CardController controller)
+	public int index;
+
+	public void Initialize(CardBasic card, int index, CardController controller)
 	{
-		Text = card.Text;
+		Question = card.Question;
+		Riposte = card.Riposte;
 		Influence = card.Influence;
+		this.index = index;
 		_controller = controller;
 
 		Influence.TryGetValue(Animal.BIRD, out int influence);
@@ -70,19 +72,9 @@ public partial class Card : Node2D, ICardBasic
 
 	public void PlayCard()
 	{
-		_controller.DiscardCard(this);
+		_controller.PlayCard(index);
 	}
 
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 
 	private Color getColor(int v)
 	{

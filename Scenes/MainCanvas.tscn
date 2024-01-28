@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpku3hrvmmohj"]
+[gd_scene load_steps=6 format=3 uid="uid://bjvpkyag3nphy"]
 
 [ext_resource type="Script" path="res://Scripts/MainUI.cs" id="1_yjvoj"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_0r6cd"]
 [ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_c8b7l"]
-[ext_resource type="PackedScene" uid="uid://th3do266bg5" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
+[ext_resource type="PackedScene" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
 [ext_resource type="PackedScene" uid="uid://dv8bpmyi00htt" path="res://Animations/SceneTransitionAnimation.tscn" id="5_7krku"]
 
 [node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer", "TransitionAnimator")]

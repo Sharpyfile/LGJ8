@@ -1,7 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 public partial class Game : Node
 {
@@ -98,7 +95,7 @@ public partial class Game : Node
 	{
         _mainUI.Timer.StopTimer();
 
-        int cardWeight = 0;
+		int cardWeight = 0;
 
 		if (cardToPlay.Influence[Animal.CAT] > 0)
 		{
