@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection.Metadata;
 
 public partial class MainUI : Control
 {
@@ -14,6 +15,9 @@ public partial class MainUI : Control
 
 	[Export]
 	private SpectatorController _spectatorController;
+
+	[Export]
+	private Control _hand;
 
 	private AudioPlayer AudioPlayer;
 
@@ -111,5 +115,21 @@ public partial class MainUI : Control
 	public void OnClickStopTimer()
 	{
 		Timer.StopTimer();
+	}
+
+	/**
+	* Sets hand visibility and timer activity
+	*/
+	public void ShowHand(bool value)
+	{
+		_hand.Visible = value; // TODO animation
+		if (value)
+		{
+			Timer.RestartTimer(Timer.TimerMaxValue);
+		}
+		else
+		{
+			Timer.StopTimer();
+		}
 	}
 }

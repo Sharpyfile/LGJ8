@@ -101,7 +101,7 @@ public partial class CardController : Node
 		GameController.PlayCard(Hand[index]);
 		UpdateCardsState(index, CardState.NOT_CLICKED);
 		DrawCard(index);
-		//TODO: hide card
+		isEnabled = false;
 	}
 
 	public void UpdateCardsState(int index, CardState state)

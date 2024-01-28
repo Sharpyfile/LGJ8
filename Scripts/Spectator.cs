@@ -76,7 +76,7 @@ public partial class Spectator : Node2D
 				}
 				else
 				{
-					if (Step(_entrance)) _controller.Remove(this);
+					if (Step(_entrance)) QueueFree();
 				}
 				break;
 		}
@@ -144,6 +144,7 @@ public partial class Spectator : Node2D
 				break;
 			case Mood.EXIT:
 				State = SpectatorState.EXITING;
+				_controller.Release(this);
 				_seat.spectator = null;
 				goto case Mood.ANNOYED;
 		}

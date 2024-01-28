@@ -15,8 +15,8 @@ public partial class SpectatorController : Node2D
 		return ret;
 	}
 
-	[Export] private Vector2I _audienceOnStart = new Vector2I(4, 7);
 	[Export] private double _spawnRate = .3f;
+	[Export] private double _spawnCap = 0;
 
 	private double _spawnTimer = 0;
 
@@ -34,6 +34,9 @@ public partial class SpectatorController : Node2D
 	private RandomNumberGenerator _rng = new();
 	private float _midX;
 
+	private int _eliminator;
+	private int _eliminatorIndex;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -42,6 +45,7 @@ public partial class SpectatorController : Node2D
 		{
 			foreach (var seat in row.Seats)
 			{
+				_spawnCap++;
 				_seats.Add(seat);
 				seat.Row = row;
 			}
@@ -51,7 +55,6 @@ public partial class SpectatorController : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		// Fill audence on init 
 		if (!IsAudienceFull)
 		{
 			_spawnTimer += delta;
@@ -76,14 +79,19 @@ public partial class SpectatorController : Node2D
 		}
 	}
 
-	public void Remove(Spectator spectator)
+	public void Release(Spectator spectator)
 	{
 		_spectators.Remove(spectator);
-		spectator.QueueFree();
+		if (_eliminatorIndex == 0) _eliminator = _rng.RandiRange(0, 2);
+		if (_eliminatorIndex == _eliminator) _spawnCap--;
+		_eliminatorIndex = ++_eliminatorIndex % 3;
+		IsAudienceFull = false;
+		InitCompleted = false;
 	}
 
 	private bool SpawnSpectator()
 	{
+		if (_spectators.Count >= _spawnCap) return false;
 		var seat = SelectSeat();
 		if (seat != null)
 		{
