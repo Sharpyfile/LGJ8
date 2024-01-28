@@ -1,8 +1,14 @@
 [gd_scene load_steps=7 format=3 uid="uid://by2f5xoaunwg0"]
 
-[ext_resource type="PackedScene" uid="uid://bjvpkyag3nphy" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
-[ext_resource type="Texture2D" uid="uid://cb4w7fde7wpxq" path="res://Sprites/icon.svg" id="2_8fvjv"]
-[ext_resource type="Texture2D" uid="uid://uwhivkvti1xv" path="res://Sprites/chair_placeholder.png" id="3_je8gn"]
+[ext_resource type="PackedScene" uid="uid://dpku3hrvmmohj" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
+[ext_resource type="Texture2D" uid="uid://bwdgg81016n5w" path="res://Sprites/BG/BG_floor_wall.png" id="2_pkku1"]
+[ext_resource type="Texture2D" uid="uid://iu6lkb15xvih" path="res://Sprites/BG/BG_Seats.png" id="3_r0kip"]
+[ext_resource type="Script" path="res://Scripts/Seat.cs" id="4_4drqx"]
+[ext_resource type="Texture2D" uid="uid://bq5iaqciy1544" path="res://Sprites/BG/FG_stage_light.png" id="4_cnwnu"]
+[ext_resource type="Script" path="res://Scripts/SeatsRow.cs" id="4_hwxbh"]
+[ext_resource type="Texture2D" uid="uid://bauk4tv52gar4" path="res://Sprites/BG/BG_Seats02.png" id="5_5dlw5"]
+[ext_resource type="Texture2D" uid="uid://n4fquausyw2m" path="res://Sprites/BG/hand.png" id="7_qg3xw"]
+[ext_resource type="PackedScene" uid="uid://ddraicruvyq1c" path="res://Scenes/Spectators/SpectatorController.tscn" id="8_bgajp"]
 
 [sub_resource type="Animation" id="Animation_qs3l7"]
 resource_name = "LowerHand"
@@ -75,6 +81,131 @@ offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Control2" type="Control" parent="GameplayArea"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+<<<<<<< HEAD
+[node name="Audience" type="Node2D" parent="GameplayArea/Control2"]
+position = Vector2(0, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control2/Audience"]
+texture = ExtResource("3_je8gn")
+=======
+[node name="Background" type="Node2D" parent="GameplayArea/Control2"]
+
+[node name="Floor" type="Sprite2D" parent="GameplayArea/Control2/Background"]
+position = Vector2(0, 350)
+texture = ExtResource("2_pkku1")
+
+[node name="Audience" type="Node2D" parent="GameplayArea/Control2"]
+position = Vector2(0, 5)
+
+[node name="Seats" type="Node2D" parent="GameplayArea/Control2/Audience"]
+
+[node name="SeatsRow3" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats" node_paths=PackedStringArray("Seats")]
+position = Vector2(0, -400)
+texture = ExtResource("3_r0kip")
+script = ExtResource("4_hwxbh")
+Seats = [NodePath("Seat12"), NodePath("Seat13"), NodePath("Seat14"), NodePath("Seat15"), NodePath("Seat16"), NodePath("Seat17")]
+
+[node name="Seat12" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(-661.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat13" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(-396.75, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat14" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(-132.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat15" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(132.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat16" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(396.75, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat17" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow3"]
+position = Vector2(661.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="SeatsRow2" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats" node_paths=PackedStringArray("Seats")]
+position = Vector2(0, -200)
+texture = ExtResource("5_5dlw5")
+script = ExtResource("4_hwxbh")
+Seats = [NodePath("Seat7"), NodePath("Seat8"), NodePath("Seat9"), NodePath("Seat10"), NodePath("Seat11")]
+
+[node name="Seat7" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+position = Vector2(-528.5, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat8" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+position = Vector2(-263.5, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat9" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+script = ExtResource("4_4drqx")
+
+[node name="Seat10" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+position = Vector2(265, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat11" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow2"]
+position = Vector2(529, 0)
+script = ExtResource("4_4drqx")
+
+[node name="SeatsRow1" type="Sprite2D" parent="GameplayArea/Control2/Audience/Seats" node_paths=PackedStringArray("Seats")]
+texture = ExtResource("3_r0kip")
+script = ExtResource("4_hwxbh")
+Seats = [NodePath("Seat1"), NodePath("Seat2"), NodePath("Seat3"), NodePath("Seat4"), NodePath("Seat5"), NodePath("Seat6")]
+
+[node name="Seat1" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(-661.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat2" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(-396.75, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat3" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(-132.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat4" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(132.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat5" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(396.75, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Seat6" type="Node2D" parent="GameplayArea/Control2/Audience/Seats/SeatsRow1"]
+position = Vector2(661.25, 0)
+script = ExtResource("4_4drqx")
+
+[node name="Entrace" type="Node2D" parent="GameplayArea/Control2/Audience"]
+position = Vector2(-890, -550)
+
+[node name="Exit" type="Node2D" parent="GameplayArea/Control2/Audience"]
+position = Vector2(890, -550)
+
+[node name="Stage" type="Node2D" parent="GameplayArea/Control2"]
+position = Vector2(0, 200)
+
+[node name="Stage" type="Sprite2D" parent="GameplayArea/Control2/Stage"]
+texture = ExtResource("4_cnwnu")
+>>>>>>> 9139975f6a073c320dad8e0963cb228b252c88ff
+
 [node name="Control" type="Control" parent="GameplayArea"]
 layout_mode = 1
 anchors_preset = 7
@@ -90,30 +221,36 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Hand" type="Node2D" parent="GameplayArea/Control"]
-position = Vector2(0, 5)
 
 [node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control/Hand"]
-texture = ExtResource("2_8fvjv")
+position = Vector2(548, -209)
+texture = ExtResource("7_qg3xw")
 
-[node name="Control2" type="Control" parent="GameplayArea"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CheatSheet1" type="Node2D" parent="GameplayArea/Control/Hand"]
+position = Vector2(455, -276)
 
-[node name="Audience" type="Node2D" parent="GameplayArea/Control2"]
-position = Vector2(0, 5)
+[node name="CheatSheet2" type="Node2D" parent="GameplayArea/Control/Hand"]
 
-[node name="Sprite2D" type="Sprite2D" parent="GameplayArea/Control2/Audience"]
-texture = ExtResource("3_je8gn")
+[node name="CheatSheet3" type="Node2D" parent="GameplayArea/Control/Hand"]
+
+[node name="CheatSheet4" type="Node2D" parent="GameplayArea/Control/Hand"]
+
+[node name="CheatSheet5" type="Node2D" parent="GameplayArea/Control/Hand"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameplayArea"]
 libraries = {
 "": SubResource("AnimationLibrary_ar1p3")
 }
 
+<<<<<<< HEAD
 [node name="MainCanvas" parent="." instance=ExtResource("1_imsjj")]
+=======
+[node name="SpectatorController" parent="GameplayArea" node_paths=PackedStringArray("Entrance", "Exit", "_rows") instance=ExtResource("8_bgajp")]
+position = Vector2(233, -1581)
+Entrance = NodePath("../Control2/Audience/Entrace")
+Exit = NodePath("../Control2/Audience/Exit")
+_rows = [NodePath("../Control2/Audience/Seats/SeatsRow3"), NodePath("../Control2/Audience/Seats/SeatsRow2"), NodePath("../Control2/Audience/Seats/SeatsRow1")]
+
+[node name="MainCanvas" parent="." node_paths=PackedStringArray("_spectatorController") instance=ExtResource("1_imsjj")]
+_spectatorController = NodePath("../GameplayArea/SpectatorController")
+>>>>>>> 9139975f6a073c320dad8e0963cb228b252c88ff

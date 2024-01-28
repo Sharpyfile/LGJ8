@@ -11,7 +11,7 @@ public partial class Game : Node
 	TimerWithSlider timer = new TimerWithSlider();
 
 	int overallSpectatorsReaction = 0;
-	int spectatorsReactionTreshold = 0;
+	int spectatorsReactionThreshold = 0;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -106,21 +106,21 @@ public partial class Game : Node
 			cardWeight = cardToPlay.Influence[Animal.FISH];
 		}
 
-		spectatorsReactionTreshold = spectatorController.GetSpectators().Count * cardWeight / 3;
+		spectatorsReactionThreshold = spectatorController.GetSpectators().Count * cardWeight / 3;
 
 		timer.StopTimer();
-		CardHighlitAnimation(cardToPlay);
+		CardHighlightAnimation(cardToPlay);
 		HandExitAnimation();
 		EvaluateSpectatorsReaction(cardToPlay);
 		cardController.DiscardCard(cardToPlay);
 		cardController.DrawCard();
 
-		if (overallSpectatorsReaction <= spectatorsReactionTreshold * (-1))
+		if (overallSpectatorsReaction <= spectatorsReactionThreshold * (-1))
 		{
 			//play angry crowd reaction
 			audioManager.PlaySound("crowdBoo1.wav");
 		}
-		else if (overallSpectatorsReaction <= spectatorsReactionTreshold)
+		else if (overallSpectatorsReaction <= spectatorsReactionThreshold)
 		{
 			//play neutral crowd reaction
 			audioManager.PlaySound("synthCricket.wav");
@@ -173,7 +173,7 @@ public partial class Game : Node
 	{
 	}
 
-	public void CardHighlitAnimation(Card card)
+	public void CardHighlightAnimation(Card card)
 	{
 
 	}

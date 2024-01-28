@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjvpkyag3nphy"]
+[gd_scene load_steps=6 format=3 uid="uid://dpku3hrvmmohj"]
 
 [ext_resource type="Script" path="res://Scripts/MainUI.cs" id="1_yjvoj"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_0r6cd"]
 [ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_c8b7l"]
-[ext_resource type="PackedScene" uid="uid://th3do266bg5" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
+[ext_resource type="PackedScene" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
 [ext_resource type="PackedScene" uid="uid://dv8bpmyi00htt" path="res://Animations/SceneTransitionAnimation.tscn" id="5_7krku"]
 
 [node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer", "TransitionAnimator")]
@@ -53,11 +53,28 @@ text = "Stop timer"
 script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
+[node name="GameOverTestButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 20.0
+offset_top = 200.0
+offset_right = 220.0
+offset_bottom = 250.0
+theme = ExtResource("2_c8b7l")
+text = "Game Over screen"
+script = ExtResource("2_0r6cd")
+SoundVariant = 1
+
 [node name="Timer" parent="." instance=ExtResource("3_aemv8")]
+offset_left = 15.0
+offset_top = 967.0
+offset_right = 265.0
+offset_bottom = 1047.0
 
 [node name="SceneTransitionAnimation" parent="." instance=ExtResource("5_7krku")]
 
 [connection signal="pressed" from="Button" to="." method="OnClickStartAnimation"]
 [connection signal="pressed" from="RestartTimerButton" to="." method="OnClickRestartTimer"]
 [connection signal="pressed" from="StopTimerButton" to="." method="OnClickStopTimer"]
+[connection signal="pressed" from="GameOverTestButton" to="." method="ShowGameOver"]
 [connection signal="animation_finished" from="SceneTransitionAnimation" to="." method="OnFinishLoadMainGameplayScene"]

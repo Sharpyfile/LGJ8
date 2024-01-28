@@ -9,6 +9,9 @@ public partial class SceneManager : Node
 	[Export]
 	private PackedScene MainGameplayScene;
 
+	[Export]
+	private PackedScene GameOverScene;
+
 	public static SceneManager Instance { get; private set; }
 
 	public override void _Ready()
@@ -26,7 +29,12 @@ public partial class SceneManager : Node
 		GetTree().ChangeSceneToPacked(MainGameplayScene);
 	}
 
-	public void ExitGame()
+    public void LoadGameOverScene()
+    {
+        GetTree().ChangeSceneToPacked(GameOverScene);
+    }
+
+    public void ExitGame()
 	{
 		GetTree().Quit();
 	}
