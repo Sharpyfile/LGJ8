@@ -19,5 +19,5 @@ public class Constants
     public static readonly int HAND_SIZE = 5;
     public static readonly Color BAD_COLOR = new Color("#FF0000");
     public static readonly Color GOOD_COLOR = new Color("#00AA00");
-    public static readonly Color NEUTRAL_COLOR = new Color("#AAA");
+    public static readonly Color NEUTRAL_COLOR = new Color("#666");
 }
