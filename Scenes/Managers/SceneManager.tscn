@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvqrmqgan0ofk"]
+[gd_scene load_steps=6 format=3 uid="uid://dvqrmqgan0ofk"]
 
 [ext_resource type="Script" path="res://Scripts/SceneManager.cs" id="1_gnbxs"]
 [ext_resource type="PackedScene" uid="uid://n4aigv33ekbn" path="res://Scenes/MainMenu.tscn" id="2_grj6e"]
 [ext_resource type="PackedScene" uid="uid://by2f5xoaunwg0" path="res://Scenes/Main.tscn" id="3_o83r3"]
-[ext_resource type="PackedScene" uid="uid://deweldpe53dv2" path="res://Scenes/GameOverScene.tscn" id="4_xppfq"]
+[ext_resource type="PackedScene" uid="uid://ce754lh8yywok" path="res://Scenes/GameOverScene.tscn" id="4_xppfq"]
+[ext_resource type="PackedScene" uid="uid://iwmdo024ahi8" path="res://Scenes/GameWinScene.tscn" id="5_v8mn5"]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource("1_gnbxs")
 MainMenuScene = ExtResource("2_grj6e")
 MainGameplayScene = ExtResource("3_o83r3")
 GameOverScene = ExtResource("4_xppfq")
+GameWinScene = ExtResource("5_v8mn5")

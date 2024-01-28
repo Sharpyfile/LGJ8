@@ -20,6 +20,7 @@ public partial class MainUI : Control
 	private bool _isFullInitial = false;
 
 	private bool GameOver = false;
+	private bool GameWin = false;
 
 
 	public override void _Ready()
@@ -56,13 +57,22 @@ public partial class MainUI : Control
 		OnClickStartAnimation();
 	}
 
-	public void OnFinishLoadMainGameplayScene(StringName animationName)
+    public void ShowGameWin()
+    {
+        GameOver = true;
+        OnClickStartAnimation();
+    }
+
+
+    public void OnFinishLoadMainGameplayScene(StringName animationName)
 	{
 		if (animationName == "SceneTransitionOut")
 		{
 			if (GameOver)
 				SceneManager.Instance.LoadGameOverScene();
-			else
+			else if (GameWin)
+                SceneManager.Instance.LoadGameWinScene();
+            else
 				SceneManager.Instance.LoadMainMenuScene();
 		}
 	}

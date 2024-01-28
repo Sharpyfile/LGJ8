@@ -6,7 +6,7 @@ public partial class Emote : Node2D
     [Export]
     private double OpacityCooldown;
     [Export]
-    private double MaxOpacityCooldown = 10.0f;
+    private double MaxOpacityCooldown = 4.0f;
     [Export]
     private Vector2 MaxAbsoluteOffset = new(-5, 5);
 
