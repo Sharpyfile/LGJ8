@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://by2f5xoaunwg0"]
+[gd_scene load_steps=15 format=3 uid="uid://by2f5xoaunwg0"]
 
 [ext_resource type="PackedScene" uid="uid://bjvpkyag3nphy" path="res://Scenes/MainCanvas.tscn" id="1_imsjj"]
 [ext_resource type="Texture2D" uid="uid://bwdgg81016n5w" path="res://Sprites/BG/BG_floor_wall.png" id="2_pkku1"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://Scripts/SeatsRow.cs" id="4_hwxbh"]
 [ext_resource type="Texture2D" uid="uid://bauk4tv52gar4" path="res://Sprites/BG/BG_Seats02.png" id="5_5dlw5"]
 [ext_resource type="Texture2D" uid="uid://baq7qklytmq3a" path="res://Sprites/BG/hand.png" id="7_qg3xw"]
+[ext_resource type="Script" path="res://Scripts/ScribbledCard.cs" id="8_6oehm"]
 [ext_resource type="PackedScene" uid="uid://ddraicruvyq1c" path="res://Scenes/Spectators/SpectatorController.tscn" id="8_bgajp"]
+[ext_resource type="PackedScene" uid="uid://crobfgjgw657a" path="res://Scenes/CardController.tscn" id="10_u44kb"]
 
 [sub_resource type="Animation" id="Animation_qs3l7"]
 resource_name = "LowerHand"
@@ -222,15 +224,24 @@ position = Vector2(548, -209)
 texture = ExtResource("7_qg3xw")
 
 [node name="CheatSheet1" type="Node2D" parent="GameplayArea/Control/Hand"]
-position = Vector2(455, -276)
+position = Vector2(294, -250)
+script = ExtResource("8_6oehm")
 
 [node name="CheatSheet2" type="Node2D" parent="GameplayArea/Control/Hand"]
+position = Vector2(512, -264)
+script = ExtResource("8_6oehm")
 
 [node name="CheatSheet3" type="Node2D" parent="GameplayArea/Control/Hand"]
+position = Vector2(496, -131)
+script = ExtResource("8_6oehm")
 
 [node name="CheatSheet4" type="Node2D" parent="GameplayArea/Control/Hand"]
+position = Vector2(700, -229)
+script = ExtResource("8_6oehm")
 
 [node name="CheatSheet5" type="Node2D" parent="GameplayArea/Control/Hand"]
+position = Vector2(695, -91)
+script = ExtResource("8_6oehm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameplayArea"]
 libraries = {
@@ -244,6 +255,9 @@ _spectatorsParent = NodePath("../Control2/Audience/Spectators")
 Entrance = NodePath("../Control2/Audience/Entrace")
 Exit = NodePath("../Control2/Audience/Exit")
 _rows = [NodePath("../Control2/Audience/Seats/SeatsRow3"), NodePath("../Control2/Audience/Seats/SeatsRow2"), NodePath("../Control2/Audience/Seats/SeatsRow1")]
+
+[node name="CardController" parent="GameplayArea" node_paths=PackedStringArray("ScribbledCardNodes") instance=ExtResource("10_u44kb")]
+ScribbledCardNodes = [NodePath("../Control/Hand/CheatSheet1"), NodePath("../Control/Hand/CheatSheet2"), NodePath("../Control/Hand/CheatSheet3"), NodePath("../Control/Hand/CheatSheet4"), NodePath("../Control/Hand/CheatSheet5")]
 
 [node name="MainCanvas" parent="." node_paths=PackedStringArray("_spectatorController") instance=ExtResource("1_imsjj")]
 _spectatorController = NodePath("../GameplayArea/SpectatorController")
