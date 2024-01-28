@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bq5iaqciy1544" path="res://Sprites/BG/FG_stage_light.png" id="4_cnwnu"]
 [ext_resource type="Script" path="res://Scripts/SeatsRow.cs" id="4_hwxbh"]
 [ext_resource type="Texture2D" uid="uid://bauk4tv52gar4" path="res://Sprites/BG/BG_Seats02.png" id="5_5dlw5"]
-[ext_resource type="Texture2D" uid="uid://n4fquausyw2m" path="res://Sprites/BG/hand.png" id="7_qg3xw"]
+[ext_resource type="Texture2D" uid="uid://bn1y7eacjvsr1" path="res://Sprites/BG/hand.png" id="7_qg3xw"]
 [ext_resource type="PackedScene" uid="uid://ddraicruvyq1c" path="res://Scenes/Spectators/SpectatorController.tscn" id="8_bgajp"]
 
 [sub_resource type="Animation" id="Animation_qs3l7"]
