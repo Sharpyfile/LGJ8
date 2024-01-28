@@ -12,6 +12,7 @@ offset_left = -110.0
 offset_top = -60.0
 offset_right = 118.0
 offset_bottom = 76.0
+focus_mode = 0
 icon = ExtResource("2_hv0tx")
 
 [node name="BirdIndicator" type="Node2D" parent="Button"]
