@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cpkacecwhchym" path="res://Scenes/Spectators/Parrot/Parrot_4.tscn" id="17_2vtsr"]
 [ext_resource type="PackedScene" uid="uid://tpmugctb1fpw" path="res://Scenes/Spectators/Parrot/Parrot_5.tscn" id="18_3yocm"]
 
-[node name="SpectatorController" type="Node2D" node_paths=PackedStringArray("_rows", "_spectators")]
+[node name="SpectatorController" type="Node" node_paths=PackedStringArray("_rows", "_spectators")]
 script = ExtResource("1_cldwj")
 _rows = []
 _pool = Array[PackedScene]([ExtResource("2_bc22q"), ExtResource("3_ssdik"), ExtResource("4_aqty1"), ExtResource("5_176oe"), ExtResource("6_q8ufc"), ExtResource("7_4cy73"), ExtResource("8_00ej1"), ExtResource("9_jx2sq"), ExtResource("10_60guy"), ExtResource("11_kyka4"), ExtResource("12_bgnvp"), ExtResource("13_blp5q"), ExtResource("14_cy7f4"), ExtResource("15_dgfrc"), ExtResource("16_5rdal"), ExtResource("17_2vtsr"), ExtResource("18_3yocm")])

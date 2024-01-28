@@ -1,67 +1,67 @@
 Title;Riposte;Cat_Influence;Fish_Influence;Bird_Influence
-What do you call a fish with a lot of debts?;A loan shark!;0;-2;2
-Why do fish like worms?;Because they’re hooked on them!;0;-2;2
-What fish is best to have in a boat?;A sail fish.;0;1;1
-Where do fish sleep?;In a water bed!;0;-1;1
-Did you hear about the fish who could fix any tank?;He was so-fish-ticated!;1;1;0
-What do you call a fish with no eyes?;Fsh.;0;-2;2
+What do you call a fish with a lot of debts?;A loan shark!;-1;-2;2
+Why do fish like worms?;Because they’re hooked on them!;-1;-2;2
+What fish is best to have in a boat?;A sail fish.;-1;0;1
+Where do fish sleep?;In a water bed!;-1;-1;1
+Did you hear about the fish who could fix any tank?;He was so-fish-ticated!;1;0;-1
+What do you call a fish with no eyes?;Fsh.;-1;-2;2
 Who held the baby octopus for ransom?;Squidnappers.;1;2;1
-How do you make an octopus laugh?;Give it ten-tickles.;0;1;0
-What vitamins do fish take to stay healthy?;Vitamin sea.;1;0;1
-How do you talk to a fish?;Drop it a line!;0;-2;2
-What is a pirate's favorite fish?;A swordfish.;0;1;1
-What kind of guitar does the fish play?;Bass.;1;1;1
+How do you make an octopus laugh?;Give it ten-tickles.;-1;0;-1
+What vitamins do fish take to stay healthy?;Vitamin sea.;1;-1;1
+How do you talk to a fish?;Drop it a line!;-1;-2;2
+What is a pirate's favorite fish?;A swordfish.;-1;0;1
+What kind of guitar does the fish play?;Bass.;-1;-2;-1
 Why don't fish like puns?;Cause they think it's dry humor!;1;-2;2
 Why do fish always smell so bad?;Cause they don't have noses!;1;-2;2
-What does a surprised fish say?;Holy carp!;0;-1;2
-Why are fish so good at watching their weight?;Because they have lots of scales!;0;1;2
-Why do fish live in salt water?;Because pepper makes them sneeze!;0;-2;2
-Which day do fish hate?;Fryday.;0;-2;1
+What does a surprised fish say?;Holy carp!;-1;-1;1
+Why are fish so good at watching their weight?;Because they have lots of scales!;-1;0;2
+Why do fish live in salt water?;Because pepper makes them sneeze!;-1;-2;2
+Which day do fish hate?;Fryday.;-1;-2;1
 What's the difference between a fish and a piano?;You can't tuna fish.;1;-2;2
-What swims in the sea, carries a machine gun, and makes you an offer you can't refuse?;The Codfather.;-1;1;-1
-Why can’t fish play basketball?;Because they fear the net!;0;-1;1
-Why did the fish blush?;It saw the ocean’s bottom.;1;-2;2
-What color do kittens love the most?;Purrple.;-1;1;0
-What is a cat's favorite art form?;Mewsic.;1;0;1
+What swims in the sea, carries a machine gun, and makes you an offer you can't refuse?;The Codfather.;-1;0;-1
+Why can’t fish play basketball?;Because they fear the net!;-1;-1;1
+Why did the fish blush?;It saw the ocean’s bottom.;1;-2;1
+What color do kittens love the most?;Purrple.;-1;1;-1
+What is a cat's favorite art form?;Mewsic.;0;-1;1
 What's a kitten's fave way to shop?;By cat-alogue.;-2;2;1
-Why are cats afraid of trees?;Because of their bark!;1;2;0
-What's smarter than a talking cat?;A spelling bee.;-2;2;1
+Why are cats afraid of trees?;Because of their bark!;0;2;-1
+What's smarter than a talking cat?;A spelling bee.;-2;1;-1
 If a cat loses its tail, where does it go?;To the re-tail store.;-2;2;1
-How did a cat lose all their money?;They got caught up in a purramid scheme!;-2;2;0
+How did a cat lose all their money?;They got caught up in a purramid scheme!;-2;2;-1
 How did the black cat got so rich?;Selling catnip.;-2;2;1
-What's wrong with ginger cat's home design?;It's a bit soulless.;-2;2;0
-Why are cats good at video games?;Because they have nine lives! ;1;1;0
-Why was the cat so upset?;Because he was in a bad mewd.;-1;1;0
+What's wrong with ginger cat's home design?;It's a bit soulless.;-2;1;-1
+Why are cats good at video games?;Because they have nine lives! ;0;1;-1
+Why was the cat so upset?;Because he was in a bad mewd.;-2;1;-1
 Why did the cat get mad when you didn’t laugh at his joke?;He took it purr-sonally.;-2;2;1
-There were 10 cats in a boat and one jumped out. How many were left?;None, because they were copycats!;-2;2;0
-Where do you find a cat with no legs?;Where you left it.;-2;2;1
-Why did the cat go to the vet?;Because he said he wasn't feline fine!;-1;1;0
-Why was the cat sitting on the computer?;It wanted to keep an eye on the mouse!;0;1;0
-Why did the cat go to medical school?;To become a “purr-amedic”!;-1;1;0
+There were 1-1 cats in a boat and one jumped out. How many were left?;None, because they were copycats!;-2;2;-1
+Where do you find a cat with no legs?;Where you left it.;-2;-1;-1
+Why did the cat go to the vet?;Because he said he wasn't feline fine!;-1;1;-1
+Why was the cat sitting on the computer?;It wanted to keep an eye on the mouse!;0;1;-1
+Why did the cat go to medical school?;To become a “purr-amedic”!;-1;1;-1
 Who delivers Christmas presents to cats?;Santa claws!;-1;1;-1
-Have you ever seen a catfish?;No, how did he hold the rod and reel?;-1;2;-1
+Have you ever seen a catfish?;No, how did he hold the rod and reel?;-1;-1;-1
 What does a cat wear to stop smelling?;Antipurrspirant!;-2;2;1
-What do you call it when a cat wins first place at a dog show?;A cat-has-trophy!;-2;2;0
+What do you call it when a cat wins first place at a dog show?;A cat-has-trophy!;-2;2;-1
 Why do cats make terrible storytellers?;They always paws halfway through.;-1;2;1
-What kind of math do birds like?;Owlgebra.;1;0;-1
-What do you call a very rude bird?;A mockingbird!;2;0;1
-Why couldn’t anyone see the bird?;Because it was in da skies!;0;0;-1
-What is a bird's favorite movie?;Lord of the Wings.;1;0;-1
-What do you call a bird that kicks your butt?;Steven Seagull.;1;0;1
-What soap do birds use?;Dove.;2;1;-2
-What do you call a duck on drugs?;A quackhead.;2;0;-2
+What kind of math do birds like?;Owlgebra.;1;-1;-1
+What do you call a very rude bird?;A mockingbird!;2;-1;0
+Why couldn’t anyone see the bird?;Because it was in da skies!;-1;-1;-1
+What is a bird's favorite movie?;Lord of the Wings.;1;-1;-1
+What do you call a bird that kicks your butt?;Steven Seagull.;1;-1;-2
+What soap do birds use?;Dove.;2;1;0
+What do you call a duck on drugs?;A quackhead.;2;-1;-2
 Why do seagulls fly over the sea?;Because if they flew over the bay, they’d be baygulls!;2;1;-2
-Why does a stork stand on one leg?;Because it would fall over if it lifted the other one.;1;0;-1
+Why does a stork stand on one leg?;Because it would fall over if it lifted the other one.;1;-1;-1
 What do you get when you cross a centipede with a parrot?;A walkie-talkie!;2;1;-1
-Why do birds fly south in the Fall?;Because it’s too far to walk.;1;0;-2
-Why did the bird lose their job?;They got caught tweeting at work!;1;0;1
-What bird rarely gets pregnant?;A swallow.;2;0;-2
-What do you call a bird, that can't remember the song lyrics?;A hummingbird!;2;0;-1
-What do you give a sick bird?;Tweetment! ;1;0;-2
+Why do birds fly south in the Fall?;Because it’s too far to walk.;1;-1;-2
+Why did the bird lose their job?;They got caught tweeting at work!;1;-1;0
+What bird rarely gets pregnant?;A swallow.;2;-1;-2
+What do you call a bird, that can't remember the song lyrics?;A hummingbird!;2;-1;-1
+What do you give a sick bird?;Tweetment! ;1;-1;-2
 What kind of ducks steal soap from the bath?;Robber ducks!;1;1;-1
-What do you call birds that stick together?;Velcrows!;2;0;0
-One bird can't make a pun.;But toucan.;1;0;-1
+What do you call birds that stick together?;Velcrows!;2;-1;-1
+One bird can't make a pun.;But toucan.;1;-1;-1
 Why did the duck go to rehab?;It was addicted to quack.;2;1;-2
-How do chickens get strong?;They egg-cersize.;2;0;1
-What does the turkey say when he’s using the computer?;Google google!;0;0;-1
-What’s a bird’s favorite Beatles song?;Owl you need is love.;1;0;1
+How do chickens get strong?;They egg-cersize.;2;-1;0
+What does the turkey say when he’s using the computer?;Google google!;-1;-1;-1
+What’s a bird’s favorite Beatles song?;Owl you need is love.;1;-1;-1

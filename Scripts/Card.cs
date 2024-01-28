@@ -1,3 +1,5 @@
+using System;
+using System.Xml.Linq;
 using Godot;
 using Godot.Collections;
 
@@ -38,16 +40,26 @@ public partial class Card : Node2D, ICardBasic
 	[Export]
 	public Sprite2D FishSprite { get; private set; }
 
-	private readonly Color BAD_COLOR = new Color("#FF0000");
-	private readonly Color GOOD_COLOR = new Color("#00FF00");
-	private readonly Color NEUTRAL_COLOR = new Color("#000");
-
-	private CardController _controller;
+	public CardAnimationState CardAnimationState = CardAnimationState.IDLE;
 
 	public int index;
 
-	public void Initialize(CardBasic card, int index, CardController controller)
+	private CardController _controller;
+
+	private int XOffset = 0;
+	private int YOffset = 0;
+	private double _currentAnimationTime;
+	private double _slideTime;
+	private float _lerpWeight = 0;
+	private Vector2 _initialPosition;
+	private Vector2 _targetPosition;
+	public bool ReadyToReinitialize { get; private set; }
+	public bool SetReadyToReinialize { get; private set; }
+
+	public void Initialize(CardBasic card, int index, CardController controller, int XOffset, Vector2 targetPosition, double slideTime)
 	{
+		ReadyToReinitialize = false;
+        _currentAnimationTime = 0;
 		Question = card.Question;
 		Riposte = card.Riposte;
 		Influence = card.Influence;
@@ -57,29 +69,84 @@ public partial class Card : Node2D, ICardBasic
 		Influence.TryGetValue(Animal.BIRD, out int influence);
 		var birdLabel = BirdSprite.GetChild<Label>(0);
 		birdLabel.Text = influence.ToString();
-		birdLabel.LabelSettings.FontColor = getColor(influence);
+		birdLabel.LabelSettings.FontColor = GetColor(influence);
 
 		Influence.TryGetValue(Animal.CAT, out influence);
 		var catLabel = CatSprite.GetChild<Label>(0);
 		catLabel.Text = influence.ToString();
-		catLabel.LabelSettings.FontColor = getColor(influence);
+		catLabel.LabelSettings.FontColor = GetColor(influence);
 
 		Influence.TryGetValue(Animal.FISH, out influence);
 		var fishLabel = FishSprite.GetChild<Label>(0);
 		fishLabel.Text = influence.ToString();
-		fishLabel.LabelSettings.FontColor = getColor(influence);
+		fishLabel.LabelSettings.FontColor = GetColor(influence);
+
+		_initialPosition = Position;
+		_targetPosition = targetPosition;
+		_slideTime = slideTime;
+        this.XOffset = XOffset;
 	}
+
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
+		if (CardAnimationState == CardAnimationState.SlIDE_IN)
+		{
+			_currentAnimationTime += delta;
+			_lerpWeight = (float)(_currentAnimationTime / _slideTime);
+            Position = Position.Lerp(_targetPosition, _lerpWeight);
+
+			if (_currentAnimationTime > _slideTime)
+			{
+				Position = _targetPosition;
+                CardAnimationState = CardAnimationState.TOP;
+            }
+		}
+		else if (CardAnimationState == CardAnimationState.SLIDE_OUT)
+        {
+            _currentAnimationTime += delta;
+            _lerpWeight = (float)(_currentAnimationTime / _slideTime);
+
+            Position = Position.Lerp(_initialPosition, _lerpWeight);
+            if (_currentAnimationTime > _slideTime)
+            {
+                Position = _initialPosition;
+                CardAnimationState = CardAnimationState.IDLE;
+
+				if (SetReadyToReinialize)				
+                    ReadyToReinitialize = true;
+                
+            }
+        }
+    }
 
 	public void PlayCard()
 	{
 		_controller.PlayCard(index);
 	}
 
-
-	private Color getColor(int v)
+	public void RunAnimation(CardAnimationState animationState, bool reinitializeOnSlide = false)
 	{
-		if (v == 0) return NEUTRAL_COLOR;
-		else if (v > 0) return GOOD_COLOR;
-		else return BAD_COLOR;
+		// Get value between position and cast it as _currentAnimationTime
+		if (CardAnimationState == CardAnimationState.SlIDE_IN && animationState == CardAnimationState.SLIDE_OUT ||
+            CardAnimationState == CardAnimationState.SLIDE_OUT && animationState == CardAnimationState.SlIDE_IN)
+		{
+			_currentAnimationTime = _slideTime - _currentAnimationTime;
+        }
+		else
+		{
+			_currentAnimationTime = 0;
+		}
+
+		SetReadyToReinialize = reinitializeOnSlide;
+        CardAnimationState = animationState;
+	}
+
+
+	private Color GetColor(int v)
+	{
+		if (v == 0) return Constants.NEUTRAL_COLOR;
+		else if (v > 0) return Constants.GOOD_COLOR;
+		else return Constants.BAD_COLOR;
 	}
 }

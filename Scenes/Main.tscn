@@ -208,8 +208,6 @@ libraries = {
 }
 
 [node name="SpectatorController" parent="GameplayArea" node_paths=PackedStringArray("_spectatorsParent", "Entrance", "Exit", "_rows") instance=ExtResource("8_bgajp")]
-y_sort_enabled = true
-position = Vector2(233, -1581)
 _spectatorsParent = NodePath("../Control2/Audience/Spectators")
 Entrance = NodePath("../Control2/Audience/Entrace")
 Exit = NodePath("../Control2/Audience/Exit")

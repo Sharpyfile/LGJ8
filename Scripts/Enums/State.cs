@@ -16,7 +16,8 @@ public enum CardState
 
 public enum CardAnimationState
 {
-    BEGIN_SLIDE,
-    DURING_SLIDE,
-    END_SLIDE,
+    IDLE,
+    SlIDE_IN,
+    TOP,
+    SLIDE_OUT
 }
