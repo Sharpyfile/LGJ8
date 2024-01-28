@@ -109,7 +109,12 @@ public partial class SpectatorController : Node
 
 	public void IncreaseCap()
 	{
-		if (_spawnCap < _seats.Count) _spawnCap++;
+		if (_spawnCap < _seats.Count)
+		{
+			IsAudienceFull = false;
+			InitCompleted = false;
+			_spawnCap++;
+		}
 	}
 
 	/**
