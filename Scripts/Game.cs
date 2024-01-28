@@ -1,11 +1,13 @@
+using System;
 using Godot;
 
 public partial class Game : Node
 {
 	[Export]
 	private MainUI _mainUI;
-
+	[Export]
 	private SpectatorController _spectatorController = new SpectatorController();
+	[Export]
 	private CardController _cardController = new CardController();
 
 	private int _overallSpectatorsReaction = 0;
@@ -95,22 +97,12 @@ public partial class Game : Node
 	{
 		_mainUI.Timer.StopTimer();
 
-		int cardWeight = 0;
+		int cardWeight = cardToPlay.Influence[Animal.CAT];
+		cardWeight = Math.Max(cardWeight, cardToPlay.Influence[Animal.BIRD]);
+		cardWeight = Math.Max(cardWeight, cardToPlay.Influence[Animal.FISH]);
 
-		if (cardToPlay.Influence[Animal.CAT] > 0)
-		{
-			cardWeight = cardToPlay.Influence[Animal.CAT];
-		}
-		else if (cardToPlay.Influence[Animal.BIRD] > 0)
-		{
-			cardWeight = cardToPlay.Influence[Animal.BIRD];
-		}
-		else
-		{
-			cardWeight = cardToPlay.Influence[Animal.FISH];
-		}
-
-		_spectatorsReactionThreshold = _spectatorController.GetSpectators().Count * cardWeight / 3;
+		int count = _spectatorController.GetSpectators().Count;
+		_spectatorsReactionThreshold = count * cardWeight / 3;
 
 		foreach (Spectator spectator in _spectatorController.GetSpectators())
 		{

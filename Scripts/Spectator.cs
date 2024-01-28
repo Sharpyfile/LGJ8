@@ -97,6 +97,7 @@ public partial class Spectator : Node2D
 		if (card.Influence.TryGetValue(Type, out int value))
 		{
 			Happiness += value;
+			GD.Print($"{Type}: {value}, {Happiness}");
 			return value;
 		}
 		return 0;

@@ -12,3 +12,8 @@ public interface ICardBasic
     public string Riposte { get; set; }
     public Dictionary<Animal, int> Influence { get; set; }
 }
+
+public class Constants
+{
+    public static readonly int HAND_SIZE = 5;
+}

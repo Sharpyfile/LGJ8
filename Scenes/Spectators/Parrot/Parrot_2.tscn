@@ -12,6 +12,7 @@ _spriteHappy = NodePath("Sprite2D_happy")
 _spriteNeutral = NodePath("Sprite2D_neutral")
 _spriteAnnoyed = NodePath("Sprite2D_annoyed")
 _angryCloud = NodePath("AngryCloud")
+Type = 1
 
 [node name="Sprite2D_happy" type="Sprite2D" parent="."]
 texture = ExtResource("2_2jvb2")

@@ -7,6 +7,9 @@ public partial class MainUI : Control
 	public TimerWithSlider Timer;
 
 	[Export]
+	public Node2D[] ScribbledCardNodes { get; set; } = new Node2D[Constants.HAND_SIZE];
+
+	[Export]
 	private AnimationPlayer TransitionAnimator;
 
 	[Export]

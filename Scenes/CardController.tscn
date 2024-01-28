@@ -4,13 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://cneplbc6lodoc" path="res://Scenes/Card.tscn" id="2_5i5g4"]
 [ext_resource type="PackedScene" uid="uid://cd2wdgdnw78rf" path="res://Scenes/ScribbledCard.tscn" id="2_joe23"]
 
-[node name="CardController" type="Node" node_paths=PackedStringArray("ClickedCardNode", "HoveredCardNode", "ScribbledCardNodes", "UICardNodes")]
+[node name="CardController" type="Node" node_paths=PackedStringArray("ClickedCardNode", "HoveredCardNode", "UICardNodes")]
 script = ExtResource("1_belry")
 ScribbledCardPrefab = ExtResource("2_joe23")
 CardPrefab = ExtResource("2_5i5g4")
 ClickedCardNode = NodePath("BigCardNodes/ClickedNode")
 HoveredCardNode = NodePath("BigCardNodes/HoverNode")
-ScribbledCardNodes = [NodePath(""), NodePath(""), NodePath(""), NodePath(""), NodePath("")]
 UICardNodes = [NodePath("UICards/First Card"), NodePath("UICards/Second Card"), NodePath("UICards/Third Card"), NodePath("UICards/Fourth Card"), NodePath("UICards/Fifth Card")]
 
 [node name="UICards" type="Node2D" parent="."]
