@@ -11,6 +11,7 @@ public partial class Game : Node
 	private int _overallSpectatorsReaction = 0;
 	private int _spectatorsReactionThreshold = 0;
 	private bool _ready = false;
+	private int _jokeCounter;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -107,6 +108,8 @@ public partial class Game : Node
 
 		int count = _spectatorController.GetSpectators().Count;
 		_spectatorsReactionThreshold = count * cardWeight / 3;
+
+		if (++_jokeCounter % 3 == 0) _spectatorController.IncreaseCap();
 
 		foreach (Spectator spectator in _spectatorController.GetSpectators())
 		{

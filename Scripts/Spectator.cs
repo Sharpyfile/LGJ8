@@ -87,7 +87,7 @@ public partial class Spectator : Node2D
 		}
 	}
 
-	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat)
+	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat, int moodVariation)
 	{
 		_controller = controller;
 		_seat = seat;
@@ -95,6 +95,7 @@ public partial class Spectator : Node2D
 
 		_entrance = entrance;
 		_midpoint = new Vector2(entrance.X, _seat.GlobalPosition.Y);
+		Mood += moodVariation;
 	}
 
 	public int ApplyCard(ICardBasic card)

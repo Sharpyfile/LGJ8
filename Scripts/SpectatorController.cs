@@ -101,10 +101,15 @@ public partial class SpectatorController : Node
 
 			var entrance = seat.GlobalPosition.X < _midX ? Entrance : Exit;
 			spectator.GlobalPosition = entrance.GlobalPosition;
-			spectator.Initialize(this, entrance.GlobalPosition, seat);
+			spectator.Initialize(this, entrance.GlobalPosition, seat, _rng.RandiRange(-1, 1));
 			return true;
 		}
 		return false;
+	}
+
+	public void IncreaseCap()
+	{
+		if (_spawnCap < _seats.Count) _spawnCap++;
 	}
 
 	/**
