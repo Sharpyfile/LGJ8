@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckuidiajrhvpq"
-path="res://.godot/imported/Circle.png-0c45e21435093ae348e4b37cb96ba5fa.ctex"
+uid="uid://cc3ngb1ivq0sv"
+path="res://.godot/imported/Grabber.png-47c572b6d84822e1eed9fb9cfb9a8c77.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Circle.png"
-dest_files=["res://.godot/imported/Circle.png-0c45e21435093ae348e4b37cb96ba5fa.ctex"]
+source_file="res://Sprites/Grabber.png"
+dest_files=["res://.godot/imported/Grabber.png-47c572b6d84822e1eed9fb9cfb9a8c77.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

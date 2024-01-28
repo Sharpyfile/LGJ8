@@ -13,10 +13,7 @@ public partial class TimerWithSlider : Control
 	public double TimerMaxValue = 30.0;
 
 	[Export]
-	private Color BadColor;
-
-	[Export]
-	private Color GoodColor;
+	private Gradient GradientColor;
 
 	private double timerCurrentValue;
 	private bool playedCough = false;
@@ -38,7 +35,7 @@ public partial class TimerWithSlider : Control
 
 			// change slider inside and lerp color
 			SliderInside.Scale = new Vector2((float)(timerCurrentValue / TimerMaxValue), 1.0f);
-			SliderInside.Color = BadColor.Lerp(GoodColor, SliderInside.Scale.X);
+			SliderInside.Color = GradientColor.Sample(SliderInside.Scale.X);
 
             // set timer label for time
             TimerLabel.Text = string.Format("{0:0.00}", timerCurrentValue) + " s";

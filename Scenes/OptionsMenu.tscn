@@ -44,6 +44,7 @@ vertical_alignment = 1
 [node name="ResolutionOptionButton" type="OptionButton" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_cca47")
 theme_override_font_sizes/font_size = 24
 
@@ -59,12 +60,14 @@ vertical_alignment = 1
 [node name="ScreenModeButton" type="OptionButton" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_cca47")
 theme_override_font_sizes/font_size = 24
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_cca47")
 theme_override_font_sizes/font_size = 24
 text = "Apply graphic options"
@@ -86,6 +89,7 @@ vertical_alignment = 1
 [node name="SFXSlider" type="HSlider" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("2_cca47")
 min_value = -40.0
 max_value = 0.0
