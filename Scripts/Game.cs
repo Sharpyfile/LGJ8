@@ -6,9 +6,10 @@ using System.IO;
 public partial class Game : Node
 {
 	SpectatorController spectatorController = new SpectatorController();
-	//CardController cardController = new CardController();
+	CardController cardController = new CardController();
 	AudioManager audioManager = new AudioManager();
 	TimerWithSlider timer = new TimerWithSlider();
+	MainUI mainUI = new MainUI();
 
 	int overallSpectatorsReaction = 0;
 	int spectatorsReactionThreshold = 0;
@@ -66,29 +67,29 @@ public partial class Game : Node
 		spectatorToEvaluate.ApplyCard(cardToApply);
 	}
 
-	public void EvaluateSpectatorsReaction(Card cardToApply)
-	{
-		foreach (Spectator spectator in spectatorController.GetSpectators())
-		{
-			overallSpectatorsReaction += spectator.ApplyCard(cardToApply);
-		}
-	}
+	//public void EvaluateSpectatorsReaction(Card cardToApply)
+	//{
+	//	foreach (Spectator spectator in spectatorController.GetSpectators())
+	//	{
+	//		overallSpectatorsReaction += spectator.ApplyCard(cardToApply);
+	//	}
+	//}
 	#endregion
 
 	#region Main loop parts
-	public void OpeningScene()
-	{
-		audioManager.PlaySound("cardsMixing.mp3");
-		//SpectatorsEnterAnimation();
-	}
+	//public void OpeningScene()
+	//{
+	//	audioManager.PlaySound("cardsMixing.mp3");
+	//	//SpectatorsEnterAnimation();
+	//}
 
 	public void EnterHandView()
 	{
-		HandEnterAnimation();
+		//HandEnterAnimation();
 		timer.RestartTimer(timer.TimerMaxValue);
 	}
 
-	public bool PlayCard(Card cardToPlay)
+	public void PlayCard(Card cardToPlay)
 	{
         timer.StopTimer();
 
@@ -131,13 +132,9 @@ public partial class Game : Node
 		}
 
 		if (EvaluateGameEndCondition())
-		{
-			EnterGameEndView();
-		}
-		else
-		{
-			EnterHandView();
-		}
+        {
+            mainUI.ShowGameOver();
+        }
 	}
 
 	public void EnterGameEndView()
@@ -146,44 +143,41 @@ public partial class Game : Node
 
 	public void RanOutOfTime()
 	{
-		HandExitAnimation();
+		//HandExitAnimation();
 		foreach (Spectator spectator in spectatorController.GetSpectators())
 		{
 			spectator.Annoy();
+			EnterHandView();
 		}
 		if (EvaluateGameEndCondition())
 		{
-			EnterGameEndView();
-		}
-		else
-		{
-			EnterHandView();
+			mainUI.ShowGameOver();
 		}
 	}
 	#endregion
 
 	#region Animations
-	public void HandEnterAnimation()
-	{
+	//public void HandEnterAnimation()
+	//{
 
-	}
+	//}
 
-	public void HandExitAnimation()
-	{
-	}
+	//public void HandExitAnimation()
+	//{
+	//}
 
-	public void CardHighlightAnimation (Card card)
-	{
+	//public void CardHighlightAnimation (Card card)
+	//{
 
-	}
+	//}
 
-	public void SceneOpeningAnimation()
-	{
-	}
+	//public void SceneOpeningAnimation()
+	//{
+	//}
 
-	public void SpectatorsEnterAnimation()
-	{
-	}
+	//public void SpectatorsEnterAnimation()
+	//{
+	//}
 	#endregion
 
 	public bool EvaluateGameEndCondition()
