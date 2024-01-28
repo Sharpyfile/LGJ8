@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/MainUI.cs" id="1_yjvoj"]
 [ext_resource type="Script" path="res://Scripts/ButtonWithSound.cs" id="2_0r6cd"]
 [ext_resource type="Theme" uid="uid://bj0jay3vnury6" path="res://Themes/MainMenuTheme.tres" id="2_c8b7l"]
-[ext_resource type="PackedScene" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
+[ext_resource type="PackedScene" uid="uid://th3do266bg5" path="res://Scenes/TimerWithSlider.tscn" id="3_aemv8"]
 [ext_resource type="PackedScene" uid="uid://dv8bpmyi00htt" path="res://Animations/SceneTransitionAnimation.tscn" id="5_7krku"]
-[ext_resource type="Texture2D" uid="uid://dq4dxokmtc37s" path="res://Sprites/BG/hand.png" id="6_qpx6m"]
+[ext_resource type="Texture2D" uid="uid://bagpbquo4wlaa" path="res://Sprites/BG/hand.png" id="6_qpx6m"]
 [ext_resource type="Script" path="res://Scripts/ScribbledCard.cs" id="7_m78w3"]
 
 [node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer", "ScribbledCardNodes", "TransitionAnimator", "_hand")]
@@ -34,6 +34,7 @@ script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
 [node name="RestartTimerButton" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 20.0
@@ -46,6 +47,7 @@ script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
 [node name="StopTimerButton" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 20.0
@@ -58,6 +60,7 @@ script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
 [node name="GameOverTestButton" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 20.0
@@ -71,9 +74,9 @@ SoundVariant = 1
 
 [node name="Timer" parent="." instance=ExtResource("3_aemv8")]
 offset_left = 15.0
-offset_top = 577.0
+offset_top = 657.0
 offset_right = 265.0
-offset_bottom = 657.0
+offset_bottom = 737.0
 
 [node name="SceneTransitionAnimation" parent="." instance=ExtResource("5_7krku")]
 
