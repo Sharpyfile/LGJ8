@@ -28,6 +28,14 @@ public partial class CardController : Node
 	[Export]
 	public Game GameController { get; private set; }
 
+	[Export]
+	private double _afterCardPlaySleep = 1.0;
+
+	public bool IsReadyToPlay
+	{
+		get => _sleepTimer < 0;
+	}
+
 	private Node2D[] ScribbledCardNodes { get; set; } = new Node2D[Constants.HAND_SIZE];
 	private List<CardBasic> AvailableCards = new();
 	private List<CardBasic> Deck = new();
@@ -38,6 +46,9 @@ public partial class CardController : Node
 	private Card clickedCard;
 	private Card hoveredCard;
 	private bool isEnabled;
+	private double _sleepTimer;
+
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -65,6 +76,16 @@ public partial class CardController : Node
 		AvailableCards = new List<CardBasic>(Deck);
 		ScribbledCardNodes = MainUI.ScribbledCardNodes;
 		InitializeHand();
+
+		MainUI.ShowHand(false);
+		_sleepTimer = _afterCardPlaySleep;
+	}
+
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+		_sleepTimer -= delta;
 	}
 
 	public void InitializeHand()
@@ -101,7 +122,7 @@ public partial class CardController : Node
 		GameController.PlayCard(Hand[index]);
 		UpdateCardsState(index, CardState.NOT_CLICKED);
 		DrawCard(index);
-		isEnabled = false;
+		Disable();
 	}
 
 	public void UpdateCardsState(int index, CardState state)
@@ -195,11 +216,14 @@ public partial class CardController : Node
 
 	public void Enable()
 	{
+		MainUI.ShowHand(true);
 		isEnabled = true;
 	}
 
 	private void Disable()
 	{
+		MainUI.ShowHand(false);
 		isEnabled = false;
+		_sleepTimer = _afterCardPlaySleep;
 	}
 }

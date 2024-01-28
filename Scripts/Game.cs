@@ -6,7 +6,6 @@ public partial class Game : Node
 	[Export] private MainUI _mainUI;
 	[Export] private SpectatorController _spectatorController = new SpectatorController();
 	[Export] private CardController _cardController = new CardController();
-	[Export] private double _afterCardPlaySleep = 1.0;
 
 
 	private int _overallSpectatorsReaction = 0;
@@ -23,7 +22,7 @@ public partial class Game : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_spectatorController.InitCompleted)
+		if (_spectatorController.InitCompleted && _cardController.IsReadyToPlay)
 		{
 			if (!_ready)
 			{
@@ -33,11 +32,7 @@ public partial class Game : Node
 		}
 		else
 		{
-			if (_ready)
-			{
-				// Lock player
-				_ready = false;
-			}
+			_ready = false;
 		}
 	}
 
@@ -101,14 +96,11 @@ public partial class Game : Node
 
 	public void EnterHandView()
 	{
-		_mainUI.ShowHand(true);
+		_cardController.Enable();
 	}
 
 	public void PlayCard(CardBasic cardToPlay)
 	{
-
-		_mainUI.ShowHand(false);
-
 		int cardWeight = cardToPlay.Influence[Animal.CAT];
 		cardWeight = Math.Max(cardWeight, cardToPlay.Influence[Animal.BIRD]);
 		cardWeight = Math.Max(cardWeight, cardToPlay.Influence[Animal.FISH]);
