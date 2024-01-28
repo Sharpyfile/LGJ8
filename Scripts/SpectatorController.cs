@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 
-public partial class SpectatorController : Node2D
+public partial class SpectatorController : Node
 {
 	public Array<Spectator> GetSpectators() => _spectators;
 	public Array<Spectator> GetSpectators(SpectatorState state)

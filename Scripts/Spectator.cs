@@ -7,6 +7,9 @@ public partial class Spectator : Node2D
 	[Export] private Sprite2D _spriteNeutral;
 	[Export] private Sprite2D _spriteAnnoyed;
 	[Export] private AngryCloud _angryCloud;
+	[Export] private Emote _happyEmote;
+	[Export] private Emote _neutralEmote;
+	[Export] private Emote _angryEmote;
 
 
 
@@ -98,6 +101,7 @@ public partial class Spectator : Node2D
 		{
 			Happiness += value;
 			GD.Print($"{Type}: {value}, {Happiness}");
+			setEmote(value);
 			return value;
 		}
 		return 0;
@@ -153,6 +157,25 @@ public partial class Spectator : Node2D
 	private void setAngryCloud(bool value)
 	{
 		_angryCloud.Visible = value;
+	}
+
+	private void setEmote(int value)
+	{
+		switch(value) 
+		{
+			case > 0:
+				_happyEmote.Visible = true;
+				break;
+			case 0:
+				_neutralEmote.Visible = true;
+				break;
+			case < 0:
+				_angryEmote.Visible = true;
+				break;
+			default:
+				_neutralEmote.Visible = true;
+				break;
+		}
 	}
 }
 

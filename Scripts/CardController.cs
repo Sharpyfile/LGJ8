@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
@@ -44,11 +45,18 @@ public partial class CardController : Node
 	private double counter = 0.0;
 
 	private Card clickedCard;
-	private Card hoveredCard;
+	private int clickedCardIndex = -1;
 	private bool isEnabled;
 	private double _sleepTimer;
 
 
+
+	#region Card animation properties
+
+	[Export]
+	public double CardSlideTime = 1.0;
+
+	#endregion
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -86,6 +94,17 @@ public partial class CardController : Node
 	public override void _Process(double delta)
 	{
 		_sleepTimer -= delta;
+
+		if (clickedCard != null && clickedCard.ReadyToReinitialize && clickedCardIndex != -1)
+			ReinitializeClickedCard();
+	}
+
+	private void ReinitializeClickedCard()
+	{
+		clickedCard = null;
+		DrawCard(clickedCardIndex);
+		clickedCardIndex = -1;
+		Disable();
 	}
 
 	public void InitializeHand()
@@ -113,7 +132,7 @@ public partial class CardController : Node
 			Hand[index] = drewCard;
 			AvailableCards.RemoveAt(rngIndex);
 			ScribbledCardNodes[index].GetChild<ScribbledCard>(0).Initialize(drewCard, index, this);
-			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this);
+			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 20, HoveredCardNode.Position, CardSlideTime);
 		}
 	}
 
@@ -121,84 +140,49 @@ public partial class CardController : Node
 	{
 		GameController.PlayCard(Hand[index]);
 		UpdateCardsState(index, CardState.NOT_CLICKED);
-		DrawCard(index);
-		Disable();
+
+		clickedCardIndex = index;
+		//TODO: hide cardn
 	}
 
 	public void UpdateCardsState(int index, CardState state)
 	{
+		Card updatedCard = UICardNodes[index].GetChild<Card>(0);
+
 		switch (state)
 		{
 			case CardState.CLICKED:
 				{
-					if (ClickedCardNode.GetChildCount() != 0)
-					{
-						Card previousCard = ClickedCardNode.GetChild<Card>(0);
-						if (UICardNodes[previousCard.index].GetChildCount() != 0)
-						{
-							throw new System.Exception("There is card in node " + previousCard.index.ToString());
-						}
-						ClickedCardNode.RemoveChild(previousCard);
-						//TODO: animation
-						UICardNodes[previousCard.index].AddChild(previousCard);
-					}
+					if (clickedCard != updatedCard && clickedCard != null)
+						clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
 
-					if (HoveredCardNode.GetChildCount() == 0)
-					{
-						throw new System.Exception("There should be a card in hovered node");
-					}
-					Card clickedCard = HoveredCardNode.GetChild<Card>(0);
-					HoveredCardNode.RemoveChild(clickedCard);
-					//TODO: animation
-					ClickedCardNode.AddChild(clickedCard);
+					clickedCard = updatedCard;
 					break;
 				}
 			case CardState.NOT_CLICKED:
 				{
-					if (ClickedCardNode.GetChildCount() == 0)
-					{
-						throw new System.Exception("There should be a card in clicked node");
-					}
-					Card clickedCard = ClickedCardNode.GetChild<Card>(0);
-					if (UICardNodes[clickedCard.index].GetChildCount() != 0)
-					{
-						throw new System.Exception("There is card in node " + clickedCard.index.ToString());
-					}
-					ClickedCardNode.RemoveChild(clickedCard);
-					//TODO: animation
-					UICardNodes[clickedCard.index].AddChild(clickedCard);
+					clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT, true);
 					break;
 				}
 			case CardState.HOVERED:
 				{
-					if (HoveredCardNode.GetChildCount() != 0)
-					{
-						throw new System.Exception("There should be no card in hovered node");
-					}
-					if (UICardNodes[index].GetChildCount() == 0)
-					{
-						throw new System.Exception("There is no card in node " + index.ToString());
-					}
-					Card hoveredCard = UICardNodes[index].GetChild<Card>(0);
-					UICardNodes[index].RemoveChild(hoveredCard);
-					//TODO: animation
-					HoveredCardNode.AddChild(hoveredCard);
+					if (clickedCard != updatedCard && clickedCard != null)
+						clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
+					else if (clickedCard == updatedCard && clickedCard.SetReadyToReinialize)
+						break;
+
+					updatedCard.RunAnimation(CardAnimationState.SlIDE_IN);
 					break;
 				}
 			case CardState.NOT_HOVERED:
 				{
-					//TODO: ChildCount() == 0 ???
-					if (HoveredCardNode.GetChildCount() != 0)
+					if (clickedCard != updatedCard)
 					{
-						Card previousCard = HoveredCardNode.GetChild<Card>(0);
-						if (UICardNodes[previousCard.index].GetChildCount() != 0)
-						{
-							throw new System.Exception("There is card in node " + previousCard.index.ToString());
-						}
-						HoveredCardNode.RemoveChild(previousCard);
-						//TODO: animation
-						UICardNodes[previousCard.index].AddChild(previousCard);
+						updatedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
+						if (clickedCard != null)
+							clickedCard.RunAnimation(CardAnimationState.SlIDE_IN);
 					}
+
 					break;
 				}
 

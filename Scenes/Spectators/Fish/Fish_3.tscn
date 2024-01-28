@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cse1jtr2s0kfh"]
+[gd_scene load_steps=9 format=3 uid="uid://cse1jtr2s0kfh"]
 
 [ext_resource type="Script" path="res://Scripts/Spectator.cs" id="1_hdl0c"]
-[ext_resource type="Texture2D" uid="uid://dljqca6pnwkv7" path="res://Sprites/Fish/Fish03_Smile.png" id="2_7wg36"]
-[ext_resource type="Texture2D" uid="uid://b03skllyl34j7" path="res://Sprites/Fish/Fish03_Neutral.png" id="3_x4v31"]
-[ext_resource type="Texture2D" uid="uid://bk44s7gfa14t8" path="res://Sprites/Fish/Fish03_Angry.png" id="4_67in2"]
+[ext_resource type="Texture2D" uid="uid://bymcbfdmg5frc" path="res://Sprites/Fish/Fish03_Smile.png" id="2_7wg36"]
+[ext_resource type="Texture2D" uid="uid://bpay3hcnfc4wo" path="res://Sprites/Fish/Fish03_Neutral.png" id="3_x4v31"]
+[ext_resource type="Texture2D" uid="uid://cqb165kuxdqlq" path="res://Sprites/Fish/Fish03_Angry.png" id="4_67in2"]
 [ext_resource type="PackedScene" uid="uid://7qpwg3lqpj6o" path="res://Scenes/Spectators/AngryCloud.tscn" id="5_qsxob"]
+[ext_resource type="PackedScene" uid="uid://dhxjb1h02sapq" path="res://Scenes/Emotes/EmoteSmile.tscn" id="6_2q16c"]
+[ext_resource type="PackedScene" uid="uid://bmeddnwk2ph4p" path="res://Scenes/Emotes/EmoteAngry.tscn" id="7_mdfq3"]
+[ext_resource type="PackedScene" uid="uid://dff62s6mmphmc" path="res://Scenes/Emotes/EmoteNeutral.tscn" id="8_tyvs1"]
 
 [node name="Spectator" type="Node2D" node_paths=PackedStringArray("_spriteHappy", "_spriteNeutral", "_spriteAnnoyed", "_angryCloud")]
 script = ExtResource("1_hdl0c")
@@ -26,3 +29,9 @@ texture = ExtResource("4_67in2")
 
 [node name="AngryCloud" parent="." instance=ExtResource("5_qsxob")]
 position = Vector2(30, -127)
+
+[node name="SmileEmote" parent="." instance=ExtResource("6_2q16c")]
+
+[node name="AngryEmote" parent="." instance=ExtResource("7_mdfq3")]
+
+[node name="NeutralEmote" parent="." instance=ExtResource("8_tyvs1")]

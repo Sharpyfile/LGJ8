@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhxjb1h02sapq"]
+
+[ext_resource type="Script" path="res://Scripts/Emote.cs" id="1_rqumu"]
+[ext_resource type="Texture2D" uid="uid://bvf5727yexas" path="res://Sprites/Smile.png" id="2_7erd3"]
+
+[node name="Emoji" type="Node2D" node_paths=PackedStringArray("ChildOuter")]
+script = ExtResource("1_rqumu")
+ChildOuter = NodePath("Pivot/Smile")
+
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(-75, -75)
+
+[node name="Smile" type="Sprite2D" parent="Pivot"]
+clip_children = 2
+texture = ExtResource("2_7erd3")

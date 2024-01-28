@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmeddnwk2ph4p"]
+
+[ext_resource type="Script" path="res://Scripts/Emote.cs" id="1_gcbn3"]
+[ext_resource type="Texture2D" uid="uid://boe2ct52ym1j7" path="res://Sprites/AngryEmote.png" id="2_3lqew"]
+
+[node name="Emoji" type="Node2D" node_paths=PackedStringArray("ChildOuter")]
+script = ExtResource("1_gcbn3")
+ChildOuter = NodePath("Pivot/Angry")
+
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(-75, -75)
+
+[node name="Angry" type="Sprite2D" parent="Pivot"]
+clip_children = 2
+texture = ExtResource("2_3lqew")
