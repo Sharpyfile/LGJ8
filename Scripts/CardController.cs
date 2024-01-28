@@ -15,9 +15,6 @@ public partial class CardController : Node
 	public PackedScene CardPrefab { get; set; }
 
 	[Export]
-	public Node2D ClickedCardNode { get; set; }
-
-	[Export]
 	public Node2D HoveredCardNode { get; set; }
 
 	[Export]
@@ -29,6 +26,14 @@ public partial class CardController : Node
 	[Export]
 	public Game GameController { get; private set; }
 
+	[Export]
+	private double _afterCardPlaySleep = 1.0;
+
+	public bool IsReadyToPlay
+	{
+		get => _sleepTimer < 0;
+	}
+
 	private Node2D[] ScribbledCardNodes { get; set; } = new Node2D[Constants.HAND_SIZE];
 	private List<CardBasic> AvailableCards = new();
 	private List<CardBasic> Deck = new();
@@ -39,16 +44,19 @@ public partial class CardController : Node
 	private Card clickedCard;
 	private int clickedCardIndex = -1;
 	private bool isEnabled;
+	private double _sleepTimer;
+
+
 
 	#region Card animation properties
 
 	[Export]
 	public double CardSlideTime = 1.0;
 
-    #endregion
+	#endregion
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
 	{
 		base._Ready();
 		Deck = new();
@@ -73,22 +81,30 @@ public partial class CardController : Node
 		AvailableCards = new List<CardBasic>(Deck);
 		ScribbledCardNodes = MainUI.ScribbledCardNodes;
 		InitializeHand();
+
+		MainUI.ShowHand(false);
+		_sleepTimer = _afterCardPlaySleep;
 	}
 
-    public override void _Process(double delta)
-    {
-		if (clickedCard != null && clickedCard.ReadyToReinitialize && clickedCardIndex != -1)        
-			ReinitializeClickedCard();        
-    }
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+		_sleepTimer -= delta;
+
+		if (clickedCard != null && clickedCard.ReadyToReinitialize && clickedCardIndex != -1)
+			ReinitializeClickedCard();
+	}
 
 	private void ReinitializeClickedCard()
 	{
-        clickedCard = null;
-        DrawCard(clickedCardIndex);
+		clickedCard = null;
+		DrawCard(clickedCardIndex);
+		Disable();
         clickedCardIndex = -1;
-    }
+	}
 
-    public void InitializeHand()
+	public void InitializeHand()
 	{
 		for (int i = 0; i < Constants.HAND_SIZE; ++i)
 		{
@@ -113,7 +129,7 @@ public partial class CardController : Node
 			Hand[index] = drewCard;
 			AvailableCards.RemoveAt(rngIndex);
 			ScribbledCardNodes[index].GetChild<ScribbledCard>(0).Initialize(drewCard, index, this);
-			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 20, HoveredCardNode.Position, CardSlideTime);
+			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 15, HoveredCardNode.Position, CardSlideTime);
 		}
 	}
 
@@ -121,6 +137,7 @@ public partial class CardController : Node
 	{
 		GameController.PlayCard(Hand[index]);
 		UpdateCardsState(index, CardState.NOT_CLICKED);
+
 		clickedCardIndex = index;
 		//TODO: hide cardn
 	}
@@ -129,7 +146,7 @@ public partial class CardController : Node
 	{
 		Card updatedCard = UICardNodes[index].GetChild<Card>(0);
 
-        switch (state)
+		switch (state)
 		{
 			case CardState.CLICKED:
 				{
@@ -137,33 +154,33 @@ public partial class CardController : Node
 						clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
 
 					clickedCard = updatedCard;
-                    break;
+					break;
 				}
 			case CardState.NOT_CLICKED:
 				{
-                    clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT, true);
-                    break;
+					clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT, true);
+					break;
 				}
 			case CardState.HOVERED:
 				{
 					if (clickedCard != updatedCard && clickedCard != null)
 						clickedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
-					else if (clickedCard == updatedCard && clickedCard.SetReadyToReinialize)
+					else if (clickedCard == updatedCard && clickedCard.SetReadyToReinitialize)
 						break;
 
-                    updatedCard.RunAnimation(CardAnimationState.SlIDE_IN);
+					updatedCard.RunAnimation(CardAnimationState.SlIDE_IN);
 					break;
 				}
 			case CardState.NOT_HOVERED:
 				{
 					if (clickedCard != updatedCard)
 					{
-                        updatedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
+						updatedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
 						if (clickedCard != null)
 							clickedCard.RunAnimation(CardAnimationState.SlIDE_IN);
-                    }
+					}
 
-                    break;
+					break;
 				}
 
 		}
@@ -180,11 +197,14 @@ public partial class CardController : Node
 
 	public void Enable()
 	{
+		MainUI.ShowHand(true);
 		isEnabled = true;
 	}
 
 	private void Disable()
 	{
+		MainUI.ShowHand(false);
 		isEnabled = false;
+		_sleepTimer = _afterCardPlaySleep;
 	}
 }

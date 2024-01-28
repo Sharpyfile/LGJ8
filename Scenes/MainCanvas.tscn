@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bagpbquo4wlaa" path="res://Sprites/BG/hand.png" id="6_qpx6m"]
 [ext_resource type="Script" path="res://Scripts/ScribbledCard.cs" id="7_m78w3"]
 
-[node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer", "ScribbledCardNodes", "TransitionAnimator")]
+[node name="MainCanvas" type="Control" node_paths=PackedStringArray("Timer", "ScribbledCardNodes", "TransitionAnimator", "_hand", "_handTarget")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +19,8 @@ script = ExtResource("1_yjvoj")
 Timer = NodePath("Timer")
 ScribbledCardNodes = [NodePath("Control/Hand/CheatSheet1"), NodePath("Control/Hand/CheatSheet2"), NodePath("Control/Hand/CheatSheet3"), NodePath("Control/Hand/CheatSheet4"), NodePath("Control/Hand/CheatSheet5")]
 TransitionAnimator = NodePath("SceneTransitionAnimation")
+_hand = NodePath("Control")
+_handTarget = NodePath("HandTarget")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -33,6 +35,7 @@ script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
 [node name="RestartTimerButton" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 20.0
@@ -45,6 +48,7 @@ script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
 [node name="StopTimerButton" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 20.0
@@ -57,6 +61,7 @@ script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
 [node name="GameOverTestButton" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 20.0
@@ -70,9 +75,9 @@ SoundVariant = 1
 
 [node name="Timer" parent="." instance=ExtResource("3_aemv8")]
 offset_left = 15.0
-offset_top = 577.0
+offset_top = 640.0
 offset_right = 265.0
-offset_bottom = 657.0
+offset_bottom = 720.0
 
 [node name="SceneTransitionAnimation" parent="." instance=ExtResource("5_7krku")]
 
@@ -115,6 +120,18 @@ script = ExtResource("7_m78w3")
 [node name="CheatSheet5" type="Node2D" parent="Control/Hand"]
 position = Vector2(760, -40)
 script = ExtResource("7_m78w3")
+
+[node name="HandTarget" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [connection signal="pressed" from="Button" to="." method="OnClickStartAnimation"]
 [connection signal="pressed" from="RestartTimerButton" to="." method="OnClickRestartTimer"]

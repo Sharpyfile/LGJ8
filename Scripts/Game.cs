@@ -3,16 +3,16 @@ using Godot;
 
 public partial class Game : Node
 {
-	[Export]
-	private MainUI _mainUI;
-	[Export]
-	private SpectatorController _spectatorController = new SpectatorController();
-	[Export]
-	private CardController _cardController = new CardController();
+	[Export] private MainUI _mainUI;
+	[Export] private SpectatorController _spectatorController = new SpectatorController();
+	[Export] private CardController _cardController = new CardController();
+
 
 	private int _overallSpectatorsReaction = 0;
 	private int _spectatorsReactionThreshold = 0;
-	private bool _isEverythingInitiated = false;
+	private bool _ready = false;
+	private int _jokeCounter;
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -23,10 +23,17 @@ public partial class Game : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_spectatorController.InitCompleted && !_isEverythingInitiated)
+		if (_spectatorController.InitCompleted && _cardController.IsReadyToPlay)
 		{
-			_isEverythingInitiated = true;
-			EnterHandView();
+			if (!_ready)
+			{
+				EnterHandView();
+				_ready = true;
+			}
+		}
+		else
+		{
+			_ready = false;
 		}
 	}
 
@@ -90,20 +97,19 @@ public partial class Game : Node
 
 	public void EnterHandView()
 	{
-		//HandEnterAnimation();
-		_mainUI.Timer.RestartTimer(_mainUI.Timer.TimerMaxValue);
+		_cardController.Enable();
 	}
 
 	public void PlayCard(CardBasic cardToPlay)
 	{
-		_mainUI.Timer.StopTimer();
-
 		int cardWeight = cardToPlay.Influence[Animal.CAT];
 		cardWeight = Math.Max(cardWeight, cardToPlay.Influence[Animal.BIRD]);
 		cardWeight = Math.Max(cardWeight, cardToPlay.Influence[Animal.FISH]);
 
 		int count = _spectatorController.GetSpectators().Count;
 		_spectatorsReactionThreshold = count * cardWeight / 3;
+
+		if (++_jokeCounter % 3 == 0) _spectatorController.IncreaseCap();
 
 		foreach (Spectator spectator in _spectatorController.GetSpectators())
 		{

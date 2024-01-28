@@ -32,7 +32,7 @@ public partial class Spectator : Node2D
 		setAngryCloud(false);
 		setAllEmotes(false);
 
-    }
+	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -55,7 +55,7 @@ public partial class Spectator : Node2D
 				break;
 			case SpectatorState.WATCHING:
 				Happiness = Math.Clamp(Happiness, (int)Mood.EXIT, (int)Mood.HAPPY);
-				setAngryCloud(Happiness == 1);
+				setAngryCloud(Happiness <= 2);
 
 				if (Happiness > (int)Mood.NEUTRAL)
 				{
@@ -81,13 +81,13 @@ public partial class Spectator : Node2D
 				}
 				else
 				{
-					if (Step(_entrance)) _controller.Remove(this);
+					if (Step(_entrance)) QueueFree();
 				}
 				break;
 		}
 	}
 
-	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat)
+	public void Initialize(SpectatorController controller, Vector2 entrance, Seat seat, int moodVariation)
 	{
 		_controller = controller;
 		_seat = seat;
@@ -95,6 +95,7 @@ public partial class Spectator : Node2D
 
 		_entrance = entrance;
 		_midpoint = new Vector2(entrance.X, _seat.GlobalPosition.Y);
+		Mood += moodVariation;
 	}
 
 	public int ApplyCard(ICardBasic card)
@@ -102,7 +103,6 @@ public partial class Spectator : Node2D
 		if (card.Influence.TryGetValue(Type, out int value))
 		{
 			Happiness += value;
-			GD.Print($"{Type}: {value}, {Happiness}");
 			ApplyEmote(value);
 			return value;
 		}
@@ -150,6 +150,7 @@ public partial class Spectator : Node2D
 				break;
 			case Mood.EXIT:
 				State = SpectatorState.EXITING;
+				_controller.Release(this);
 				_seat.spectator = null;
 				goto case Mood.ANNOYED;
 		}
@@ -162,7 +163,7 @@ public partial class Spectator : Node2D
 
 	private void ApplyEmote(int mood)
 	{
-		switch(mood) 
+		switch (mood)
 		{
 			case > 0:
 				_happyEmote.Visible = true;
@@ -183,9 +184,9 @@ public partial class Spectator : Node2D
 
 	private void setAllEmotes(bool value)
 	{
-        _happyEmote.Visible = value;
-        _neutralEmote.Visible = value;
-        _angryEmote.Visible = value;
-    }
+		_happyEmote.Visible = value;
+		_neutralEmote.Visible = value;
+		_angryEmote.Visible = value;
+	}
 }
 

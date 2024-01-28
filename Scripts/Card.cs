@@ -1,13 +1,8 @@
-using System;
-using System.Xml.Linq;
 using Godot;
 using Godot.Collections;
 
-
-
 public partial class Card : Node2D, ICardBasic
 {
-
 	private string _question;
 	[Export]
 	public string Question
@@ -54,12 +49,12 @@ public partial class Card : Node2D, ICardBasic
 	private Vector2 _initialPosition;
 	private Vector2 _targetPosition;
 	public bool ReadyToReinitialize { get; private set; }
-	public bool SetReadyToReinialize { get; private set; }
+	public bool SetReadyToReinitialize { get; private set; }
 
 	public void Initialize(CardBasic card, int index, CardController controller, int XOffset, Vector2 targetPosition, double slideTime)
 	{
 		ReadyToReinitialize = false;
-        _currentAnimationTime = 0;
+		_currentAnimationTime = 0;
 		Question = card.Question;
 		Riposte = card.Riposte;
 		Influence = card.Influence;
@@ -84,7 +79,7 @@ public partial class Card : Node2D, ICardBasic
 		_initialPosition = Position;
 		_targetPosition = targetPosition;
 		_slideTime = slideTime;
-        this.XOffset = XOffset;
+		this.XOffset = XOffset;
 	}
 
 	public override void _Process(double delta)
@@ -94,31 +89,31 @@ public partial class Card : Node2D, ICardBasic
 		{
 			_currentAnimationTime += delta;
 			_lerpWeight = (float)(_currentAnimationTime / _slideTime);
-            Position = Position.Lerp(_targetPosition, _lerpWeight);
+			Position = Position.Lerp(_targetPosition, _lerpWeight);
 
 			if (_currentAnimationTime > _slideTime)
 			{
 				Position = _targetPosition;
-                CardAnimationState = CardAnimationState.TOP;
-            }
+				CardAnimationState = CardAnimationState.TOP;
+			}
 		}
 		else if (CardAnimationState == CardAnimationState.SLIDE_OUT)
-        {
-            _currentAnimationTime += delta;
-            _lerpWeight = (float)(_currentAnimationTime / _slideTime);
+		{
+			_currentAnimationTime += delta;
+			_lerpWeight = (float)(_currentAnimationTime / _slideTime);
 
-            Position = Position.Lerp(_initialPosition, _lerpWeight);
-            if (_currentAnimationTime > _slideTime)
-            {
-                Position = _initialPosition;
-                CardAnimationState = CardAnimationState.IDLE;
+			Position = Position.Lerp(_initialPosition, _lerpWeight);
+			if (_currentAnimationTime > _slideTime)
+			{
+				Position = _initialPosition;
+				CardAnimationState = CardAnimationState.IDLE;
 
-				if (SetReadyToReinialize)				
-                    ReadyToReinitialize = true;
-                
-            }
-        }
-    }
+				if (SetReadyToReinitialize)
+					ReadyToReinitialize = true;
+
+			}
+		}
+	}
 
 	public void PlayCard()
 	{
@@ -129,17 +124,17 @@ public partial class Card : Node2D, ICardBasic
 	{
 		// Get value between position and cast it as _currentAnimationTime
 		if (CardAnimationState == CardAnimationState.SlIDE_IN && animationState == CardAnimationState.SLIDE_OUT ||
-            CardAnimationState == CardAnimationState.SLIDE_OUT && animationState == CardAnimationState.SlIDE_IN)
+			CardAnimationState == CardAnimationState.SLIDE_OUT && animationState == CardAnimationState.SlIDE_IN)
 		{
 			_currentAnimationTime = _slideTime - _currentAnimationTime;
-        }
+		}
 		else
 		{
 			_currentAnimationTime = 0;
 		}
 
-		SetReadyToReinialize = reinitializeOnSlide;
-        CardAnimationState = animationState;
+		SetReadyToReinitialize = reinitializeOnSlide;
+		CardAnimationState = animationState;
 	}
 
 
