@@ -43,6 +43,8 @@ public partial class AudioPlayer : AudioStreamPlayer
 			if (StoppingCooldownCountdown <= 0)
 			{
 				stoppingMusic = false;
+				if (Equals(AudioManager.Instance.AmbientPlayer))
+					AudioManager.Instance.AmbientPlayer = null;
                 QueueFree();
             }
         }

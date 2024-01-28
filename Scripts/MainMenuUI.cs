@@ -19,7 +19,7 @@ public partial class MainMenuUI : Node
 		OptionMenu.Visible = false;
 		Credits.Visible = false;
 
-		if (AudioManager.Instance != null)		
+		if (AudioManager.Instance != null && AudioManager.Instance.AmbientPlayer == null)		
             AudioManager.Instance.AmbientPlayer = AudioManager.Instance.GetAudioPlayer("cafeAmbience");        
     }
 

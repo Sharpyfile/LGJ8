@@ -53,6 +53,18 @@ text = "Stop timer"
 script = ExtResource("2_0r6cd")
 SoundVariant = 1
 
+[node name="GameOverTestButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 20.0
+offset_top = 200.0
+offset_right = 220.0
+offset_bottom = 250.0
+theme = ExtResource("2_c8b7l")
+text = "Game Over screen"
+script = ExtResource("2_0r6cd")
+SoundVariant = 1
+
 [node name="Timer" parent="." instance=ExtResource("3_aemv8")]
 offset_left = 15.0
 offset_top = 967.0
@@ -64,4 +76,5 @@ offset_bottom = 1047.0
 [connection signal="pressed" from="Button" to="." method="OnClickStartAnimation"]
 [connection signal="pressed" from="RestartTimerButton" to="." method="OnClickRestartTimer"]
 [connection signal="pressed" from="StopTimerButton" to="." method="OnClickStopTimer"]
+[connection signal="pressed" from="GameOverTestButton" to="." method="ShowGameOver"]
 [connection signal="animation_finished" from="SceneTransitionAnimation" to="." method="OnFinishLoadMainGameplayScene"]

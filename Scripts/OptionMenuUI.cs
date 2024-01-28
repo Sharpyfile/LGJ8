@@ -27,7 +27,7 @@ public partial class OptionMenuUI : Control
 			new Vector2I(2560, 1440 ),
 			new Vector2I(3840, 2160 )
         };
-
+               
         while (ResolutionButton.ItemCount > 0)
 			ResolutionButton.RemoveItem(0);
 
@@ -35,7 +35,6 @@ public partial class OptionMenuUI : Control
 			ResolutionButton.AddItem($"{Resolutions[i].X}x{Resolutions[i].Y}");
 
         ResolutionButton.Selected = 3; // 1920x1080
-        
 
 
         WindowModes.Add(Window.ModeEnum.Windowed);
@@ -47,8 +46,8 @@ public partial class OptionMenuUI : Control
 
         ScreenModeButton.Selected = 2; // Exclusive Fullscreen
 
-        GetViewport().GetWindow().Mode = WindowModes[ScreenModeButton.Selected];
-        GetViewport().GetWindow().Size = Resolutions[ResolutionButton.Selected];
+        //GetViewport().GetWindow().Mode = WindowModes[ScreenModeButton.Selected];
+        //GetViewport().GetWindow().Size = Resolutions[3];
 
         base._Ready();
     }

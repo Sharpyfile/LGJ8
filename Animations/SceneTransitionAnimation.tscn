@@ -343,7 +343,6 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.945, 0.945)
 mouse_filter = 2
 texture = ExtResource("1_mivvn")
 stretch_mode = 5
