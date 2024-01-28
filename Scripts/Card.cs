@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Godot.Collections;
 
@@ -28,13 +29,6 @@ public partial class Card : Node2D, ICardBasic
 	[Export]
 	public Label RiposteLabel { get; private set; }
 
-	[Export]
-	public Sprite2D BirdSprite { get; private set; }
-	[Export]
-	public Sprite2D CatSprite { get; private set; }
-	[Export]
-	public Sprite2D FishSprite { get; private set; }
-
 	public CardAnimationState CardAnimationState = CardAnimationState.IDLE;
 
 	public int index;
@@ -51,6 +45,10 @@ public partial class Card : Node2D, ICardBasic
 	public bool ReadyToReinitialize { get; private set; }
 	public bool SetReadyToReinitialize { get; private set; }
 
+	[Export] public InfluenceColor catText;
+	[Export] public InfluenceColor fishText;
+	[Export] public InfluenceColor parrotText;
+
 	public void Initialize(CardBasic card, int index, CardController controller, int XOffset, Vector2 targetPosition, double slideTime)
 	{
 		ReadyToReinitialize = false;
@@ -60,32 +58,26 @@ public partial class Card : Node2D, ICardBasic
 		Influence = card.Influence;
 		this.index = index;
 		_controller = controller;
-
-		Influence.TryGetValue(Animal.BIRD, out int influence);
-		var birdLabel = BirdSprite.GetChild<Label>(0);
-		birdLabel.Text = influence.ToString();
-		birdLabel.LabelSettings.FontColor = GetColor(influence);
-
-		Influence.TryGetValue(Animal.CAT, out influence);
-		var catLabel = CatSprite.GetChild<Label>(0);
-		catLabel.Text = influence.ToString();
-		catLabel.LabelSettings.FontColor = GetColor(influence);
-
-		Influence.TryGetValue(Animal.FISH, out influence);
-		var fishLabel = FishSprite.GetChild<Label>(0);
-		fishLabel.Text = influence.ToString();
-		fishLabel.LabelSettings.FontColor = GetColor(influence);
-
 		_initialPosition = Position;
 		_targetPosition = targetPosition;
 		_slideTime = slideTime;
 		this.XOffset = XOffset;
+
+		Influence.TryGetValue(Animal.CAT, out int catInfluence);
+		catText.Initialize(catInfluence);
+
+		Influence.TryGetValue(Animal.FISH, out int fishInfluence);
+		fishText.Initialize(fishInfluence);
+
+		Influence.TryGetValue(Animal.BIRD, out int birdInfluence);
+		parrotText.Initialize(birdInfluence);
+		GD.Print("Init card ", GetParent().Name, ',', catInfluence, ',', fishInfluence, ',', birdInfluence);
 	}
 
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
-		if (CardAnimationState == CardAnimationState.SlIDE_IN)
+		if (CardAnimationState == CardAnimationState.SLIDE_IN)
 		{
 			_currentAnimationTime += delta;
 			_lerpWeight = (float)(_currentAnimationTime / _slideTime);
@@ -123,8 +115,8 @@ public partial class Card : Node2D, ICardBasic
 	public void RunAnimation(CardAnimationState animationState, bool reinitializeOnSlide = false)
 	{
 		// Get value between position and cast it as _currentAnimationTime
-		if (CardAnimationState == CardAnimationState.SlIDE_IN && animationState == CardAnimationState.SLIDE_OUT ||
-			CardAnimationState == CardAnimationState.SLIDE_OUT && animationState == CardAnimationState.SlIDE_IN)
+		if (CardAnimationState == CardAnimationState.SLIDE_IN && animationState == CardAnimationState.SLIDE_OUT ||
+			CardAnimationState == CardAnimationState.SLIDE_OUT && animationState == CardAnimationState.SLIDE_IN)
 		{
 			_currentAnimationTime = _slideTime - _currentAnimationTime;
 		}
@@ -135,13 +127,5 @@ public partial class Card : Node2D, ICardBasic
 
 		SetReadyToReinitialize = reinitializeOnSlide;
 		CardAnimationState = animationState;
-	}
-
-
-	private Color GetColor(int v)
-	{
-		if (v == 0) return Constants.NEUTRAL_COLOR;
-		else if (v > 0) return Constants.GOOD_COLOR;
-		else return Constants.BAD_COLOR;
 	}
 }

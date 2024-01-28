@@ -37,7 +37,7 @@ public partial class CardController : Node
 	private Node2D[] ScribbledCardNodes { get; set; } = new Node2D[Constants.HAND_SIZE];
 	private List<CardBasic> AvailableCards = new();
 	private List<CardBasic> Deck = new();
-	private CardBasic[] Hand = new CardBasic[Constants.HAND_SIZE];
+	private readonly CardBasic[] Hand = new CardBasic[Constants.HAND_SIZE];
 	private RandomNumberGenerator rng = new();
 	private double counter = 0.0;
 
@@ -107,10 +107,8 @@ public partial class CardController : Node
 	{
 		for (int i = 0; i < Constants.HAND_SIZE; ++i)
 		{
-			ScribbledCard scribbledCard = ScribbledCardPrefab.Instantiate<ScribbledCard>();
-			ScribbledCardNodes[i].AddChild(scribbledCard);
-			Card card = CardPrefab.Instantiate<Card>();
-			UICardNodes[i].AddChild(card);
+			ScribbledCardNodes[i].AddChild(ScribbledCardPrefab.Instantiate<ScribbledCard>());
+			UICardNodes[i].AddChild(CardPrefab.Instantiate<Card>());
 			DrawCard(i);
 		}
 	}
@@ -125,10 +123,10 @@ public partial class CardController : Node
 			}
 			int rngIndex = rng.RandiRange(0, AvailableCards.Count - 1);
 			CardBasic drewCard = AvailableCards[rngIndex];
-			Hand[index] = drewCard;
 			AvailableCards.RemoveAt(rngIndex);
-			ScribbledCardNodes[index].GetChild<ScribbledCard>(0).Initialize(drewCard, index, this);
+			Hand[index] = drewCard;
 			UICardNodes[index].GetChild<Card>(0).Initialize(drewCard, index, this, index * 15, HoveredCardNode.Position, CardSlideTime);
+			ScribbledCardNodes[index].GetChild<ScribbledCard>(0).Initialize(drewCard, index, this);
 		}
 	}
 
@@ -137,8 +135,8 @@ public partial class CardController : Node
 		GameController.PlayCard(Hand[index]);
 		UpdateCardsState(index, CardState.NOT_CLICKED);
 
+		clickedCard = UICardNodes[index].GetChild<Card>(0);
 		clickedCardIndex = index;
-		//TODO: hide cardn
 	}
 
 	public void UpdateCardsState(int index, CardState state)
@@ -167,7 +165,7 @@ public partial class CardController : Node
 					else if (clickedCard == updatedCard && clickedCard.SetReadyToReinitialize)
 						break;
 
-					updatedCard.RunAnimation(CardAnimationState.SlIDE_IN);
+					updatedCard.RunAnimation(CardAnimationState.SLIDE_IN);
 					break;
 				}
 			case CardState.NOT_HOVERED:
@@ -176,7 +174,7 @@ public partial class CardController : Node
 					{
 						updatedCard.RunAnimation(CardAnimationState.SLIDE_OUT);
 						if (clickedCard != null)
-							clickedCard.RunAnimation(CardAnimationState.SlIDE_IN);
+							clickedCard.RunAnimation(CardAnimationState.SLIDE_IN);
 					}
 
 					break;

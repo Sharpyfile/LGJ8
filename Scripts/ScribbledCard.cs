@@ -20,8 +20,8 @@ public partial class ScribbledCard : Node2D
 	public void Initialize(CardBasic cardData, int index, CardController cardController)
 	{
 		CardData = cardData;
-		_controller = cardController;
 		this.index = index;
+		_controller = cardController;
 		var button = GetChild<Button>(0);
 		button.Icon = Textures[index];
 		button.GetChild<Node2D>(0).Position = BirdPositions[index];
